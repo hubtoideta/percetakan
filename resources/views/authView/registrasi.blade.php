@@ -17,7 +17,7 @@
             <!--begin::Col-->
             <div class="col-lg-6 mb-3">
                 <!--begin::Option-->
-                <input type="radio" class="btn-check" name="account_type" value="Owner" checked="checked" id="kt_create_account_form_account_type_corporate" />
+                <input type="radio" class="btn-check" name="account_type" value="Owner" @if(old('account_type') == "" || old('account_type') == "Owner") checked="checked" @endif id="kt_create_account_form_account_type_corporate" />
                 <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center" for="kt_create_account_form_account_type_corporate">
                     <!--begin::Info-->
                     <span class="d-block fw-semibold"> 
@@ -35,7 +35,7 @@
             <!--begin::Col-->
             <div class="col-lg-6 mb-3">
                 <!--begin::Option-->
-                <input type="radio" class="btn-check" name="account_type" value="Freelance" id="kt_create_account_form_account_type_personal" />
+                <input type="radio" class="btn-check" name="account_type" value="Freelance" @if(old('account_type') == "Freelance") checked="checked" @endif id="kt_create_account_form_account_type_personal" />
                 <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-10" for="kt_create_account_form_account_type_personal">
                     <!--begin::Info-->
                     <span class="d-block fw-semibold">
