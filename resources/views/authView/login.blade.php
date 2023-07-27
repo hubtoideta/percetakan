@@ -60,14 +60,10 @@
         <!--end::Wrapper-->
         <!--begin::Submit button-->
         <div class="d-grid mb-10">
-            <button type="submit" id="kt_sign_in_submit" class="btn btn-primary">
+            <button type="submit" id="kt_page_loading_overlay" class="btn btn-primary">
                 <!--begin::Indicator label-->
                 <span class="indicator-label">Masuk</span>
                 <!--end::Indicator label-->
-                <!--begin::Indicator progress-->
-                <span class="indicator-progress">Mohon Tunggu...
-                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                <!--end::Indicator progress-->
             </button>
         </div>
         <!--end::Submit button-->

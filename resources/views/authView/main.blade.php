@@ -31,6 +31,12 @@
 		<script>var defaultThemeMode = "light"; var themeMode; if ( document.documentElement ) { if ( document.documentElement.hasAttribute("data-bs-theme-mode")) { themeMode = document.documentElement.getAttribute("data-bs-theme-mode"); } else { if ( localStorage.getItem("data-bs-theme") !== null ) { themeMode = localStorage.getItem("data-bs-theme"); } else { themeMode = defaultThemeMode; } } if (themeMode === "system") { themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; } document.documentElement.setAttribute("data-bs-theme", themeMode); }</script>
 		<!--end::Theme mode setup on page load-->
 		<!--begin::Root-->
+		<!--begin::Page loading(append to body)-->
+			<div class="page-loader flex-column bg-dark bg-opacity-25">
+				<span class="spinner-border text-primary" role="status"></span>
+				<span class="text-gray-800 fs-6 fw-semibold mt-5">Loading...</span>
+			</div>
+		<!--end::Page loading-->
 		<div class="d-flex flex-column flex-root" id="kt_app_root">
 			<!--begin::Authentication - Sign-in -->
 			<div class="d-flex flex-column flex-lg-row flex-column-fluid">
