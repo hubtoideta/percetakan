@@ -8,14 +8,11 @@
             <!--begin::Title-->
             <h1 class="text-dark fw-bolder mb-3">Masuk</h1>
             <!--end::Title-->
-            <!--begin::Subtitle-->
-            <div class="text-gray-500 fw-semibold fs-6">Masuk dan Kelolah Dasbor Anda</div>
-            <!--end::Subtitle=-->
         </div>
         <!--begin::Input group=-->
         <div class="fv-row mb-8">
             <!--begin::Email-->
-            <input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent" />
+            <input type="text" placeholder="Username / Email" name="email" autocomplete="off" class="form-control bg-transparent" />
             <!--end::Email-->
         </div>
         <!--end::Input group=-->

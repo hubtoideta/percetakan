@@ -9,9 +9,6 @@
         <!--begin::Title-->
         <h1 class="text-dark fw-bolder mb-3">Registrasi</h1>
         <!--end::Title-->
-        <!--begin::Subtitle-->
-        <div class="text-gray-500 fw-semibold fs-6">Buat Akun Anda!</div>
-        <!--end::Subtitle=-->
     </div>
     <!--begin::Input group-->
     <div class="fv-row">
