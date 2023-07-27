@@ -18,6 +18,36 @@ class AuthController extends Controller
             'title' => 'Masuk'
         ]);
     }
+    /* VIEW LOGIN POST */
+    public function loginPost(Request $request){
+        $email_or_username = preg_replace('/\s+/','', Str::lower(Str::of($request->EmailOrUsername)->trim()));
+
+        $checkWithEmail = [
+            'email' => $email_or_username,
+            'password' => $request->password
+        ];
+        if(Auth::attempt($checkWithEmail)){
+            return redirect()->route('home')->with('success', 'Login Berhasil');
+        }else{
+            $checkWithUsername = [
+                'username' => $email_or_username,
+                'password' => $request->password
+            ];
+            if(Auth::attempt($checkWithUsername)){
+                return redirect()->route('home')->with('success', 'Login Berhasil');
+            }else{
+                return back()->with('error', 'Login Gagal! Periksa Username / Email dan Password');
+            }
+        }
+    }
+
+
+    /* VIEW REGIS */
+    public function registrasiViewPage(){
+        return view('authView.registrasi', [
+            'title' => 'Daftar'
+        ]);
+    }
     /* VIEW REGIS POST */
     public function registrasiPost(Request $request){
         $request->validate([
@@ -38,13 +68,12 @@ class AuthController extends Controller
         $userDB->password = Hash::make($request->password);
 
         $userDB->save();
-        return redirect(route('login'))->with('success', 'Register Berhasil, Silahkan Login');
+        return redirect()->route('login')->with('success', 'Register Berhasil, Silahkan Login');
     }
-    /* VIEW REGIS */
-    public function registrasiViewPage(){
-        return view('authView.registrasi', [
-            'title' => 'Daftar'
-        ]);
+
+    public function logout(){
+        Auth::logout();
+        return redirect()->route('login');
     }
 
 

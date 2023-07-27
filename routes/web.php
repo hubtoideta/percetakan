@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +14,15 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |*/
 
-Route::get('/', [AuthController::class, 'loginViewPage'])->name('login');
+Route::group(['middleware' => 'guest'], function(){
+    Route::get('/', [AuthController::class, 'loginViewPage'])->name('login');
+    Route::post('/', [AuthController::class, 'loginPost'])->name('login');
+    Route::get('/registrasi', [AuthController::class, 'registrasiViewPage'])->name('registrasi');
+    Route::post('/registrasi', [AuthController::class, 'registrasiPost'])->name('registrasi');
+});
 
-Route::get('/registrasi', [AuthController::class, 'registrasiViewPage'])->name('registrasi');
-Route::post('/registrasi', [AuthController::class, 'registrasiPost'])->name('registrasi');
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    /* LOGOUT */
+    Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
+});
