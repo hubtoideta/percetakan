@@ -36,5 +36,5 @@ button.addEventListener("click", function() {
     setTimeout(function() {
         KTApp.hidePageLoading();
         loadingEl.remove();
-    }, 3000);
+    }, 4000);
 });

@@ -35,6 +35,31 @@
 
                 </div>
             @endif
+            @if(Session::has('status'))
+            <div class="alert alert-dismissible bg-light-success border border-success d-flex flex-column flex-sm-row p-5 mb-10">
+                
+                <!--begin::Wrapper-->
+                <div class="d-flex flex-column mx-auto">
+                    <!--begin::Title-->
+                    <h5 class="mb-1 text-success">
+                        <!--begin::Icon-->
+                            <i class="ki-duotone ki-shield-tick fs-1hx text-success">
+                                <i class="path1"></i>
+                                <i class="path2"></i>
+                            </i>
+                        <!--end::Icon-->
+                        Password Berhasil diubah!
+                    </h5>
+                    <!--end::Title-->
+
+                    <!--begin::Content-->
+                    <span class="fs-7 text-success">{{ Session::get('status') }}.</span>
+                    <!--end::Content-->
+                </div>
+                <!--end::Wrapper-->
+
+            </div>
+        @endif
             <!--end::Alert-->
         </div>
         <!--begin::Input group=-->
@@ -54,7 +79,7 @@
         <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
             <div></div>
             <!--begin::Link-->
-            <a href="#" class="link-primary">Lupa Password ?</a>
+            <a href="{{ route('lupa_password') }}" class="link-primary">Lupa Password ?</a>
             <!--end::Link-->
         </div>
         <!--end::Wrapper-->
