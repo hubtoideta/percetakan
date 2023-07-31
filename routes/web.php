@@ -22,7 +22,7 @@ Route::group(['middleware' => 'guest'], function(){
     Route::get('/lupa-password', [AuthController::class, 'lupaPasswordViewPage'])->name('lupa_password');
     Route::post('/lupa-password', [AuthController::class, 'lupaPasswordPost'])->name('lupa_password');
     Route::get('/reset-password/{token}', [AuthController::class, 'passwordResetViewPage'])->name('password.reset');
-    Route::post('/reset-password', [AuthController::class, 'passwordResetPost'])->name('password.update');
+    Route::post('/update-password', [AuthController::class, 'passwordResetPost'])->name('password.update');
 });
 
 Route::group(['middleware' => 'auth'], function(){

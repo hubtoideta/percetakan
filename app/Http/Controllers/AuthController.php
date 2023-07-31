@@ -97,7 +97,11 @@ class AuthController extends Controller
     }
 
     public function passwordResetViewPage(string $token){
-        return view('authView.reset-password', ['token' => $token, 'title' => 'Reset Password']);
+        if($token == ""){
+            return redirect()->route('login');
+        }else{
+            return view('authView.reset-password', ['token' => $token, 'title' => 'Reset Password']);
+        }
     }
 
     public function passwordResetPost(Request $request){

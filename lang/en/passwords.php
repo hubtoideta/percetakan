@@ -16,7 +16,7 @@ return [
     'reset' => 'Your password has been reset.',
     'sent' => 'Kami telah mengirim Link Reset Password Anda.',
     'throttled' => 'Please wait before retrying.',
-    'token' => 'This password reset token is invalid.',
+    'token' => 'Token reset password anda sudah tidak berlaku.',
     'user' => "Email anda belum terdaftar.",
 
 ];
