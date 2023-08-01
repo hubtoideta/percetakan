@@ -9,13 +9,13 @@
         <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
             <!--begin::Title-->
             <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-                Dasbor</h1>
+                Profil & Akun Saya</h1>
             <!--end::Title-->
             <!--begin::Breadcrumb-->
             <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
                 <!--begin::Item-->
                 <li class="breadcrumb-item text-muted">
-                    <a href="{{ route('home') }}" class="text-muted text-hover-primary">App</a>
+                    <a href="{{ route('home') }}" class="text-muted text-hover-primary">Dasbor</a>
                 </li>
                 <!--end::Item-->
                 <!--begin::Item-->
@@ -24,7 +24,7 @@
                 </li>
                 <!--end::Item-->
                 <!--begin::Item-->
-                <li class="breadcrumb-item text-muted">Dasbor</li>
+                <li class="breadcrumb-item text-muted">Profil & Akun Saya</li>
                 <!--end::Item-->
             </ul>
             <!--end::Breadcrumb-->

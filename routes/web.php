@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,4 +30,5 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     /* LOGOUT */
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/lihat-profile', [ProfileUserController::class, 'index'])->name('profile');
 });

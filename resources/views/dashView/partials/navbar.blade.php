@@ -616,7 +616,7 @@
                         
                         <!--begin::Menu item-->
                         <div class="menu-item px-5">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('profile') }}" class="menu-link {{ $title == 'Profil' ? 'active' : '' }}">
                                 <span class="menu-icon">
                                     <i class="ki-outline ki-user fs-2"></i> 
                                 </span>
