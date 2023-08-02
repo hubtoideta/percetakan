@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('profile_users', function (Blueprint $table) {
             $table->string('email')->primary();
-            $table->text('photo_profile');
-            $table->string('full_name');
+            $table->text('photo_profile')->default('none');
+            $table->string('first_name');
+            $table->string('second_name');
             $table->string('contact');
             $table->timestamps();
         });

@@ -31,4 +31,6 @@ Route::group(['middleware' => 'auth'], function(){
     /* LOGOUT */
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/lihat-profile', [ProfileUserController::class, 'index'])->name('profile');
+    Route::post('/input-profile', [ProfileUserController::class, 'create'])->name('inputProfile');
+    Route::post('/update-profile', [ProfileUserController::class, 'update'])->name('editProfile');
 });

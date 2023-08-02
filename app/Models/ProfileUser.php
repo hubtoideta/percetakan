@@ -12,7 +12,8 @@ class ProfileUser extends Model
     protected $fillable = [
         'email',
         'photo_profile',
-        'full_name',
+        'first_name',
+        'second_name',
         'contact',
     ];
 }
