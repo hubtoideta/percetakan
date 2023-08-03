@@ -57,9 +57,35 @@
                 <!--begin::Form-->
                 <form method="POST" action="{{ $totalData > 0 ? route('editProfile') : route('inputProfile') }}" class="form" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="email" value="{{ $userLogin->email }}">
                     <!--begin::Card body-->
                     <div class="card-body border-top p-9">
+                        <!--begin::Alert-->
+                        @if(Session::has('success'))
+                            <div class="alert alert-dismissible bg-light-success d-flex flex-row flex-sm-row p-5 mb-10">
+                                <!--begin::Icon-->
+                                <i class="ki-duotone ki-notification-bing fs-2hx text-success me-4 mb-5 mb-sm-0"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                <!--end::Icon-->
+                
+                                <!--begin::Wrapper-->
+                                <div class="d-flex flex-column pe-0 pe-sm-10">
+                                    <!--begin::Title-->
+                                    <h4 class="fw-semibold">Berhasil</h4>
+                                    <!--end::Title-->
+                
+                                    <!--begin::Content-->
+                                    <span>Profil anda telah di perbaharui.</span>
+                                    <!--end::Content-->
+                                </div>
+                                <!--end::Wrapper-->
+                
+                                <!--begin::Close-->
+                                <button type="button" class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+                                    <i class="ki-duotone ki-cross fs-1 text-success"><span class="path1"></span><span class="path2"></span></i>
+                                </button>
+                                <!--end::Close-->
+                            </div>
+                        @endif
+                        <!--end::Alert-->
                         <!--begin::Input group-->
                         <div class="row mb-6">
                             <!--begin::Label-->
@@ -72,7 +98,7 @@
                                     style="background-image: url('assets/media/svg/avatars/blank.svg')">
                                     <!--begin::Preview existing avatar-->
                                     <div class="image-input-wrapper w-125px h-125px"
-                                        style="background-image: {{ $fotoProfil == 'none' ? 'none' : 'url()' }}"></div>
+                                        style="background-image: {{ $fotoProfil == 'none' ? 'none' : 'url(assets/media/profile/' . $fotoProfil . ')' }}"></div>
                                     <!--end::Preview existing avatar-->
                                     <!--begin::Label-->
                                     <label
@@ -84,7 +110,7 @@
                                             <span class="path2"></span>
                                         </i>
                                         <!--begin::Inputs-->
-                                        <input type="file" name="photo_profile" accept=".png, .jpg, .jpeg" />
+                                        <input type="file" name="photo_profile" accept=".png, .jpg, .jpeg"/>
                                         <input type="hidden" name="avatar_remove" />
                                         <!--end::Inputs-->
                                     </label>
@@ -114,6 +140,12 @@
                                 </div>
                                 <!--end::Image input-->
                                 <!--begin::Hint-->
+                                <br>
+                                @error('photo_profile')
+                                    <span class="invalid" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                 <div class="form-text">Ukuran Foto: 4x4<br>Format file: png, jpg, jpeg.</div>
                                 <!--end::Hint-->
                             </div>
@@ -132,15 +164,25 @@
                                     <!--begin::Col-->
                                     <div class="col-lg-6 fv-row">
                                         <input type="text" name="first_name"
-                                            class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                                            placeholder="Nama Depan" value="{{ $totalData > 0 ? $profileUser->first_Name : '' }}"/>
+                                            class="form-control form-control-lg form-control-solid mb-3 mb-lg-0 @error('first_name') is-invalid @enderror"
+                                            placeholder="Nama Depan" value="{{ old('first_name') != '' ? old('first_name') : ($totalData > 0 ? $profileUser->first_name : '') }}"/>
+                                        @error('first_name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <!--end::Col-->
                                     <!--begin::Col-->
                                     <div class="col-lg-6 fv-row">
                                         <input type="text" name="second_name"
-                                            class="form-control form-control-lg form-control-solid"
-                                            placeholder="Nama Belakang" value="{{ $totalData > 0 ? $profileUser->second_name : '' }}"/>
+                                            class="form-control form-control-lg form-control-solid @error('second_name') is-invalid @enderror"
+                                            placeholder="Nama Belakang" value="{{ old('second_name') != '' ? old('second_name') : ($totalData > 0 ? $profileUser->second_name : '') }}"/>
+                                        @error('second_name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <!--end::Col-->
                                 </div>
@@ -168,8 +210,13 @@
                             <div class="col-lg-8 fv-row">
                                 <div class="input-group input-group-solid">
                                     <span class="input-group-text">+62</span>
-                                    <input type="tel" name="contact" class="form-control form-control-lg form-control-solid"
-                                        placeholder="cth: 897xxxxxx" value="{{ $totalData > 0 ? $profileUser->contact : '' }}"/>
+                                    <input type="tel" name="contact" class="form-control form-control-lg form-control-solid @error('contact') is-invalid @enderror"
+                                        placeholder="cth: 897xxxxxx" value="{{ old('contact') != '' ? processPhoneNumber(old('contact')) : ($totalData > 0 ? $profileUser->contact : '') }}"/>
+                                    @error('contact')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                             <!--end::Col-->
@@ -180,7 +227,7 @@
                     <!--end::Card body-->
                     <!--begin::Actions-->
                     <div class="card-footer d-flex justify-content-end py-6 px-9">
-                        <button type="reset" class="btn btn-light btn-active-light-primary btn-sm me-2">Discard</button>
+                        <a href="{{ route('home') }}" class="btn btn-light btn-active-light-primary btn-sm me-2">Discard</a>
                         <button type="submit" class="btn btn-primary btn-sm" id="kt_account_profile_details_submit">Save
                             Changes</button>
                     </div>

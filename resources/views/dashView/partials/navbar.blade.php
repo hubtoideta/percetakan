@@ -582,7 +582,7 @@
                     <div class="cursor-pointer symbol symbol-35px"
                         data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent"
                         data-kt-menu-placement="bottom-end">
-                        <img src="assets/media/avatars/300-3.jpg" class="rounded-3" alt="user" />
+                        <img src="{{ $fotoProfil == 'none' ? 'assets/media/svg/avatars/blank.svg' : 'assets/media/profile/' . $fotoProfil }}" class="rounded-3" alt="user" />
                     </div>
                     <!--end::Menu wrapper-->
 
@@ -595,7 +595,7 @@
                             <div class="menu-content d-flex align-items-center px-3">
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-50px me-5">
-                                    <img alt="Logo" src="assets/media/avatars/300-3.jpg" />
+                                    <img alt="Logo" src="{{ $fotoProfil == 'none' ? 'assets/media/svg/avatars/blank.svg' : 'assets/media/profile/' . $fotoProfil }}" />
                                 </div>
                                 <!--end::Avatar-->
                                 <!--begin::Username-->
@@ -620,7 +620,7 @@
                                 <span class="menu-icon">
                                     <i class="ki-outline ki-user fs-2"></i> 
                                 </span>
-                                <span class="menu-title">Lihat Profil</span>
+                                <span class="menu-title">Profil & Akun</span>
                             </a>
                         </div>
                         <!--end::Menu item-->
