@@ -17,8 +17,8 @@ class ProfileUserController extends Controller
     public function index(){
         /* Login Auth */
         $userData = Auth::user();
-        $userEmail = $userData->email;
-        $profileUser = ProfileUser::select('photo_profile', 'first_name', 'second_name', 'contact')->where('email', $userEmail)->first();
+        $username = $userData->username;
+        $profileUser = ProfileUser::select('photo_profile', 'first_name', 'second_name', 'contact')->where('username', $username)->first();
         $totalData = ProfileUser::count();
         
         if($totalData > 0){
@@ -42,7 +42,7 @@ class ProfileUserController extends Controller
     public function create(Request $request){
         /* Login Auth */
         $userData = Auth::user();
-        $userEmail = $userData->email;
+        $username = $userData->username;
         $request->validate(
             [
                 'photo_profile' => 'mimes:jpg,png,jpeg|max:2048',
@@ -74,7 +74,7 @@ class ProfileUserController extends Controller
 
         $userProfile = new ProfileUser();
 
-        $userProfile->email = $userEmail;
+        $userProfile->username = $username;
         $userProfile->photo_profile = $file_name;
         $userProfile->first_name = ucwords(Str::of($request->first_name)->trim());
         $userProfile->second_name = ucwords(Str::of($request->second_name)->trim());
@@ -89,8 +89,8 @@ class ProfileUserController extends Controller
     public function update(Request $request){
         /* Login Auth */
         $userData = Auth::user();
-        $userEmail = $userData->email;
-        $profileUser = ProfileUser::select('photo_profile')->where('email', $userEmail)->first();
+        $username = $userData->username;
+        $profileUser = ProfileUser::select('photo_profile')->where('username', $username)->first();
         $oldPhotoProfile = $profileUser->photo_profile;
 
         $request->validate(
@@ -144,7 +144,7 @@ class ProfileUserController extends Controller
 
         $contact = processPhoneNumber(Str::of($request->contact)->trim());
 
-        ProfileUser::where('email', $userEmail)->update([
+        ProfileUser::where('username', $username)->update([
             'photo_profile' => $file_name,
             'first_name' => ucwords(Str::of($request->first_name)->trim()),
             'second_name' => ucwords(Str::of($request->second_name)->trim()),

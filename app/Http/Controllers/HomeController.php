@@ -11,7 +11,7 @@ class HomeController extends Controller
     /* VIEW HOME */
     public function index(){
         $userData = Auth::user();
-        $profileUser = ProfileUser::select('photo_profile', 'first_name', 'second_name', 'contact')->where('email', $userData->email)->first();
+        $profileUser = ProfileUser::select('photo_profile', 'first_name', 'second_name', 'contact')->where('username', $userData->username)->first();
         $totalData = ProfileUser::count();
         
         if($totalData > 0){
