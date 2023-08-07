@@ -23,12 +23,12 @@
             </a>
         </div>
         <!--end::Mobile logo-->
-        
+
         <!--begin::Header wrapper-->
         <div class="d-flex align-items-stretch justify-content-end flex-lg-grow-1" id="kt_app_header_wrapper">
             <!--begin::Navbar-->
             <div class="app-navbar flex-shrink-0">
-                
+
                 <!--begin::Notifications-->
                 <div class="app-navbar-item ms-1 ms-md-4">
                     <!--begin::Menu- wrapper-->
@@ -613,29 +613,29 @@
                         <!--begin::Menu separator-->
                         <div class="separator my-2"></div>
                         <!--end::Menu separator-->
-                        
+
                         <!--begin::Menu item-->
                         <div class="menu-item px-5">
                             <a href="{{ route('profile') }}" class="menu-link {{ $title == 'Profil' ? 'active' : '' }}">
                                 <span class="menu-icon">
-                                    <i class="ki-outline ki-user fs-2"></i> 
+                                    <i class="ki-outline ki-user fs-2"></i>
                                 </span>
                                 <span class="menu-title">Profil & Akun</span>
                             </a>
                         </div>
                         <!--end::Menu item-->
-                        
+
                         <!--begin::Menu item-->
-                        <div class="menu-item px-5">
+                        {{-- <div class="menu-item px-5">
                             <a href="#" class="menu-link">
                                 <span class="menu-icon">
-                                    <i class="ki-outline ki-lock-2 fs-2"></i> 
+                                    <i class="ki-outline ki-lock-2 fs-2"></i>
                                 </span>
                                 <span class="menu-title">Ubah Password</span>
                             </a>
-                        </div>
+                        </div> --}}
                         <!--end::Menu item-->
-                        
+
                         <!--begin::Menu item-->
                         <div class="menu-item px-5">
                             <a href="{{ route('logout') }}"class="menu-link">
@@ -646,7 +646,7 @@
                             </a>
                         </div>
                         <!--end::Menu item-->
-                        
+
                     </div>
                     <!--end::User account menu-->
 

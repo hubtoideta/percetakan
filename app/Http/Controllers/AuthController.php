@@ -13,7 +13,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Password as PasswordReseFuct;
 
 class AuthController extends Controller
-{   
+{
     /* VIEW LOGIN */
     public function loginViewPage(){
         return view('authView.login', [
@@ -67,7 +67,7 @@ class AuthController extends Controller
         $userDB->username = preg_replace('/\s+/','', Str::lower(Str::of($request->username)->trim()));
         $userDB->email = preg_replace('/\s+/','', Str::lower(Str::of($request->email)->trim()));
         $userDB->category = $request->account_type;
-        $userDB->password = Hash::make($request->password);
+        $userDB->password = Hash::make(Str::of($request->password)->trim());
 
         $userDB->save();
         return redirect()->route('login')->with('success', 'Register Berhasil, Silahkan Login');

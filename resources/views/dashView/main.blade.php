@@ -5,7 +5,7 @@
 <head>
     <base href="../" />
     <title>{{ $title }} - Percetakan Online</title>
-    
+
     @include('dashView.partials.meta')
 
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
@@ -60,7 +60,7 @@
 
         <!--begin::Page-->
         <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
-            
+
             @include('dashView.partials.navbar')
 
             <!--begin::Wrapper-->
@@ -147,6 +147,7 @@
     <script src="assets/js/custom/utilities/modals/create-app.js"></script>
     <script src="assets/js/custom/utilities/modals/users-search.js"></script>
     <script src="assets/js/custom/account/settings/signin-methods.js"></script>
+    <script src="assets/js/inputLogin.js"></script>
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
 </body>

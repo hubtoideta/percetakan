@@ -1,12 +1,17 @@
 function hapusSpasiUsername() {
     var inputNama = document.getElementById("no-space-username").value;
     var namaTanpaSpasi = inputNama.replace(/\s/g, ''); // Menghapus semua spasi dari input
-    document.getElementById("no-space-username").value = namaTanpaSpasi;
+    document.getElementById("no-space-username").value = namaTanpaSpasi.toLowerCase();
+}
+function hapusSpasiEditEmail() {
+    var inputNama = document.getElementById("emailaddress").value;
+    var namaTanpaSpasi = inputNama.replace(/\s/g, ''); // Menghapus semua spasi dari input
+    document.getElementById("emailaddress").value = namaTanpaSpasi.toLowerCase();
 }
 function hapusSpasiEmail() {
     var inputNama = document.getElementById("no-space-email").value;
     var namaTanpaSpasi = inputNama.replace(/\s/g, ''); // Menghapus semua spasi dari input
-    document.getElementById("no-space-email").value = namaTanpaSpasi;
+    document.getElementById("no-space-email").value = namaTanpaSpasi.toLowerCase();
 }
 
 

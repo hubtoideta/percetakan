@@ -33,4 +33,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/lihat-profile', [ProfileUserController::class, 'index'])->name('profile');
     Route::post('/input-profile', [ProfileUserController::class, 'create'])->name('inputProfile');
     Route::post('/update-profile', [ProfileUserController::class, 'update'])->name('editProfile');
+    Route::post('/update-email', [ProfileUserController::class, 'updateEmail'])->name('editEmail');
+    Route::post('/update-password', [ProfileUserController::class, 'updatePassword'])->name('editPassword');
 });

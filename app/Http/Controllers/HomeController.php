@@ -12,7 +12,7 @@ class HomeController extends Controller
     public function index(){
         $userData = Auth::user();
         $profileUser = ProfileUser::select('photo_profile', 'first_name', 'second_name', 'contact')->where('username', $userData->username)->first();
-        $totalData = ProfileUser::count();
+        $totalData = $profileUser == true ? 1 : 0;
         
         if($totalData > 0){
             $fotoProfil = $profileUser->photo_profile;

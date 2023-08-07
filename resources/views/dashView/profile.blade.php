@@ -251,7 +251,7 @@
         </div>
         <!--end::Basic info-->
         <!--begin::Sign-in Method-->
-        <div class="card mb-5 mb-xl-10">
+        <div class="card mb-5 mb-xl-10" id="akun-saya">
             <!--begin::Card header-->
             <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
                 data-bs-target="#kt_account_signin_method">
@@ -264,25 +264,60 @@
             <div id="kt_account_settings_signin_method" class="collapse show">
                 <!--begin::Card body-->
                 <div class="card-body border-top p-9">
+                    @if(Session::has('successAccount'))
+                        <div class="alert alert-dismissible bg-light-success d-flex flex-row flex-sm-row p-5 mb-10">
+                            <!--begin::Icon-->
+                            <i class="ki-duotone ki-notification-bing fs-2hx text-success me-4 mb-5 mb-sm-0"><span
+                                    class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                            <!--end::Icon-->
+
+                            <!--begin::Wrapper-->
+                            <div class="d-flex flex-column pe-0 pe-sm-10">
+                                <!--begin::Title-->
+                                <h4 class="fw-semibold">Berhasil</h4>
+                                <!--end::Title-->
+
+                                <!--begin::Content-->
+                                <span>{{ Session::get('successAccount') }}</span>
+                                <!--end::Content-->
+                            </div>
+                            <!--end::Wrapper-->
+
+                            <!--begin::Close-->
+                            <button type="button"
+                                class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto"
+                                data-bs-dismiss="alert">
+                                <i class="ki-duotone ki-cross fs-1 text-success"><span class="path1"></span><span
+                                        class="path2"></span></i>
+                            </button>
+                            <!--end::Close-->
+                        </div>
+                    @endif
                     <!--begin::Email Address-->
                     <div class="d-flex flex-wrap align-items-center">
                         <!--begin::Label-->
-                        <div id="kt_signin_email">
+                        <div id="kt_signin_email" class="{{ $errors->has('confirmemailpassword') || $errors->has('email') ? 'd-none' : '' }}">
                             <div class="fs-6 fw-bold mb-1">Alamat Email</div>
                             <div class="fw-semibold text-gray-600">{{ $userLogin->email }}</div>
                         </div>
                         <!--end::Label-->
                         <!--begin::Edit-->
-                        <div id="kt_signin_email_edit" class="flex-row-fluid d-none">
+                        <div id="kt_signin_email_edit" class="flex-row-fluid {{ $errors->has('confirmemailpassword') || $errors->has('email') ? '' : 'd-none' }}">
                             <!--begin::Form-->
-                            <form id="kt_signin_change_email" class="form" novalidate="novalidate">
+                            <form class="form" method="POST" action="{{ route('editEmail') }}">
+                                @csrf
                                 <div class="row mb-6">
                                     <div class="col-lg-6 mb-4 mb-lg-0">
                                         <div class="fv-row mb-0">
                                             <label for="emailaddress" class="form-label fs-6 fw-bold mb-3">Masukkan Email Baru</label>
-                                            <input type="email" class="form-control form-control-lg form-control-solid"
-                                                id="emailaddress" placeholder="Email Address" name="emailaddress"
-                                                value="{{ $userLogin->email }}" />
+                                            <input type="email" class="form-control form-control-lg form-control-solid @error('email') is-invalid @enderror" {{ $errors->has('confirmemailpassword') || $errors->has('email') ? 'autofocus' : '' }}
+                                                id="emailaddress" placeholder="Email Address" name="email"
+                                                value="{{ old('email') == '' ? $userLogin->email : old('email') }}" oninput="hapusSpasiEditEmail()" />
+                                                @error('email')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -290,13 +325,18 @@
                                             <label for="confirmemailpassword"
                                                 class="form-label fs-6 fw-bold mb-3">Password Anda</label>
                                             <input type="password"
-                                                class="form-control form-control-lg form-control-solid"
+                                                class="form-control form-control-lg form-control-solid  @error('confirmemailpassword') is-invalid @enderror"
                                                 name="confirmemailpassword" id="confirmemailpassword" />
+                                                @error('confirmemailpassword')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
                                         </div>
                                     </div>
                                 </div>
                                 <div class="d-flex">
-                                    <button id="kt_signin_submit" type="button" class="btn btn-primary me-2 px-6">Simpan</button>
+                                    <button id="kt_signin_submit" type="submit" class="btn btn-primary me-2 px-6">Simpan</button>
                                     <button id="kt_signin_cancel" type="button"
                                         class="btn btn-color-gray-400 btn-active-light-primary px-6">Batal</button>
                                 </div>
@@ -305,7 +345,7 @@
                         </div>
                         <!--end::Edit-->
                         <!--begin::Action-->
-                        <div id="kt_signin_email_button" class="ms-auto">
+                        <div id="kt_signin_email_button" class="ms-auto {{ $errors->has('confirmemailpassword') || $errors->has('email') ? 'd-none' : '' }}">
                             <button class="btn btn-light btn-active-light-primary">Ubah Email</button>
                         </div>
                         <!--end::Action-->
@@ -317,30 +357,41 @@
                     <!--begin::Password-->
                     <div class="d-flex flex-wrap align-items-center mb-10">
                         <!--begin::Label-->
-                        <div id="kt_signin_password">
+                        <div id="kt_signin_password" class="{{ $errors->has('currentpassword') || $errors->has('password') ? 'd-none' : '' }}">
                             <div class="fs-6 fw-bold mb-1">Password</div>
                             <div class="fw-semibold text-gray-600">************</div>
                         </div>
                         <!--end::Label-->
                         <!--begin::Edit-->
-                        <div id="kt_signin_password_edit" class="flex-row-fluid d-none">
+                        <div id="kt_signin_password_edit" class="flex-row-fluid {{ $errors->has('currentpassword') || $errors->has('password') ? '' : 'd-none' }}">
                             <!--begin::Form-->
-                            <form id="kt_signin_change_password" class="form" novalidate="novalidate">
+                            <form class="form" action="{{ route('editPassword') }}" method="POST">
+                                @csrf
                                 <div class="row mb-1">
                                     <div class="col-lg-4">
                                         <div class="fv-row mb-0">
                                             <label for="currentpassword" class="form-label fs-6 fw-bold mb-3">Passwrod Anda</label>
                                             <input type="password"
-                                                class="form-control form-control-lg form-control-solid"
+                                                class="form-control form-control-lg form-control-solid @error('currentpassword') is-invalid @enderror" {{ $errors->has('currentpassword') || $errors->has('password') ? 'autofocus' : '' }}
                                                 name="currentpassword" id="currentpassword" />
+                                                @error('currentpassword')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="fv-row mb-0">
                                             <label for="newpassword" class="form-label fs-6 fw-bold mb-3">Password Baru</label>
                                             <input type="password"
-                                                class="form-control form-control-lg form-control-solid"
-                                                name="newpassword" id="newpassword" />
+                                                class="form-control form-control-lg form-control-solid @error('password') is-invalid @enderror"
+                                                name="password" id="newpassword" />
+                                                @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
@@ -348,14 +399,14 @@
                                             <label for="confirmpassword" class="form-label fs-6 fw-bold mb-3">Konfirmasi Password Baru</label>
                                             <input type="password"
                                                 class="form-control form-control-lg form-control-solid"
-                                                name="confirmpassword" id="confirmpassword" />
+                                                name="password_confirmation" id="confirmpassword" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-text mb-5">Minimal 8 Karakter atau lebih, kombinasikan dengan Huruf kapital, Angka dan Simbol.
                                 </div>
                                 <div class="d-flex">
-                                    <button id="kt_password_submit" type="button"
+                                    <button type="submit"
                                         class="btn btn-primary me-2 px-6">Simpan</button>
                                     <button id="kt_password_cancel" type="button"
                                         class="btn btn-color-gray-400 btn-active-light-primary px-6">Batal</button>
@@ -365,7 +416,7 @@
                         </div>
                         <!--end::Edit-->
                         <!--begin::Action-->
-                        <div id="kt_signin_password_button" class="ms-auto">
+                        <div id="kt_signin_password_button" class="ms-auto {{ $errors->has('currentpassword') || $errors->has('password') ? 'd-none' : '' }}">
                             <button class="btn btn-light btn-active-light-primary">Reset Password</button>
                         </div>
                         <!--end::Action-->
