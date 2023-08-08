@@ -7,13 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProfileUser extends Model
 {
-    use HasFactory;
-
-    protected $fillable = [
-        'email',
-        'photo_profile',
-        'first_name',
-        'second_name',
-        'contact',
-    ];
+    
+    protected $table = 'profile_users';
+    protected $primaryKey = 'username';
+    
 }

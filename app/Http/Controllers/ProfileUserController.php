@@ -23,8 +23,8 @@ class ProfileUserController extends Controller
         /* Login Auth */
         $userData = Auth::user();
         $username = $userData->username;
-        $profileUser = ProfileUser::select('photo_profile', 'first_name', 'second_name', 'contact')->where('username', $username)->first();
-        $totalData = $profileUser == true ? 1 : 0;
+        $profileUser = ProfileUser::select('photo_profile', 'first_name', 'second_name', 'contact')->find($username);
+        $totalData = $profileUser->count();
 
         if($totalData > 0){
             $fotoProfil = $profileUser->photo_profile;
@@ -95,7 +95,7 @@ class ProfileUserController extends Controller
         /* Login Auth */
         $userData = Auth::user();
         $username = $userData->username;
-        $profileUser = ProfileUser::select('photo_profile')->where('username', $username)->first();
+        $profileUser = ProfileUser::select('photo_profile')->find($username);
         $oldPhotoProfile = $profileUser->photo_profile;
 
         $request->validate(
