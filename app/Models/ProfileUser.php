@@ -10,5 +10,13 @@ class ProfileUser extends Model
     
     protected $table = 'profile_users';
     protected $primaryKey = 'username';
+
+    protected $fillable = [
+        'username',
+        'photo_profile',
+        'first_name',
+        'second_name',
+        'contact',
+    ];
     
 }

@@ -626,6 +626,17 @@
                         <!--end::Menu item-->
 
                         <!--begin::Menu item-->
+                        <div class="menu-item px-5">
+                            <a href="#" class="menu-link {{ $title == 'Profil' ? 'active' : '' }}">
+                                <span class="menu-icon">
+                                    <i class="ki-outline ki-shop fs-2"></i>
+                                </span>
+                                <span class="menu-title">Kelolah Toko</span>
+                            </a>
+                        </div>
+                        <!--end::Menu item-->
+
+                        <!--begin::Menu item-->
                         {{-- <div class="menu-item px-5">
                             <a href="#" class="menu-link">
                                 <span class="menu-icon">
