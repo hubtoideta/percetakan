@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileUserController;
+use App\Http\Controllers\InformationStoreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,5 +39,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/update-email', [ProfileUserController::class, 'updateEmail'])->name('editEmail');
     Route::post('/update-password', [ProfileUserController::class, 'updatePassword'])->name('editPassword');
     /* CONFIG STORE */
+    Route::get('/kelolah-toko', [InformationStoreController::class, 'index'])->name('kelolah-toko');
+    Route::post('/input-toko', [InformationStoreController::class, 'create'])->name('input-toko');
+    Route::post('/edit-toko', [InformationStoreController::class, 'update'])->name('edit-toko');
     
 });

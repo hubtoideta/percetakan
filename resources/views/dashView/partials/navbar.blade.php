@@ -627,7 +627,7 @@
 
                         <!--begin::Menu item-->
                         <div class="menu-item px-5">
-                            <a href="#" class="menu-link {{ $title == 'Profil' ? 'active' : '' }}">
+                            <a href="{{ route("kelolah-toko") }}" class="menu-link {{ $title == 'Kelolah Toko' ? 'active' : '' }}">
                                 <span class="menu-icon">
                                     <i class="ki-outline ki-shop fs-2"></i>
                                 </span>

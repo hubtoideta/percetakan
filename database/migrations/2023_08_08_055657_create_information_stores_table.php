@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('information_stores', function (Blueprint $table) {
             $table->uuid("id_store")->primary();
             $table->string("username_owner")->unique();
-            $table->string("store_name", 150);
-            $table->string("store_email", 50);
+            $table->text('logo')->default('none');
+            $table->string("store_name", 150)->unique();;
+            $table->string("store_email", 50)->unique();;
+            $table->string('contact');
             $table->text("deskripsi");
-            
             $table->timestamps();
             $table->foreign("username_owner")->references("username")->on("users");
         });

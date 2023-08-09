@@ -39,6 +39,37 @@
 <div id="kt_app_content" class="app-content flex-column-fluid">
     <!--begin::Content container-->
     <div id="kt_app_content_container" class="app-container container-xxl">
+        @if ($alertData)
+            <!--begin::Alert-->
+            <div class="alert alert-dismissible bg-light-warning d-flex flex-column flex-sm-row p-5 mb-10">
+                <!--begin::Icon-->
+                <i class="ki-duotone  ki-information-4 fs-2hx text-warning me-4 mb-5 mb-sm-0">
+                    <i class="path1"></i>
+                    <i class="path2"></i>
+                    <i class="path3"></i>
+                </i>
+                <!--end::Icon-->
+
+                <!--begin::Wrapper-->
+                <div class="d-flex flex-column pe-0 pe-sm-10">
+                    <!--begin::Title-->
+                    <h4 class="fw-semibold">Perhatian!</h4>
+                    <!--end::Title-->
+
+                    <!--begin::Content-->
+                    <span>Lengkapi data toko anda. <a href="{{  route("kelolah-toko")  }}">Kelolah toko!</a></span>
+                    <!--end::Content-->
+                </div>
+                <!--end::Wrapper-->
+
+                <!--begin::Close-->
+                <button type="button" class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+                    <i class="ki-duotone ki-cross fs-1 text-warning"><span class="path1"></span><span class="path2"></span></i>
+                </button>
+                <!--end::Close-->
+            </div>
+            <!--end::Alert-->
+        @endif
         <!--begin::About card-->
         <div class="card">
             <!--begin::Body-->
