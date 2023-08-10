@@ -58,6 +58,7 @@
                 <form method="POST" action="{{ $infoDataCount > 0 ? route('edit-toko') : route('input-toko') }}"
                     class="form" enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden" name="id_store" value="{{ $infoDataCount > 0 ? $infoData->id_store : '' }}">
                     <!--begin::Card body-->
                     <div class="card-body border-top p-9">
                         <!--begin::Alert-->

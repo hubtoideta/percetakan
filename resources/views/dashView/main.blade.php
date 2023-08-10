@@ -86,7 +86,7 @@
 
                             <!--begin::Copyright-->
                             <div class="text-dark order-2 order-md-1">
-                                <span class="text-muted fw-semibold me-1">2023&copy;</span>
+                                <span class="text-muted fw-semibold me-1">Support by</span>
                                 <a href="https://ideta.id/" target="_blank"
                                     class="text-gray-800 text-hover-primary">ideta.id</a>
                             </div>

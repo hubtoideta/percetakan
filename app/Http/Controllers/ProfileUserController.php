@@ -141,7 +141,6 @@ class ProfileUserController extends Controller
                         File::delete(public_path('assets/media/profile/' . $oldPhotoProfile));
                     }
                 }
-                $file_name = 'none';
             }else{
                 $file_name = $oldPhotoProfile;
             }
