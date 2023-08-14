@@ -16,31 +16,64 @@ use App\Http\Controllers\InformationStoreController;
 | be assigned to the "web" middleware group. Make something great!
 |*/
 
+/* Route user non login */
 Route::group(['middleware' => 'guest'], function(){
-    Route::get('/', [AuthController::class, 'loginViewPage'])->name('login');
-    Route::post('/', [AuthController::class, 'loginPost'])->name('login');
-    Route::get('/registrasi', [AuthController::class, 'registrasiViewPage'])->name('registrasi');
-    Route::post('/registrasi', [AuthController::class, 'registrasiPost'])->name('registrasi');
-    Route::get('/lupa-password', [AuthController::class, 'lupaPasswordViewPage'])->name('lupa_password');
-    Route::post('/lupa-password', [AuthController::class, 'lupaPasswordPost'])->name('lupa_password');
-    Route::get('/reset-password/{token}', [AuthController::class, 'passwordResetViewPage'])->name('password.reset');
-    Route::post('/update-password', [AuthController::class, 'passwordResetPost'])->name('password.update');
+    /* ============== LOGIN ============== */
+        /* Show page login */
+        Route::get('/', [AuthController::class, 'loginViewPage'])->name('login');
+        /* Login proses */
+        Route::post('/', [AuthController::class, 'loginPost'])->name('login');
+    /* ============== LOGIN ============== */
+
+    /* ============== REGIS ============== */
+        /* Show page registrasi */
+        Route::get('/registrasi', [AuthController::class, 'registrasiViewPage'])->name('registrasi');
+        /* Registrasi Proses */
+        Route::post('/registrasi', [AuthController::class, 'registrasiPost'])->name('registrasi');
+    /* ============== REGIS ============== */
+
+    /* ============== RESET PASSWORD ============== */
+        /* Show page lupa password */
+        Route::get('/lupa-password', [AuthController::class, 'lupaPasswordViewPage'])->name('lupa_password');
+        /* Lupa password & send token to email proses */
+        Route::post('/lupa-password', [AuthController::class, 'lupaPasswordPost'])->name('lupa_password');
+        /* Show page ubah passwrod with token url */
+        Route::get('/reset-password/{token}', [AuthController::class, 'passwordResetViewPage'])->name('password.reset');
+        /* Ubah Password Proses */
+        Route::post('/update-password', [AuthController::class, 'passwordResetPost'])->name('password.update');
+    /* ============== RESET PASSWORD ============== */
 });
 
+/* Route user Login */
 Route::group(['middleware' => 'auth'], function(){
-    /* HOME ROUTE */
+    /* Show page home */
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    /* LOGOUT */
+    /* Logut proses */
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-    /* PROFILE & ACCOUNT */
-    Route::get('/lihat-profile', [ProfileUserController::class, 'index'])->name('profile');
-    Route::post('/input-profile', [ProfileUserController::class, 'create'])->name('inputProfile');
-    Route::post('/update-profile', [ProfileUserController::class, 'update'])->name('editProfile');
-    Route::post('/update-email', [ProfileUserController::class, 'updateEmail'])->name('editEmail');
-    Route::post('/update-password', [ProfileUserController::class, 'updatePassword'])->name('editPassword');
-    /* CONFIG STORE */
-    Route::get('/kelolah-toko', [InformationStoreController::class, 'index'])->name('kelolah-toko');
-    Route::post('/input-toko', [InformationStoreController::class, 'create'])->name('input-toko');
-    Route::post('/edit-toko', [InformationStoreController::class, 'update'])->name('edit-toko');
+
+    /* ============== PROFILE & ACCOUNT ============== */
+        /* Show page profil dan akun */
+        Route::get('/lihat-profile', [ProfileUserController::class, 'index'])->name('profile');
+        /* input data profil proses */
+        Route::post('/input-profile', [ProfileUserController::class, 'create'])->name('inputProfile');
+        /* update data profil proses */
+        Route::post('/update-profile', [ProfileUserController::class, 'update'])->name('editProfile');
+        /* update data email proses */
+        Route::post('/update-email', [ProfileUserController::class, 'updateEmail'])->name('editEmail');
+        /* update data password proses */
+        Route::post('/update-password', [ProfileUserController::class, 'updatePassword'])->name('editPassword');
+    /* ============== PROFILE & ACCOUNT ============== */
+    
+    /* ============== SETTINGS PRICE PAKET DEVELOPER PANEL ============== */
+    /* ============== SETTINGS PRICE PAKET DEVELOPER PANEL ============== */
+
+    /* ============== DATA STORE OWNER PANEL ============== */
+        /* Show page kelolah toko */
+        Route::get('/kelolah-toko', [InformationStoreController::class, 'index'])->name('kelolah-toko');
+        /* Input data toko proses */
+        Route::post('/input-toko', [InformationStoreController::class, 'create'])->name('input-toko');
+        /* Edit data toko proses */
+        Route::post('/edit-toko', [InformationStoreController::class, 'update'])->name('edit-toko');
+    /* ============== DATA STORE OWNER PANEL ============== */
     
 });
