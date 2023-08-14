@@ -50,6 +50,8 @@ class AuthController extends Controller
             'title' => 'Daftar'
         ]);
     }
+
+    
     /* VIEW REGIS POST */
     public function registrasiPost(Request $request){
         $request->validate([
