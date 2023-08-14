@@ -21,7 +21,7 @@ class InformationStoreController extends Controller
         $userData = Auth::user();
         $username = $userData->username;
         $profileUser = ProfileUser::select('photo_profile')->find($userData->username);
-        $totalData = $profileUser->count();
+        $totalData = $profileUser ? $profileUser->count() : 0;
     
         if($totalData > 0){
             $fotoProfil = $profileUser->photo_profile;
@@ -37,16 +37,19 @@ class InformationStoreController extends Controller
                 $logo = $informationStore->logo;
             }
         }
-
-        return view('dashView.kelolah_toko', [
-            'fotoProfil' => $fotoProfil,
-            'totalData' => $totalData,
-            'infoDataCount' => $informationStore->count(),
-            'infoData' => $informationStore,
-            'logo' => $logo,
-            'userLogin' => $userData,
-            'title' => 'Kelolah Toko'
-        ]);
+        if($userData->category == "Owner"){
+            return view('dashView.kelolah_toko', [
+                'fotoProfil' => $fotoProfil,
+                'totalData' => $totalData,
+                'infoDataCount' => $informationStore->count(),
+                'infoData' => $informationStore,
+                'logo' => $logo,
+                'userLogin' => $userData,
+                'title' => 'Kelolah Toko'
+            ]);
+        }else{
+            return redirect()->route('home');
+        }
     }
 
     /**

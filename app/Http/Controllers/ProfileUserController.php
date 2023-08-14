@@ -24,7 +24,7 @@ class ProfileUserController extends Controller
         $userData = Auth::user();
         $username = $userData->username;
         $profileUser = ProfileUser::select('photo_profile', 'first_name', 'second_name', 'contact')->find($username);
-        $totalData = $profileUser->count();
+        $totalData = $profileUser ? $profileUser->count() : 0;
 
         if($totalData > 0){
             $fotoProfil = $profileUser->photo_profile;
