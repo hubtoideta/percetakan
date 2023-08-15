@@ -614,17 +614,21 @@
                         <div class="separator my-2"></div>
                         <!--end::Menu separator-->
 
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-5">
-                            <a href="{{ route('profile') }}" class="menu-link {{ $title == 'Profil' ? 'active' : '' }}">
-                                <span class="menu-icon">
-                                    <i class="ki-outline ki-user fs-2"></i>
-                                </span>
-                                <span class="menu-title">Profil & Akun</span>
-                            </a>
-                        </div>
-                        <!--end::Menu item-->
-
+                        <!--begin::Profil dan Akun-->
+                            <!--begin::Menu item-->
+                            <div class="menu-item px-5">
+                                <a href="{{ route('profile') }}" class="menu-link {{ $title == 'Profil' ? 'active' : '' }}">
+                                    <span class="menu-icon">
+                                        <i class="ki-outline ki-user fs-2"></i>
+                                    </span>
+                                    <span class="menu-title">Profil & Akun</span>
+                                </a>
+                            </div>
+                            <!--end::Menu item-->
+                        <!--end::Profil dan Akun-->
+                        
+                        <!--begin::Information toko-->
+                        @if ($userLogin->category == "Owner")
                         <!--begin::Menu item-->
                         <div class="menu-item px-5">
                             <a href="{{ route("kelolah-toko") }}" class="menu-link {{ $title == 'Kelolah Toko' ? 'active' : '' }}">
@@ -635,6 +639,8 @@
                             </a>
                         </div>
                         <!--end::Menu item-->
+                        @endif
+                        <!--end::Information toko-->
 
                         <!--begin::Menu item-->
                         {{-- <div class="menu-item px-5">

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DataPaketController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\InformationStoreController;
@@ -65,6 +66,9 @@ Route::group(['middleware' => 'auth'], function(){
     /* ============== PROFILE & ACCOUNT ============== */
     
     /* ============== SETTINGS PRICE PAKET DEVELOPER PANEL ============== */
+        /* Show page kelolah Paket */
+        Route::get('/paket-langganan', [DataPaketController::class, 'index'])->name('paket');
+        Route::post('/edit-harga-paket', [DataPaketController::class, 'updateHargaPaket'])->name('editPaket');
     /* ============== SETTINGS PRICE PAKET DEVELOPER PANEL ============== */
 
     /* ============== DATA STORE OWNER PANEL ============== */
