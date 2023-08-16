@@ -69,6 +69,7 @@ Route::group(['middleware' => 'auth'], function(){
         /* Show page kelolah Paket */
         Route::get('/paket-langganan', [DataPaketController::class, 'index'])->name('paket');
         Route::post('/edit-harga-paket', [DataPaketController::class, 'updateHargaPaket'])->name('editPaket');
+        Route::post('/edit-diskon-paket', [DataPaketController::class, 'updateDiskonPaket'])->name('editDiskon');
     /* ============== SETTINGS PRICE PAKET DEVELOPER PANEL ============== */
 
     /* ============== DATA STORE OWNER PANEL ============== */
