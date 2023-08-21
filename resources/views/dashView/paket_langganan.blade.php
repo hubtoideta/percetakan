@@ -91,7 +91,8 @@
                                     <input type="number" class="form-control @error('harga.'.$key) is-invalid @enderror" 
                                         name="harga[]" 
                                         placeholder="Harga / Bulan" 
-                                        value="{{ old('harga') != 0  ? old('harga')[$key] : $value['harga_paket'] }}">
+                                        value="{{ old('harga') != 0  ? old('harga')[$key] : $value['harga_paket'] }}"
+                                        id="harga{{ $value['nama_paket'] }}">
                                         @error('harga.'.$key)
                                         <span class="invalid-feedback" role="alert">
                                             <strong style="font-size: 0.8rem">{{ $message }}</strong>
@@ -122,7 +123,7 @@
             <!--begin::Setting Paket-->
             <div class="col-sm-12 mx-auto">
                 <!--begin::Card-->
-                <form method="POST" action="{{ route('editDiskon') }}" class="card">
+                <form method="POST" action="{{ route('editDiskon') }}" class="card mb-3">
                     @csrf
                     <div class="card-header">
                         <h5 class="card-title">Diskon Paket</h5>
@@ -189,50 +190,54 @@
                                             <input type="number" class="form-control form-control-sm @error('diskon3.'.$key) is-invalid @enderror" 
                                                 name="diskon3[]" 
                                                 placeholder="Diskon" 
-                                                value="{{ old('diskon3') != 0  ? old('diskon3')[$key] : $value['tiga_bulan'] }}">
+                                                value="{{ old('diskon3') != 0  ? old('diskon3')[$key] : $value['tiga_bulan'] }}"
+                                                onkeyup="diskonTigaBulan{{ $value['nama_paket_diskon'] }}(this.value)">
                                                 @error('diskon3.'.$key)
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong style="font-size: 0.8rem">{{ $message }}</strong>
                                                 </span>
                                                 @enderror
                                         </td>
-                                        <td id="{{ $value['nama_paket_diskon']."Harga3" }}">Rp.{{ number_format(($value['harga']-($value['harga']*($value['tiga_bulan']/100)))*3,0,",",".") }}</td>
+                                        <td id="{{ $value['nama_paket_diskon']."Harga3" }}">Rp.{{ number_format((($value['harga']*3)-(($value['harga']*3)*($value['tiga_bulan']/100))),0,",",".") }}</td>
                                         <td>
                                             <input type="number" class="form-control form-control-sm @error('diskon6.'.$key) is-invalid @enderror" 
                                                 name="diskon6[]" 
                                                 placeholder="Diskon" 
-                                                value="{{ old('diskon6') != 0  ? old('diskon6')[$key] : $value['enam_bulan'] }}">
+                                                value="{{ old('diskon6') != 0  ? old('diskon6')[$key] : $value['enam_bulan'] }}"
+                                                onkeyup="diskonEnamBulan{{ $value['nama_paket_diskon'] }}(this.value)">
                                                 @error('diskon6.'.$key)
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong style="font-size: 0.8rem">{{ $message }}</strong>
                                                 </span>
                                                 @enderror
                                         </td>
-                                        <td id="{{ $value['nama_paket_diskon']."Harga6" }}">Rp.{{ number_format(($value['harga']-($value['harga']*($value['enam_bulan']/100)))*6,0,",",".") }}</td>
+                                        <td id="{{ $value['nama_paket_diskon']."Harga6" }}">Rp.{{ number_format((($value['harga']*6)-(($value['harga']*6)*($value['enam_bulan']/100))),0,",",".") }}</td>
                                         <td>
                                             <input type="number" class="form-control form-control-sm @error('diskon12.'.$key) is-invalid @enderror" 
                                                 name="diskon12[]" 
                                                 placeholder="Diskon" 
-                                                value="{{ old('diskon12') != 0  ? old('diskon12')[$key] : $value['dua_belas_bulan'] }}">
+                                                value="{{ old('diskon12') != 0  ? old('diskon12')[$key] : $value['dua_belas_bulan'] }}"
+                                                onkeyup="diskonDuaBelasBulan{{ $value['nama_paket_diskon'] }}(this.value)">
                                                 @error('diskon12.'.$key)
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong style="font-size: 0.8rem">{{ $message }}</strong>
                                                 </span>
                                                 @enderror
                                         </td>
-                                        <td id="{{ $value['nama_paket_diskon']."Harga12" }}">Rp.{{ number_format(($value['harga']-($value['harga']*($value['dua_belas_bulan']/100)))*12,0,",",".") }}</td>
+                                        <td id="{{ $value['nama_paket_diskon']."Harga12" }}">Rp.{{ number_format((($value['harga']*12)-(($value['harga']*12)*($value['dua_belas_bulan']/100))),0,",",".") }}</td>
                                         <td>
                                             <input type="number" class="form-control form-control-sm @error('diskon2.4'.$key) is-invalid @enderror" 
                                                 name="diskon24[]" 
                                                 placeholder="Diskon" 
-                                                value="{{ old('diskon24') != 0  ? old('diskon24')[$key] : $value['dua_puluh_empat_bulan'] }}">
+                                                value="{{ old('diskon24') != 0  ? old('diskon24')[$key] : $value['dua_puluh_empat_bulan'] }}"
+                                                onkeyup="diskonDuaPuluhEmpatBulan{{ $value['nama_paket_diskon'] }}(this.value)">
                                                 @error('diskon2.4'.$key)
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong style="font-size: 0.8rem">{{ $message }}</strong>
                                                 </span>
                                                 @enderror
                                         </td>
-                                        <td id="{{ $value['nama_paket_diskon']."Harga24" }}">Rp.{{ number_format(($value['harga']-($value['harga']*($value['dua_puluh_empat_bulan']/100)))*24,0,",",".") }}</td>
+                                        <td id="{{ $value['nama_paket_diskon']."Harga24" }}">Rp.{{ number_format((($value['harga']*24)-(($value['harga']*24)*($value['dua_puluh_empat_bulan']/100))),0,",",".") }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -243,12 +248,119 @@
                     <!--begin::footer-->
                     <div class="card-footer">
                         <div class="text-end">
+                            <a href="{{ route('paket') }}" class="btn btn-secondary btn-sm">Reset</a>
                             <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
                         </div>
                     </div>
                     <!--end::footer-->
                 </form>
                 <!--end::Card-->
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Features Paket Langganan</h5>
+                    </div>
+                    <!--begin::Body-->
+                    <div class="card-body p-lg-17">
+                        <!--begin::Row-->
+                        <div class="row g-10 mx-auto">
+                            <!--begin::Col-->
+                            <div class="col-xl-6">
+                                <div class="d-flex h-100 align-items-center">
+                                    <!--begin::Option-->
+                                    <div
+                                        class="w-100 d-flex flex-column flex-center rounded-3 bg-light bg-opacity-75 py-15 px-10">
+                                        <!--begin::Heading-->
+                                        <div class="mb-7 text-center">
+                                            <!--begin::Title-->
+                                            <h1 class="text-dark mb-5 fw-bolder">Premium</h1>
+                                            <!--end::Title-->
+                                        </div>
+                                        <!--end::Heading-->
+                                        <!--begin::Features-->
+                                        <div class="w-100 mb-10">
+                                            @foreach ($fiturPaket as $item)
+                                                <!--begin::Item-->
+                                                <div class="d-flex align-items-center mb-5">
+                                                    @if ($item['Premium'] != 'y' && $item['Premium'] != 'n')
+                                                        <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">{{ $item['nama_fitur_paket'] }}</span>
+                                                        {{ $item['Premium'] }} User
+                                                    @else
+                                                        @if ($item['Premium'] == 'y')
+                                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">{{ $item['nama_fitur_paket'] }}</span>
+                                                            <i class="ki-duotone ki-check-circle fs-1 text-success">
+                                                                <span class="path1"></span>
+                                                                <span class="path2"></span>
+                                                            </i>
+                                                        @else
+                                                            <span class="fw-semibold fs-6 text-gray-600 flex-grow-1 pe-3">{{ $item['nama_fitur_paket'] }}</span>
+                                                            <i class="ki-duotone ki-cross-circle fs-1">
+                                                                <span class="path1"></span>
+                                                                <span class="path2"></span>
+                                                            </i>
+                                                        @endif
+                                                    @endif
+                                                </div>                                                
+                                                <!--end::Item-->
+                                            @endforeach
+                                        </div>
+                                        <!--end::Features-->
+                                    </div>
+                                    <!--end::Option-->
+                                </div>
+                            </div>
+                            <!--end::Col-->
+                            <!--begin::Col-->
+                            <div class="col-xl-6">
+                                <div class="d-flex h-100 align-items-center">
+                                    <!--begin::Option-->
+                                    <div
+                                        class="w-100 d-flex flex-column flex-center rounded-3 bg-light bg-opacity-75 py-15 px-10">
+                                        <!--begin::Heading-->
+                                        <div class="mb-7 text-center">
+                                            <!--begin::Title-->
+                                            <h1 class="text-dark mb-5 fw-bolder">Business</h1>
+                                            <!--end::Title-->
+                                        </div>
+                                        <!--end::Heading-->
+                                        <!--begin::Features-->
+                                        <div class="w-100 mb-10">
+                                            @foreach ($fiturPaket as $item)
+                                                <!--begin::Item-->
+                                                <div class="d-flex align-items-center mb-5">
+                                                    @if ($item['Business'] != 'y' && $item['Business'] != 'n')
+                                                        <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">{{ $item['nama_fitur_paket'] }}</span>
+                                                        {{ $item['Business'] }} User
+                                                    @else
+                                                        @if ($item['Business'] == 'y')
+                                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">{{ $item['nama_fitur_paket'] }}</span>
+                                                            <i class="ki-duotone ki-check-circle fs-1 text-success">
+                                                                <span class="path1"></span>
+                                                                <span class="path2"></span>
+                                                            </i>
+                                                        @else
+                                                            <span class="fw-semibold fs-6 text-gray-600 flex-grow-1 pe-3">{{ $item['nama_fitur_paket'] }}</span>
+                                                            <i class="ki-duotone ki-cross-circle fs-1">
+                                                                <span class="path1"></span>
+                                                                <span class="path2"></span>
+                                                            </i>
+                                                        @endif
+                                                    @endif
+                                                </div>                                                
+                                                <!--end::Item-->
+                                            @endforeach
+                                        </div>
+                                        <!--end::Features-->
+                                    </div>
+                                    <!--end::Option-->
+                                </div>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Row-->
+                    </div>
+                    <!--end::Body-->
+                </div>
+                <!--end:: card-->
             </div>
             <!--end::Setting Paket-->
         </div>

@@ -148,6 +148,9 @@
     <script src="assets/js/custom/utilities/modals/users-search.js"></script>
     <script src="assets/js/custom/account/settings/signin-methods.js"></script>
     <script src="assets/js/inputLogin.js"></script>
+    @if ($title == "Paket & Fitur Langganan")
+    <script src="assets/js/diskonPaket.js"></script>
+    @endif
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
 </body>

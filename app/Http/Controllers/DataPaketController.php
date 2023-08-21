@@ -7,6 +7,7 @@ use App\Models\ProfileUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\DiskonPaket;
+use App\Models\FiturPaket;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,9 +22,13 @@ class DataPaketController extends Controller
                         ->orderByDesc('data_pakets.nama_paket')
                         ->get();
 
+        $fiturPaket = FiturPaket::select('nama_fitur_paket','Premium','Business')->get();
+
         $result['diskonPaket'] = $diskonPaket;
 
         $result['listPaket'] = $listPaket;
+
+        $result['fiturPaket'] = $fiturPaket;
 
         return $result;
     }
@@ -52,6 +57,7 @@ class DataPaketController extends Controller
             'fotoProfil' => $fotoProfil,
             'listPaket' => $this->dbPaket()['listPaket'],
             'diskonPaket' => $this->dbPaket()['diskonPaket'],
+            'fiturPaket' => $this->dbPaket()['fiturPaket'],
             'title' => 'Paket & Fitur Langganan'
         ]);
     }

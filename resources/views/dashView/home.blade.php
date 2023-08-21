@@ -95,13 +95,13 @@
                                     <!--begin::Heading-->
                                     <div class="mb-7 text-center">
                                         <!--begin::Title-->
-                                        <h1 class="text-dark mb-5 fw-bolder">Premium</h1>
+                                        <h1 class="text-dark mb-5 fw-bolder">{{ $listPaket[0]['nama_paket'] }}</h1>
                                         <!--end::Title-->
                                         <!--begin::Price-->
                                         <div class="text-center">
                                             <span class="mb-2 text-primary">Rp</span>
                                             <span class="fs-3x fw-bold text-primary" data-kt-plan-price-month="39"
-                                                data-kt-plan-price-annual="399">149k</span>
+                                                data-kt-plan-price-annual="399">{{ number_format($listPaket[0]['harga_paket'],0,",",".") }}</span>
                                             <span class="fs-7 fw-semibold opacity-50">/
                                                 <span data-kt-element="period">Bln</span></span>
                                         </div>
@@ -110,129 +110,30 @@
                                     <!--end::Heading-->
                                     <!--begin::Features-->
                                     <div class="w-100 mb-10">
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Karyawan</span>
-                                            5 Users
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Data Bahan Cetak & Decal</span>
-                                            <i class="ki-duotone ki-check-circle fs-1 text-success">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Monitoring Proses Produksi</span>
-                                            <i class="ki-duotone ki-check-circle fs-1 text-success">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Print Nota & Shipping</span>
-                                            <i class="ki-duotone ki-check-circle fs-1 text-success">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Laporan Omset</span>
-                                            <i class="ki-duotone ki-check-circle fs-1 text-success">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Perhitungan Biaya Pengiriman</span>
-                                            <i class="ki-duotone ki-check-circle fs-1 text-success">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Laporan Order</span>
-                                            <i class="ki-duotone ki-check-circle fs-1 text-success">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-600 flex-grow-1">Arus Kas</span>
-                                            <i class="ki-duotone ki-cross-circle fs-1">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-600 flex-grow-1">Laporan Penggunaan Bahan</span>
-                                            <i class="ki-duotone ki-cross-circle fs-1">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-600 flex-grow-1">Toko Online & Upload Produk Retail</span>
-                                            <i class="ki-duotone ki-cross-circle fs-1">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-600 flex-grow-1">Dapat Mengakses Toko Template Cetak dan Pola Decal</span>
-                                            <i class="ki-duotone ki-cross-circle fs-1">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-600 flex-grow-1">Kerjasama Dengan Percetakan Lain</span>
-                                            <i class="ki-duotone ki-cross-circle fs-1">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-600 flex-grow-1">Bermitra dengan Para Penyedia jasa seperti Desainer dan Pemasang</span>
-                                            <i class="ki-duotone ki-cross-circle fs-1">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-600 flex-grow-1">Download Data (.pdf)</span>
-                                            <i class="ki-duotone ki-cross-circle fs-1">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
+                                        @foreach ($fiturPaket as $item)
+                                            <!--begin::Item-->
+                                            <div class="d-flex align-items-center mb-5">
+                                                @if ($item['Premium'] != 'y' && $item['Premium'] != 'n')
+                                                    <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">{{ $item['nama_fitur_paket'] }}</span>
+                                                    {{ $item['Premium'] }} User
+                                                @else
+                                                    @if ($item['Premium'] == 'y')
+                                                        <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">{{ $item['nama_fitur_paket'] }}</span>
+                                                        <i class="ki-duotone ki-check-circle fs-1 text-success">
+                                                            <span class="path1"></span>
+                                                            <span class="path2"></span>
+                                                        </i>
+                                                    @else
+                                                        <span class="fw-semibold fs-6 text-gray-600 flex-grow-1 pe-3">{{ $item['nama_fitur_paket'] }}</span>
+                                                        <i class="ki-duotone ki-cross-circle fs-1">
+                                                            <span class="path1"></span>
+                                                            <span class="path2"></span>
+                                                        </i>
+                                                    @endif
+                                                @endif
+                                            </div>                                                
+                                            <!--end::Item-->
+                                        @endforeach
                                     </div>
                                     <!--end::Features-->
                                     <!--begin::Select-->
@@ -255,13 +156,13 @@
                                     <!--begin::Heading-->
                                     <div class="mb-7 text-center">
                                         <!--begin::Title-->
-                                        <h1 class="text-dark mb-5 fw-bolder">Business</h1>
+                                        <h1 class="text-dark mb-5 fw-bolder">{{ $listPaket[1]['nama_paket'] }}</h1>
                                         <!--end::Title-->
                                         <!--begin::Price-->
                                         <div class="text-center">
                                             <span class="mb-2 text-primary">Rp</span>
                                             <span class="fs-3x fw-bold text-primary" data-kt-plan-price-month="39"
-                                                data-kt-plan-price-annual="399">299k</span>
+                                                data-kt-plan-price-annual="399">{{ number_format($listPaket[1]['harga_paket'],0,",",".") }}</span>
                                             <span class="fs-7 fw-semibold opacity-50">/
                                                 <span data-kt-element="period">Bln</span></span>
                                         </div>
@@ -270,129 +171,30 @@
                                     <!--end::Heading-->
                                     <!--begin::Features-->
                                     <div class="w-100 mb-10">
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Karyawan</span>
-                                            15 Users
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Data Bahan Cetak & Decal</span>
-                                            <i class="ki-duotone ki-check-circle fs-1 text-success">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Monitoring Proses Produksi</span>
-                                            <i class="ki-duotone ki-check-circle fs-1 text-success">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Print Nota & Shipping</span>
-                                            <i class="ki-duotone ki-check-circle fs-1 text-success">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Laporan Omset</span>
-                                            <i class="ki-duotone ki-check-circle fs-1 text-success">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Perhitungan Biaya Pengiriman</span>
-                                            <i class="ki-duotone ki-check-circle fs-1 text-success">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Laporan Order</span>
-                                            <i class="ki-duotone ki-check-circle fs-1 text-success">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1">Arus Kas</span>
-                                            <i class="ki-duotone ki-check-circle fs-1 text-success">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1">Laporan Penggunaan Bahan</span>
-                                            <i class="ki-duotone ki-check-circle fs-1 text-success">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1">Toko Online & Upload Produk Retail</span>
-                                            <i class="ki-duotone ki-check-circle fs-1 text-success">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1">Dapat Mengakses Toko Template Cetak dan Pola Decal</span>
-                                            <i class="ki-duotone ki-check-circle fs-1 text-success">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1">Kerjasama Dengan Percetakan Lain</span>
-                                            <i class="ki-duotone ki-check-circle fs-1 text-success">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1">Bermitra dengan Para Penyedia jasa seperti Desainer dan Pemasang</span>
-                                            <i class="ki-duotone ki-check-circle fs-1 text-success">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex align-items-center mb-5">
-                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1">Download Data (.pdf)</span>
-                                            <i class="ki-duotone ki-check-circle fs-1 text-success">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <!--end::Item-->
+                                        @foreach ($fiturPaket as $item)
+                                            <!--begin::Item-->
+                                            <div class="d-flex align-items-center mb-5">
+                                                @if ($item['Business'] != 'y' && $item['Business'] != 'n')
+                                                    <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">{{ $item['nama_fitur_paket'] }}</span>
+                                                    {{ $item['Business'] }} User
+                                                @else
+                                                    @if ($item['Business'] == 'y')
+                                                        <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">{{ $item['nama_fitur_paket'] }}</span>
+                                                        <i class="ki-duotone ki-check-circle fs-1 text-success">
+                                                            <span class="path1"></span>
+                                                            <span class="path2"></span>
+                                                        </i>
+                                                    @else
+                                                        <span class="fw-semibold fs-6 text-gray-600 flex-grow-1 pe-3">{{ $item['nama_fitur_paket'] }}</span>
+                                                        <i class="ki-duotone ki-cross-circle fs-1">
+                                                            <span class="path1"></span>
+                                                            <span class="path2"></span>
+                                                        </i>
+                                                    @endif
+                                                @endif
+                                            </div>                                                
+                                            <!--end::Item-->
+                                        @endforeach
                                     </div>
                                     <!--end::Features-->
                                     <!--begin::Select-->
