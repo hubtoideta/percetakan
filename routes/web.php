@@ -6,6 +6,7 @@ use App\Http\Controllers\DataPaketController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\InformationStoreController;
+use App\Http\Controllers\pembayaranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,8 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('/edit-harga-paket', [DataPaketController::class, 'updateHargaPaket'])->name('editPaket');
         Route::post('/edit-diskon-paket', [DataPaketController::class, 'updateDiskonPaket'])->name('editDiskon');
     /* ============== SETTINGS PRICE PAKET DEVELOPER PANEL ============== */
+
+    Route::get('/pembayaran-premium', [pembayaranController::class, 'premiumPaket'])->name('checkoutPremium');
 
     /* ============== DATA STORE OWNER PANEL ============== */
         /* Show page kelolah toko */

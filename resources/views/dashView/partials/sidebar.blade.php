@@ -51,32 +51,33 @@
 						<!--end:Menu link-->
 					</div>
 					<!--end:Dasbord-->
-                    <!--begin:Menu title-->
-                    <div class="menu-item pt-5">
-                        <!--begin:Menu content-->
-                        <div class="menu-content">
-                            <span class="menu-heading fw-bold text-uppercase fs-7">Pengaturan</span>
+                    @if ($userLogin->category == "Developer")
+                        <!--begin:Menu title-->
+                        <div class="menu-item pt-5">
+                            <!--begin:Menu content-->
+                            <div class="menu-content">
+                                <span class="menu-heading fw-bold text-uppercase fs-7">Pengaturan</span>
+                            </div>
+                            <!--end:Menu content-->
                         </div>
-                        <!--end:Menu content-->
-                    </div>
-                    <!--end:Menu title-->
-                    <!--begin:Dasbord-->
-					<div class="menu-item">
-						<!--begin:Menu link-->
-						<a class="menu-link {{ $title == 'Harga & Fitur' ? 'active' : '' }} " href="{{ route('paket') }}">
-							<span class="menu-icon">
-								<i class="ki-duotone ki-tag fs-2">
-                                    <i class="path1"></i>
-                                    <i class="path2"></i>
-                                    <i class="path3"></i>
-                                </i>
-							</span>
-							<span class="menu-title">Paket & Fitur Langganan</span>
-						</a>
-						<!--end:Menu link-->
-					</div>
-					<!--end:Dasbord-->
-                    
+                        <!--end:Menu title-->
+                        <!--begin:Dasbord-->
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
+                            <a class="menu-link {{ $title == 'Harga & Fitur' ? 'active' : '' }} " href="{{ route('paket') }}">
+                                <span class="menu-icon">
+                                    <i class="ki-duotone ki-tag fs-2">
+                                        <i class="path1"></i>
+                                        <i class="path2"></i>
+                                        <i class="path3"></i>
+                                    </i>
+                                </span>
+                                <span class="menu-title">Paket & Fitur Langganan</span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+					    <!--end:Dasbord-->
+                    @endif
                 </div>
                 <!--end::Menu-->
             </div>

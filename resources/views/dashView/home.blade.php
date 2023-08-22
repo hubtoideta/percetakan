@@ -138,7 +138,7 @@
                                     <!--end::Features-->
                                     <!--begin::Select-->
                                     <div class="d-flex">
-                                        <a href="#" class="btn btn-sm btn-primary">Beli</a>
+                                        <a href="{{ route('checkoutPremium') }}" class="btn btn-sm btn-primary">Beli</a>
                                         <a href="#" class="btn btn-sm btn-secondary">Trial 14 Hari</a>
                                     </div>
                                     <!--end::Select-->
@@ -198,7 +198,7 @@
                                     </div>
                                     <!--end::Features-->
                                     <!--begin::Select-->
-                                    <a href="#" class="btn btn-sm btn-primary">Beli</a>
+                                    {{-- <a href="{{ route('checkout') }}" class="btn btn-sm btn-primary">Beli</a> --}}
                                     <!--end::Select-->
                                 </div>
                                 <!--end::Option-->

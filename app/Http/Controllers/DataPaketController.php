@@ -51,15 +51,20 @@ class DataPaketController extends Controller
             $fotoProfil = 'none';
         }
 
-        /* Return view */
-        return view('dashView.paket_langganan', [
-            'userLogin' => $userData,
-            'fotoProfil' => $fotoProfil,
-            'listPaket' => $this->dbPaket()['listPaket'],
-            'diskonPaket' => $this->dbPaket()['diskonPaket'],
-            'fiturPaket' => $this->dbPaket()['fiturPaket'],
-            'title' => 'Paket & Fitur Langganan'
-        ]);
+        if($userData->category != "Developer"){
+            return redirect()->route('home');
+        }else{
+            /* Return view */
+            return view('dashView.paket_langganan', [
+                'userLogin' => $userData,
+                'fotoProfil' => $fotoProfil,
+                'listPaket' => $this->dbPaket()['listPaket'],
+                'diskonPaket' => $this->dbPaket()['diskonPaket'],
+                'fiturPaket' => $this->dbPaket()['fiturPaket'],
+                'title' => 'Paket & Fitur Langganan'
+            ]);
+        }
+
     }
 
 
