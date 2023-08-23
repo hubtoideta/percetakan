@@ -151,6 +151,10 @@
     @if ($title == "Paket & Fitur Langganan")
     <script src="assets/js/diskonPaket.js"></script>
     @endif
+    
+    @if ($title == "Pembayaran Paket Businss" || $title == "Pembayaran Paket Premium")
+    <script src="assets/js/totalBayar.js"></script>
+    @endif
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
 </body>

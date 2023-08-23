@@ -74,6 +74,7 @@ Route::group(['middleware' => 'auth'], function(){
     /* ============== SETTINGS PRICE PAKET DEVELOPER PANEL ============== */
 
     Route::get('/pembayaran-premium', [pembayaranController::class, 'premiumPaket'])->name('checkoutPremium');
+    Route::get('/pembayaran-business', [pembayaranController::class, 'businessPaket'])->name('checkoutBusiness');
 
     /* ============== DATA STORE OWNER PANEL ============== */
         /* Show page kelolah toko */

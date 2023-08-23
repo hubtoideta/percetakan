@@ -198,7 +198,7 @@
                                     </div>
                                     <!--end::Features-->
                                     <!--begin::Select-->
-                                    {{-- <a href="{{ route('checkout') }}" class="btn btn-sm btn-primary">Beli</a> --}}
+                                    <a href="{{ route('checkoutBusiness') }}" class="btn btn-sm btn-primary">Beli</a>
                                     <!--end::Select-->
                                 </div>
                                 <!--end::Option-->
