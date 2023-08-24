@@ -54,6 +54,8 @@ class HomeController extends Controller
             $informationStore = InformationStore::where("username_owner", $userData->username)->get();
             if($informationStore->count() == 0){
                 $alertData = true;
+            }else{
+                
             }
         }elseif($userData->category == "Freelance"){
             $alertData = true;

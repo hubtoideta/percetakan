@@ -39,7 +39,9 @@
 <div id="kt_app_content" class="app-content flex-column-fluid">
     <!--begin::Content container-->
     <div id="kt_app_content_container" class="app-container container-xxl">
-        <form action="post">
+        <form action="{{ route('checkoutPost') }}" method="post">
+            @csrf
+            <input type="hidden" name="paketLangganan" value="{{ $checkout['namaPaket'] }}">
             <input type="hidden" id="hargaNormal" name="hargaNormal" value="{{ $checkout['hargaNormal'] }}">
             <input type="hidden" id="diskonTigaBulan" name="diskonTigaBulan" value="{{ $checkout['diskonTigaBulan'] }}">
             <input type="hidden" id="diskonEnamBulan" name="diskonEnamBulan" value="{{ $checkout['diskonEnamBulan'] }}">
@@ -210,7 +212,7 @@
             </div>
             <div class="card">
                 <div class="card-body p-lg-10">
-                    <h3>2. Total Pembayaran {{ date_default_timezone_get() }}</h3>
+                    <h3>2. Total Pembayaran</h3>
                     <div class="row mt-3">
                         <div class="col-6 col-sm-6 fs-7 text-start">
                             Paket {{ $checkout['namaPaket'] }} <span id="totalBulan">1 Bulan</span>
@@ -235,7 +237,7 @@
                             Rp{{ number_format($checkout['hargaNormal']*0.11,0,",",".") }}
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row mb-3">
                         <div class="col-12 col-sm-12">
                             <hr>
                         </div>
@@ -246,6 +248,9 @@
                             {{-- <s class="flex-fill flex-sm-fill fs-7 opacity-50">Rp.1.760.000</s> &nbsp; --}}
                             <b class="flex-fill flex-sm-fill fs-7" id="total">Rp{{ number_format(($checkout['hargaNormal'])+($checkout['hargaNormal']*0.11),0,",",".") }}</b>
                         </div>
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-primary btn-sm">Checkout</button>
                     </div>
                 </div>
             </div>

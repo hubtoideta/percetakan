@@ -1,3 +1,9 @@
+var timezone_offset_minutes = new Date().getTimezoneOffset();
+timezone_offset_minutes = timezone_offset_minutes == 0 ? 0 : -timezone_offset_minutes;
+
+// Timezone difference in minutes such as 330 or -360 or 0
+console.log(timezone_offset_minutes); 
+
 function formatMataUang(angka) {
     // Menggunakan fungsi toLocaleString dengan opsi minimumFractionDigits untuk menghilangkan angka dibelakang koma
     return angka.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 });

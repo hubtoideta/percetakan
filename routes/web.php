@@ -75,6 +75,8 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/pembayaran-premium', [pembayaranController::class, 'premiumPaket'])->name('checkoutPremium');
     Route::get('/pembayaran-business', [pembayaranController::class, 'businessPaket'])->name('checkoutBusiness');
+    Route::post('/pembayaran', [pembayaranController::class, 'checkoutPost'])->name('checkoutPost');
+
 
     /* ============== DATA STORE OWNER PANEL ============== */
         /* Show page kelolah toko */

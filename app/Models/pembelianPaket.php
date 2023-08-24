@@ -12,4 +12,20 @@ class pembelianPaket extends Model
 
     protected $table = "pembelian_pakets";
     protected $primaryKey = "code_pembelian";
+    public $timestamps = false;
+
+    protected $fillable = [
+        'id_store',
+        'paket',
+        'jangka_waktu',
+        'harga_normal',
+        'diskon',
+        'ppn',
+        'total_pembayaran',
+        'status',
+        'order_at',
+        'confirm_at',
+        'start_paket_at',
+        'end_paket_at',
+    ];
 }

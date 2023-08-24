@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\DiskonPaket;
 use App\Models\ProfileUser;
 use Illuminate\Http\Request;
+use App\Models\pembelianPaket;
+use App\Models\InformationStore;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -149,51 +151,71 @@ class pembayaranController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
-     * Store a newly created resource in storage.
+     * post the checout
      */
-    public function store(Request $request)
-    {
-        //
+    public function checkoutPost(Request $request){
+        /* User Login */
+        $userData = Auth::user();
+        /* data toko user */
+        $InformationStore = InformationStore::select("id_store")
+                            ->where("username_owner", $userData->username)
+                            ->get();
+        /* get first data */
+        $InformationStore = $InformationStore[0];
+        /* get id store */
+        $id_store = $InformationStore->id_store; // db input
+        /* get pake name form */
+        $namaPaket = $request->paketLangganan; // db input
+
+        $diskonAndHargaPaket = DiskonPaket::leftJoin('data_pakets','diskon_pakets.nama_paket_diskon','=','data_pakets.nama_paket')
+                            ->select('diskon_pakets.*','data_pakets.harga_paket AS harga')
+                            ->where('data_pakets.nama_paket', $namaPaket)
+                            ->get();
+        $checkPaket = $diskonAndHargaPaket->count() > 0 ? false : true;
+        if($checkPaket){
+            return redirect()->route("home")->with("alert","gagal");
+        }
+        /* get first data */
+        $diskonAndHargaPaket = $diskonAndHargaPaket[0];
+        $hargaPerbulan = $diskonAndHargaPaket->harga; // db input
+        $totalHargaPembelian = $hargaPerbulan*$request->durasi_paket;
+        
+        $arrayDuration = array(
+                            "3" => "tiga_bulan",
+                            "6" => "enam_bulan",
+                            "12" => "dua_belas_bulan",
+                            "24" => "dua_puluh_empat_bulan",
+                        );
+        $diskon = 0; // db input
+        $potongan = 0;
+        foreach($arrayDuration as $key => $val){
+            if($key == $request->durasi_paket){
+                $diskon = $diskonAndHargaPaket[$val]; // db input
+                $potongan = $totalHargaPembelian*($diskon/100);
+                break;
+            }
+        }
+        $totalWithDiskon = $totalHargaPembelian-$potongan;
+        $ppn = $totalWithDiskon*0.11; // db input
+        $total = $totalWithDiskon+$ppn; // db input
+        $jangkaWaktu = $request->durasi_paket . " Bulan"; // db input 
+
+        /* UTC datetime now in milisecond */
+        $dateTimeNow = round(microtime(true) * 1000); // db input
+
+        $pembelianPaket = new pembelianPaket();
+        $pembelianPaket->id_store = $id_store;
+        $pembelianPaket->paket = $namaPaket;
+        $pembelianPaket->jangka_waktu = $jangkaWaktu;
+        $pembelianPaket->harga_normal = $hargaPerbulan;
+        $pembelianPaket->diskon = $diskon;
+        $pembelianPaket->ppn = $ppn;
+        $pembelianPaket->total_pembayaran = $total;
+        $pembelianPaket->order_at = $dateTimeNow;
+        $pembelianPaket->save();
+        return redirect()->route("home")->with("success","berhasil");
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
