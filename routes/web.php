@@ -69,14 +69,21 @@ Route::group(['middleware' => 'auth'], function(){
     /* ============== SETTINGS PRICE PAKET DEVELOPER PANEL ============== */
         /* Show page kelolah Paket */
         Route::get('/paket-langganan', [DataPaketController::class, 'index'])->name('paket');
+        /* EDIT HARGA PAKET */
         Route::post('/edit-harga-paket', [DataPaketController::class, 'updateHargaPaket'])->name('editPaket');
+        /* EDIT HARGA DISKON DURASI PAKET */
         Route::post('/edit-diskon-paket', [DataPaketController::class, 'updateDiskonPaket'])->name('editDiskon');
     /* ============== SETTINGS PRICE PAKET DEVELOPER PANEL ============== */
+        
+        
+        Route::get('/pembelian-paket', [DataPaketController::class, 'index'])->name('pembelianPaket');
 
-    Route::get('/pembayaran-premium', [pembayaranController::class, 'premiumPaket'])->name('checkoutPremium');
-    Route::get('/pembayaran-business', [pembayaranController::class, 'businessPaket'])->name('checkoutBusiness');
-    Route::post('/pembayaran', [pembayaranController::class, 'checkoutPost'])->name('checkoutPost');
-
+    /* ============== PEMBELIAN PAKET OWNER PANEL ============== */
+        Route::get('/pembayaran-premium', [pembayaranController::class, 'premiumPaket'])->name('checkoutPremium');
+        Route::get('/pembayaran-business', [pembayaranController::class, 'businessPaket'])->name('checkoutBusiness');
+        Route::post('/pembayaran', [pembayaranController::class, 'checkoutPost'])->name('checkoutPost');
+    /* ============== PEMBELIAN PAKET OWNER PANEL ============== */
+    
 
     /* ============== DATA STORE OWNER PANEL ============== */
         /* Show page kelolah toko */

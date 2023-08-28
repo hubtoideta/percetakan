@@ -52,6 +52,18 @@
 					</div>
 					<!--end:Dasbord-->
                     @if ($userLogin->category == "Developer")
+                        <!--begin:Paket & langganan-->
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
+                            <a class="menu-link {{ $title == 'Pembelian Paket' ? 'active' : '' }} " href="{{ route('pembelianPaket') }}">
+                                <span class="menu-icon">
+                                    <i class="ki-duotone ki-handcart fs-2"></i>
+                                </span>
+                                <span class="menu-title">Pembelian Paket</span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+                        <!--end:Paket & langganan-->
                         <!--begin:Menu title-->
                         <div class="menu-item pt-5">
                             <!--begin:Menu content-->
@@ -61,7 +73,7 @@
                             <!--end:Menu content-->
                         </div>
                         <!--end:Menu title-->
-                        <!--begin:Dasbord-->
+                        <!--begin:Paket & langganan-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
                             <a class="menu-link {{ $title == 'Harga & Fitur' ? 'active' : '' }} " href="{{ route('paket') }}">
@@ -76,7 +88,7 @@
                             </a>
                             <!--end:Menu link-->
                         </div>
-					    <!--end:Dasbord-->
+					    <!--end:Paket & langganan-->
                     @endif
                 </div>
                 <!--end::Menu-->

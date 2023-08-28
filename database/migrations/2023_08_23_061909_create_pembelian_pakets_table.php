@@ -19,7 +19,8 @@ return new class extends Migration
             $table->bigInteger("diskon");
             $table->bigInteger("ppn");
             $table->bigInteger("total_pembayaran");
-            $table->enum("status", ["Pending","Ditolak","Aktif","Tidak Aktif"])->default("Pending");
+            $table->enum("status_order", ["Pending","Ditolak","Diterima"])->default("Pending");
+            $table->enum("status_paket", ["Aktif","Tidak Aktif"])->default("Tidak Aktif");
             $table->bigInteger("order_at");
             $table->bigInteger("confirm_at")->default(0);
             $table->bigInteger("start_paket_at")->default(0);

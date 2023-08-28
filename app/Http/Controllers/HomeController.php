@@ -7,6 +7,7 @@ use App\Models\FiturPaket;
 use App\Models\DiskonPaket;
 use App\Models\ProfileUser;
 use Illuminate\Http\Request;
+use App\Models\pembelianPaket;
 use App\Models\InformationStore;
 use Illuminate\Support\Facades\Auth;
 
@@ -49,25 +50,31 @@ class HomeController extends Controller
         }
 
         /* Alert untuk Owner & Freelance */
+        $checkPembelianPaket = '';
         $alertData = false;
         if($userData->category == "Owner"){
             $informationStore = InformationStore::where("username_owner", $userData->username)->get();
             if($informationStore->count() == 0){
                 $alertData = true;
             }else{
-                
+                $id_store = $informationStore[0]->id_store;
+                $checkPembelianPaket = pembelianPaket::where("id_store", $id_store)
+                    ->orderByDesc("order_at")
+                    ->limit(1)
+                    ->get();
             }
         }elseif($userData->category == "Freelance"){
             $alertData = true;
         }
 
         /* Return view */
-        return view('dashView.Home', [
+        return view('dashView.home', [
             'userLogin' => $userData,
             'alertData' => $alertData,
             'fotoProfil' => $fotoProfil,
             'listPaket' => $this->dbPaket()['listPaket'],
             'fiturPaket' => $this->dbPaket()['fiturPaket'],
+            'checkPembelianPaket' => $checkPembelianPaket,
             'title' => 'Home'
         ]);
     }
