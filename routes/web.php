@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\InformationStoreController;
 use App\Http\Controllers\pembayaranController;
+use App\Http\Controllers\PembelianPaketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,7 +77,7 @@ Route::group(['middleware' => 'auth'], function(){
     /* ============== SETTINGS PRICE PAKET DEVELOPER PANEL ============== */
         
         
-        Route::get('/pembelian-paket', [DataPaketController::class, 'index'])->name('pembelianPaket');
+        Route::get('/pembelian-paket', [PembelianPaketController::class, 'index'])->name('pembelianPaket');
 
     /* ============== PEMBELIAN PAKET OWNER PANEL ============== */
         Route::get('/pembayaran-premium', [pembayaranController::class, 'premiumPaket'])->name('checkoutPremium');

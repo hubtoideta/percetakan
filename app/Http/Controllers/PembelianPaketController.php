@@ -10,10 +10,20 @@ use Illuminate\Support\Facades\Auth;
 
 class PembelianPaketController extends Controller
 {
+    public function dbPembelianPaket($page){
+        $data = pembelianPaket::leftJoin('information_stores','pembelian_pakets.id_store','=','information_stores.id_store')
+                            ->select('information_stores.id_store AS store_code','information_stores.store_name AS percetakan','pembelian_pakets.*')
+                            ->paginate(perPage: 10, page: $page);
+
+        $result['items'] = $data->items();
+        $result['url'] = $data->links('pagination::bootstrap-5');
+
+        return $result;
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index(){
+    public function index(Request $request){
         /* User Login */
         $userData = Auth::user(); 
         /* Data profil user Login */
@@ -29,10 +39,12 @@ class PembelianPaketController extends Controller
         }
 
         if($userData->category == "Developer"){
+            $page = $request->query("page") == "" ? 1 : $request->query("page");
             /* Return view */
             return view('dashView.pembelian_paket', [
                 'userLogin' => $userData,
                 'fotoProfil' => $fotoProfil,
+                'data' => $this->dbPembelianPaket($page),
                 'title' => 'Pembelian Paket'
             ]);
         }else{

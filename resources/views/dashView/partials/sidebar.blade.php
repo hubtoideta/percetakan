@@ -76,7 +76,7 @@
                         <!--begin:Paket & langganan-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link {{ $title == 'Harga & Fitur' ? 'active' : '' }} " href="{{ route('paket') }}">
+                            <a class="menu-link {{ $title == 'Paket & Fitur Langganan' ? 'active' : '' }} " href="{{ route('paket') }}">
                                 <span class="menu-icon">
                                     <i class="ki-duotone ki-tag fs-2">
                                         <i class="path1"></i>
