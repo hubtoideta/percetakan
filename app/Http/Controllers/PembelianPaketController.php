@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
+use function PHPUnit\Framework\isNull;
+
 class PembelianPaketController extends Controller
 {
     public function dbPembelianPaket($page){
@@ -39,14 +41,63 @@ class PembelianPaketController extends Controller
         }
 
         if($userData->category == "Developer"){
-            $page = $request->query("page") == "" ? 1 : $request->query("page");
-            /* Return view */
-            return view('dashView.pembelian_paket', [
-                'userLogin' => $userData,
-                'fotoProfil' => $fotoProfil,
-                'data' => $this->dbPembelianPaket($page),
-                'title' => 'Pembelian Paket'
-            ]);
+            /* aksi */
+            if($request->query("id") != "" && $request->query("confirm") != ""){
+                $idOrder = $request->query("id");
+                $aksi = $request->query("confirm");
+                $checkData = pembelianPaket::select('jangka_waktu AS durasi','status_order AS status')
+                                            ->find($idOrder);
+                                            
+                if($checkData){
+                    /* konfirmasi pembelian */
+                    if($checkData['status'] == "Pending"){
+                        $current_time_now = round(microtime(true) * 1000);
+                        if($aksi == "terima"){
+                            $duration = explode(" ",$checkData['durasi'])[0];
+                            $duration_in_militime = $duration * 30 * 24 * 60 * 60 * 1000;
+                            $current_time_expired = $current_time_now + $duration_in_militime;
+                            pembelianPaket::find($idOrder)->update([
+                                "status_order" => "Diterima",
+                                "status_paket" => "Aktif",
+                                "confirm_at" => $current_time_now,
+                                "start_paket_at" => $current_time_now,
+                                "end_paket_at" => $current_time_expired,
+                            ]);
+                            /* Return view */
+                            return redirect()->route("pembelianPaket");
+                        }elseif($aksi == "tolak"){
+                            pembelianPaket::find($idOrder)->update([
+                                "status_order" => "Ditolak",
+                                "confirm_at" => $current_time_now,
+                            ]);
+                            /* Return view */
+                            return redirect()->route("pembelianPaket");
+
+                        }else{
+                            /* Return view */
+                            return redirect()->route("pembelianPaket");
+                        }
+                    }else{
+                        /* Return view */
+                        return redirect()->route("pembelianPaket");
+                    }
+                }else{
+                    /* Return view */
+                    return redirect()->route("pembelianPaket");
+                }
+                /* konfirm tolak/terima */
+                // if($aksi == "terima" || $aksi == "tolak"){
+                // }
+            }else{
+                $page = $request->query("page") == "" ? 1 : $request->query("page");
+                /* Return view */
+                return view('dashView.pembelian_paket', [
+                    'userLogin' => $userData,
+                    'fotoProfil' => $fotoProfil,
+                    'data' => $this->dbPembelianPaket($page),
+                    'title' => 'Pembelian Paket'
+                ]);
+            }
         }else{
             return redirect()->route('home');
         }
