@@ -41,6 +41,15 @@
     <div id="kt_app_content_container" class="app-container container-xxl">
         <div class="card">
             <div class="card-body p-9">
+                <div class="row">
+                    <form method="POST" action="{{ route('cari') }}" class="col-sm-3 ms-auto">
+                        @csrf
+                        <div class="input-group input-group-sm mb-5">
+                            <input type="text" name="codeOrder" class="form-control" placeholder="Masukkan kode pemesanan" required aria-label="Masukkan kode pemesanan" aria-describedby="button-addon2">
+                            <button class="btn btn-primary mx-auto" type="submit" id="button-addon2"><i class="ki-outline ki-magnifier"></i></button>
+                        </div>
+                    </form>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover">
                         <thead style="vertical-align: middle;">
@@ -55,35 +64,41 @@
                             </tr>
                         </thead>
                         <tbody style="vertical-align: middle;">
-                            @foreach ($data['items'] as $item)
+                            @if (count($data['items']) > 0)
+                                @foreach ($data['items'] as $item)
+                                    <tr>
+                                        <td>{{ date('Y-m-d H:i:s',$item['order_at']/1000) }} WIB</td>
+                                        <td>{{ $item['percetakan'] }}</td>
+                                        <td>{{ $item['paket'] }}</td>
+                                        <td>{{ $item['jangka_waktu'] }}</td>
+                                        <td>
+                                            <span class="badge badge-{{ $item['status_order'] == 'Pending' ? 'warning text-dark' : ($item['status_order'] == 'Diterima' ? 'success' : 'danger') }}">
+                                                {{ $item['status_order'] }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            {{ $item['confirm_at'] == 0 ? '-,-' : date('Y-m-d H:i:s',$item['confirm_at']/1000) . ' WIB' }}
+                                        </td>
+                                        <td>
+                                            @if ($item['status_order'] == "Pending")
+                                                <a href="pembelian-paket?id={{ $item['code_pembelian'] }}&confirm=terima" class="p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="terima">
+                                                    <i class="ki-outline ki-check text-success fs-2"></i>
+                                                </a>
+                                                <a href="pembelian-paket?id={{ $item['code_pembelian'] }}&confirm=tolak" class="p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="tolak">
+                                                    <i class="ki-outline ki-cross text-danger fs-2"></i>
+                                                </a>
+                                            @endif
+                                            <a href="#detail{{ $item['code_pembelian'] }}" class="p-1" data-bs-toggle="modal" data-bs-placement="top" title="detail">
+                                                <i class="ki-outline ki-dots-vertical text-dark fs-2"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
                                 <tr>
-                                    <td>{{ date('Y-m-d H:i:s',$item['order_at']/1000) }} WIB</td>
-                                    <td>{{ $item['percetakan'] }}</td>
-                                    <td>{{ $item['paket'] }}</td>
-                                    <td>{{ $item['jangka_waktu'] }}</td>
-                                    <td>
-                                        <span class="badge badge-{{ $item['status_order'] == 'Pending' ? 'warning text-dark' : ($item['status_order'] == 'Diterima' ? 'success' : 'danger') }}">
-                                            {{ $item['status_order'] }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        {{ $item['confirm_at'] == 0 ? '-,-' : date('Y-m-d H:i:s',$item['confirm_at']/1000) . ' WIB' }}
-                                    </td>
-                                    <td>
-                                        @if ($item['status_order'] == "Pending")
-                                            <a href="pembelian-paket?id={{ $item['code_pembelian'] }}&confirm=terima" class="p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="terima">
-                                                <i class="ki-outline ki-check text-success fs-2"></i>
-                                            </a>
-                                            <a href="pembelian-paket?id={{ $item['code_pembelian'] }}&confirm=tolak" class="p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="tolak">
-                                                <i class="ki-outline ki-cross text-danger fs-2"></i>
-                                            </a>
-                                        @endif
-                                        <a href="#detail{{ $item['code_pembelian'] }}" class="p-1" data-bs-toggle="modal" data-bs-placement="top" title="detail">
-                                            <i class="ki-outline ki-dots-vertical text-dark fs-2"></i>
-                                        </a>
-                                    </td>
+                                    <td colspan="7" class="text-center">Data kosong.</td>
                                 </tr>
-                            @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>

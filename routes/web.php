@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataPaketController;
+use App\Http\Controllers\dataStoreController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\InformationStoreController;
@@ -78,6 +79,9 @@ Route::group(['middleware' => 'auth'], function(){
         
         
         Route::get('/pembelian-paket', [PembelianPaketController::class, 'index'])->name('pembelianPaket');
+        Route::post('/pembelian-paket', [PembelianPaketController::class, 'findData'])->name('cari');
+
+        Route::get('/data-toko', [dataStoreController::class, 'index'])->name('dataToko');
 
     /* ============== PEMBELIAN PAKET OWNER PANEL ============== */
         Route::get('/pembayaran-premium', [pembayaranController::class, 'premiumPaket'])->name('checkoutPremium');

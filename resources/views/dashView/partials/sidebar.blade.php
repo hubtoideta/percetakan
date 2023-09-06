@@ -52,6 +52,83 @@
 					</div>
 					<!--end:Dasbord-->
                     @if ($userLogin->category == "Developer")
+
+                        <!--begin:Paket & langganan-->
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
+                            <a class="menu-link {{ $title == 'Data Toko' ? 'active' : '' }} " href="{{ route('dataToko') }}">
+                                <span class="menu-icon">
+                                    <i class="ki-outline ki-shop fs-2"></i>
+                                </span>
+                                <span class="menu-title">Data Toko</span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+                        <!--end:Paket & langganan-->
+
+                        <!--begin:Pengguna-->
+                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                            <!--begin:Menu link-->
+                            <span class="menu-link">
+                                <span class="menu-icon">
+                                    <i class="ki-outline ki-people fs-2"></i>
+                                </span>
+                                <span class="menu-title">Pengguna</span>
+                                <span class="menu-arrow"></span>
+                            </span>
+                            <!--end:Menu link-->
+                            <!--begin:Menu sub-->
+                            <div class="menu-sub menu-sub-accordion">
+                                <!--begin:Menu item-->
+                                <div class="menu-item">
+                                    <!--begin:Menu link-->
+                                    <a class="menu-link" href="#">
+                                        <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                        <span class="menu-title">Owner</span>
+                                    </a>
+                                    <!--end:Menu link-->
+                                </div>
+                                <!--end:Menu item-->
+                                <!--begin:Menu item-->
+                                <div class="menu-item">
+                                    <!--begin:Menu link-->
+                                    <a class="menu-link" href="#">
+                                        <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                        <span class="menu-title">Karyawan</span>
+                                    </a>
+                                    <!--end:Menu link-->
+                                </div>
+                                <!--end:Menu item-->
+                                <!--begin:Menu item-->
+                                <div class="menu-item">
+                                    <!--begin:Menu link-->
+                                    <a class="menu-link" href="#">
+                                        <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                        <span class="menu-title">Freelancer</span>
+                                    </a>
+                                    <!--end:Menu link-->
+                                </div>
+                                <!--end:Menu item-->
+                            </div>
+                        </div>
+                        <!--end:Pengguna-->
+
+                        <!--begin:Menu title-->
+                        <div class="menu-item pt-5">
+                            <!--begin:Menu content-->
+                            <div class="menu-content">
+                                <span class="menu-heading fw-bold text-uppercase fs-7">Permintaan</span>
+                            </div>
+                            <!--end:Menu content-->
+                        </div>
+                        <!--end:Menu title-->
+                        
                         <!--begin:Paket & langganan-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
@@ -64,6 +141,20 @@
                             <!--end:Menu link-->
                         </div>
                         <!--end:Paket & langganan-->
+                        
+                        <!--begin:Join Freelance-->
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
+                            <a class="menu-link" href="#">
+                                <span class="menu-icon">
+                                    <i class="ki-outline  ki-abstract-45 fs-2"></i>
+                                </span>
+                                <span class="menu-title">Join Freelance</span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+                        <!--end:Join Freelance-->
+
                         <!--begin:Menu title-->
                         <div class="menu-item pt-5">
                             <!--begin:Menu content-->
@@ -73,6 +164,7 @@
                             <!--end:Menu content-->
                         </div>
                         <!--end:Menu title-->
+                        
                         <!--begin:Paket & langganan-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
@@ -89,6 +181,7 @@
                             <!--end:Menu link-->
                         </div>
 					    <!--end:Paket & langganan-->
+
                     @endif
                 </div>
                 <!--end::Menu-->
