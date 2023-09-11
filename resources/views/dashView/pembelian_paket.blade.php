@@ -102,7 +102,7 @@
                         </tbody>
                     </table>
                 </div>
-                <span>{{ $data['url'] }}</span>
+                <span>{!! $data['url'] !!}</span>
             </div>
         </div>
     </div>

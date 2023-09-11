@@ -42,13 +42,13 @@
         <div class="card">
             <div class="card-body p-9">
                 <div class="row">
-                    {{-- <form method="POST" action="{{ route('cari') }}" class="col-sm-3 ms-auto">
+                    <form method="POST" action="{{ route('cari') }}" class="col-sm-3 ms-auto">
                         @csrf
                         <div class="input-group input-group-sm mb-5">
-                            <input type="text" name="codeOrder" class="form-control" placeholder="Masukkan kode pemesanan" required aria-label="Masukkan kode pemesanan" aria-describedby="button-addon2">
+                            <input type="text" name="name" value="{{ $name }}" class="form-control" placeholder="Masukkan nama toko atau owner" aria-label="Masukkan nama toko atau owner" aria-describedby="button-addon2">
                             <button class="btn btn-primary mx-auto" type="submit" id="button-addon2"><i class="ki-outline ki-magnifier"></i></button>
                         </div>
-                    </form> --}}
+                    </form>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover">
@@ -67,47 +67,55 @@
                             </tr>
                         </thead>
                         <tbody style="vertical-align: middle;">
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="symbol symbol-50px me-3">
-                                            <img src="assets/media/stock/600x600/img-49.jpg" alt="">
-                                        </div>
-                                        <div class="d-flex justify-content-start flex-column">
-                                            <span class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">Beedecal</span>
-                                            <span class="text-gray-600 fw-semibold d-block fs-7">beedecal@gmail.com</span>
-                                            <span class="text-gray-600 fw-semibold d-block fs-7">+628xxxxxxxx</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    <span class="text-gray-800 fw-bold  fs-6">Riswan</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex flex-column">
-                                        <span class="text-gray-600 fw-semibold d-block fs-7">Premium</span>
-                                        <span class="text-gray-600 fw-semibold d-block fs-7">3 bulan</span>
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    <span class="badge badge-success">Aktif</span>
-                                </td>
-                                <td>
-                                    2023-08-07 14:34:45 WIB
-                                </td>
-                                <td>
-                                    2023-11-07 14:34:45 WIB
-                                </td>
-                                <td class="text-end">
-                                    <a href="" class="p-1" data-bs-placement="top" title="detail">
-                                        <i class="ki-outline ki-dots-vertical text-dark fs-2"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                            @if (count($data['items']) > 0)
+                                @foreach ($data['items'] as $item)
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="symbol symbol-50px me-3">
+                                                    <img src="assets/media/logo/{{ $item['logo'] }}" alt="">
+                                                </div>
+                                                <div class="d-flex justify-content-start flex-column">
+                                                    <span class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">{{ $item['nama_toko'] }}</span>
+                                                    <span class="text-gray-600 fw-semibold d-block fs-7">{{ $item['email'] }}</span>
+                                                    <span class="text-gray-600 fw-semibold d-block fs-7">+62{{ $item['contact'] }}</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="text-gray-800 fw-bold  fs-6">{{ $item['owner'] }}</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="d-flex flex-column">
+                                                <span class="text-gray-600 fw-semibold d-block fs-7">{{ $item['paket'] }}</span>
+                                                <span class="text-gray-600 fw-semibold d-block fs-7">{{ $item['durasi'] }}</span>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="badge badge-{{ $item['status'] == 'Aktif' ? 'success' : 'danger'  }}">{{ $item['status'] }}</span>
+                                        </td>
+                                        <td>
+                                            {{ $item['dari'] == 0 ? '-,-' : date('Y-m-d H:i:s',$item['dari']/1000) . ' WIB' }}
+                                        </td>
+                                        <td>
+                                            {{ $item['sampai'] == 0 ? '-,-' : date('Y-m-d H:i:s',$item['sampai']/1000) . ' WIB' }}
+                                        </td>
+                                        <td class="text-end">
+                                            <a href="" class="p-1" data-bs-placement="top" title="detail">
+                                                <i class="ki-outline ki-dots-vertical text-dark fs-2"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="7" class="text-center">Data kosong.</td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>
-                {{-- <span>{{ $data['url'] }}</span> --}}
+                {!! $data['url'] !!}
             </div>
         </div>
     </div>

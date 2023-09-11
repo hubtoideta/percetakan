@@ -82,6 +82,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('/pembelian-paket', [PembelianPaketController::class, 'findData'])->name('cari');
 
         Route::get('/data-toko', [dataStoreController::class, 'index'])->name('dataToko');
+        Route::post('/data-toko', [dataStoreController::class, 'findData'])->name('cari');
 
     /* ============== PEMBELIAN PAKET OWNER PANEL ============== */
         Route::get('/pembayaran-premium', [pembayaranController::class, 'premiumPaket'])->name('checkoutPremium');

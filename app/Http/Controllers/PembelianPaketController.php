@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\pageLink;
 use App\Models\ProfileUser;
-use App\Models\pembelianPaket;
 use Illuminate\Http\Request;
+use App\Models\pembelianPaket;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Auth;
 use function PHPUnit\Framework\isNull;
 
 class PembelianPaketController extends Controller
@@ -19,7 +20,8 @@ class PembelianPaketController extends Controller
                                 ->orderByDesc('order_at')
                                 ->paginate(perPage: 10, page: $page);
             $result['items'] = $data->items();
-            $result['url'] = $data->links('pagination::bootstrap-5');
+            $pageLink = new pageLink();
+            $result['url'] = $pageLink->generate($data, $page);
         }else{
             $data = pembelianPaket::leftJoin('information_stores','pembelian_pakets.id_store','=','information_stores.id_store')
                                 ->select('information_stores.id_store AS store_code','information_stores.store_name AS percetakan','pembelian_pakets.*')
@@ -130,7 +132,7 @@ class PembelianPaketController extends Controller
             $fotoProfil = 'none';
         }
         if($userData->category == "Developer"){
-            $page = $request->query("page") == "" ? 1 : $request->query("page");
+            $page = 1;
             /* Return view */
             return view('dashView.pembelian_paket', [
                 'userLogin' => $userData,
