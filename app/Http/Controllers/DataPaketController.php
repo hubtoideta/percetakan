@@ -50,23 +50,16 @@ class DataPaketController extends Controller
         }else{
             $fotoProfil = 'none';
         }
-
-        if($userData->category != "Developer"){
-            return redirect()->route('home');
-        }else{
-            /* Return view */
-            return view('dashView.paket_langganan', [
-                'userLogin' => $userData,
-                'fotoProfil' => $fotoProfil,
-                'listPaket' => $this->dbPaket()['listPaket'],
-                'diskonPaket' => $this->dbPaket()['diskonPaket'],
-                'fiturPaket' => $this->dbPaket()['fiturPaket'],
-                'title' => 'Paket & Fitur Langganan'
-            ]);
-        }
-
+        /* Return view */
+        return view('dashView.paket_langganan', [
+            'userLogin' => $userData,
+            'fotoProfil' => $fotoProfil,
+            'listPaket' => $this->dbPaket()['listPaket'],
+            'diskonPaket' => $this->dbPaket()['diskonPaket'],
+            'fiturPaket' => $this->dbPaket()['fiturPaket'],
+            'title' => 'Paket & Fitur Langganan'
+        ]);
     }
-
 
     /**
      * Update the specified resource in storage.

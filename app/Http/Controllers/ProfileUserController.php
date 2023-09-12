@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InformationStore;
+use App\Models\pembelianPaket;
 use App\Models\ProfileUser;
 use App\Models\User;
 use Illuminate\Auth\Events\Validated;
@@ -32,11 +34,29 @@ class ProfileUserController extends Controller
             $fotoProfil = 'none';
         }
 
+        $checkPembelianPaket = [];
+        if($userData->category == "Owner"){
+            $informationStore = InformationStore::where("username_owner", $userData->username)->get();
+            if($informationStore->count() == 0){
+                $checkPembelianPaket[] = array('status_paket' => 'Tidak Aktif');
+            }else{
+                $id_store = $informationStore[0]->id_store;
+                $checkPembelianPaket = pembelianPaket::where("id_store", $id_store)
+                    ->orderByDesc("order_at")
+                    ->limit(1)
+                    ->get();
+                if($checkPembelianPaket->count() == 0){
+                    $checkPembelianPaket[] = array('status_paket' => 'Tidak Aktif');
+                }
+            }
+        }
+
         return view('dashView.profile', [
             'profileUser' => $profileUser,
             'fotoProfil' => $fotoProfil,
             'totalData' => $totalData,
             'userLogin' => $userData,
+            'checkPembelianPaket' => $checkPembelianPaket,
             'title' => 'Profil'
         ]);
     }

@@ -14,6 +14,61 @@ use function PHPUnit\Framework\isNull;
 
 class dataStoreController extends Controller{
 
+    public function index(Request $request){
+        /* User Login */
+        $userData = Auth::user(); 
+        /* Data profil user Login */
+        $profileUser = ProfileUser::select('photo_profile')->find($userData->username);
+        /* Count data user */
+        $totalData = $profileUser ? $profileUser->count() : 0;
+        
+        /* Photo profile account */
+        if($totalData > 0){
+            $fotoProfil = $profileUser->photo_profile;
+        }else{
+            $fotoProfil = 'none';
+        }
+
+        /* Return view */
+        $page = $request->query("page") == "" ? 1 : $request->query("page");
+        $nameStore = $request->query("toko");
+        return view('dashView.data_toko', [
+            'userLogin' => $userData,
+            'fotoProfil' => $fotoProfil,
+            'data' => $this->dbData($page, $nameStore),
+            'name' => $nameStore,
+            'title' => 'Data Toko'
+        ]);
+    }
+
+    public function findData(Request $request){
+        /* User Login */
+        $userData = Auth::user(); 
+        /* Data profil user Login */
+        $profileUser = ProfileUser::select('photo_profile')->find($userData->username);
+        /* Count data user */
+        $totalData = $profileUser ? $profileUser->count() : 0;
+        
+        /* Photo profile account */
+        if($totalData > 0){
+            $fotoProfil = $profileUser->photo_profile;
+        }else{
+            $fotoProfil = 'none';
+        }
+
+        /* Return view */
+        $page = $request->query("page") == "" ? 1 : $request->query("page");
+        $nameStore = $request->name;
+        return view('dashView.data_toko', [
+            'userLogin' => $userData,
+            'fotoProfil' => $fotoProfil,
+            'data' => $this->dbData($page, $nameStore),
+            'name' => $nameStore,
+            'title' => 'Data Toko'
+        ]);
+    }
+
+
     public function dbData($page, $namaToko = ""){
         if($namaToko == ""){
             $data = InformationStore::leftJoin('pembelian_pakets AS pp', function($join){
@@ -61,67 +116,5 @@ class dataStoreController extends Controller{
         $result['items'] = $data->items();
 
         return $result;
-    }
-
-    public function index(Request $request){
-        /* User Login */
-        $userData = Auth::user(); 
-        /* Data profil user Login */
-        $profileUser = ProfileUser::select('photo_profile')->find($userData->username);
-        /* Count data user */
-        $totalData = $profileUser ? $profileUser->count() : 0;
-        
-        /* Photo profile account */
-        if($totalData > 0){
-            $fotoProfil = $profileUser->photo_profile;
-        }else{
-            $fotoProfil = 'none';
-        }
-
-        if($userData->category == "Developer"){
-            /* Return view */
-            $page = $request->query("page") == "" ? 1 : $request->query("page");
-            $nameStore = $request->query("toko");
-            return view('dashView.data_toko', [
-                'userLogin' => $userData,
-                'fotoProfil' => $fotoProfil,
-                'data' => $this->dbData($page, $nameStore),
-                'name' => $nameStore,
-                'title' => 'Data Toko'
-            ]);
-        }else{
-            return redirect()->route('home');
-        }
-    }
-
-    public function findData(Request $request){
-        /* User Login */
-        $userData = Auth::user(); 
-        /* Data profil user Login */
-        $profileUser = ProfileUser::select('photo_profile')->find($userData->username);
-        /* Count data user */
-        $totalData = $profileUser ? $profileUser->count() : 0;
-        
-        /* Photo profile account */
-        if($totalData > 0){
-            $fotoProfil = $profileUser->photo_profile;
-        }else{
-            $fotoProfil = 'none';
-        }
-
-        if($userData->category == "Developer"){
-            /* Return view */
-            $page = $request->query("page") == "" ? 1 : $request->query("page");
-            $nameStore = $request->name;
-            return view('dashView.data_toko', [
-                'userLogin' => $userData,
-                'fotoProfil' => $fotoProfil,
-                'data' => $this->dbData($page, $nameStore),
-                'name' => $nameStore,
-                'title' => 'Data Toko'
-            ]);
-        }else{
-            return redirect()->route('home');
-        }
     }
 }

@@ -50,11 +50,12 @@ class HomeController extends Controller
         }
 
         /* Alert untuk Owner & Freelance */
-        $checkPembelianPaket = '';
+        $checkPembelianPaket = [];
         $alertData = false;
         if($userData->category == "Owner"){
             $informationStore = InformationStore::where("username_owner", $userData->username)->get();
             if($informationStore->count() == 0){
+                $checkPembelianPaket[] = array('status_paket' => 'Tidak Aktif');
                 $alertData = true;
             }else{
                 $id_store = $informationStore[0]->id_store;
@@ -62,6 +63,9 @@ class HomeController extends Controller
                     ->orderByDesc("order_at")
                     ->limit(1)
                     ->get();
+                if($checkPembelianPaket->count() == 0){
+                    $checkPembelianPaket[] = array('status_paket' => 'Tidak Aktif','status_order' => 'Ditolak');
+                }
             }
         }elseif($userData->category == "Freelance"){
             $alertData = true;

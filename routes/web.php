@@ -22,27 +22,27 @@ use App\Models\InformationStore;
 |*/
 
 /* Route user non login */
-Route::group(['middleware' => 'guest'], function(){
+Route::middleware(['guest'])->group(function (){
     Route::controller(AuthController::class)->group(function () {
         /* ============== BEGIN LOGIN ============== */
             /* Show page login */
             Route::get('/','loginViewPage')->name('login');
             /* Login proses */
-            Route::post('/','loginPost')->name('login');
+            Route::post('/','loginPost')->name('loginAction');
         /* ============== END LOGIN ============== */
 
         /* ============== BEGIN REGIS ============== */
             /* Show page registrasi */
             Route::get('/registrasi','registrasiViewPage')->name('registrasi');
             /* Registrasi Proses */
-            Route::post('/registrasi','registrasiPost')->name('registrasi');
+            Route::post('/registrasi','registrasiPost')->name('registrasiAction');
         /* ============== END REGIS ============== */
 
         /* ============== BEGIN RESET PASSWORD ============== */
             /* Show page lupa password */
             Route::get('/lupa-password','lupaPasswordViewPage')->name('lupa_password');
             /* Lupa password & send token to email proses */
-            Route::post('/lupa-password','lupaPasswordPost')->name('lupa_password');
+            Route::post('/lupa-password','lupaPasswordPost')->name('lupa_password_action');
             /* Show page ubah passwrod with token url */
             Route::get('/reset-password/{token}','passwordResetViewPage')->name('password.reset');
             /* Ubah Password Proses */
@@ -52,7 +52,7 @@ Route::group(['middleware' => 'guest'], function(){
 });
 
 /* Route user Login */
-Route::group(['middleware' => 'auth'], function(){
+Route::middleware(['auth'])->group(function (){
     
     /* ----------- ALL USER PANEL ----------- */
         /* Show page home */
@@ -79,37 +79,39 @@ Route::group(['middleware' => 'auth'], function(){
 
 
     /* ----------- USER DEVELOPER PANEL ----------- */
+        Route::middleware(['checkRole:Developer'])->group(function () {
+            /* ============== BEGIN SETTINGS PRICE PAKET USER DEVELOPER PANEL ============== */
+                Route::controller(DataPaketController::class)->group(function () {
+                    /* Show page kelolah Paket */
+                    Route::get('/paket-langganan','index')->name('paket');
+                    /* EDIT HARGA PAKET */
+                    Route::post('/edit-harga-paket','updateHargaPaket')->name('editPaket');
+                    /* EDIT HARGA DISKON DURASI PAKET */
+                    Route::post('/edit-diskon-paket','updateDiskonPaket')->name('editDiskon');
+                });
+            /* ============== END SETTINGS PRICE PAKET USER DEVELOPER PANEL ============== */
+    
+            /* ============== BEGIN DATA PEMBELIAN PAKET USER DEVELOPER PANEL ============== */
+                Route::controller(PembelianPaketController::class)->group(function () {
+                    Route::get('/pembelian-paket','index')->name('pembelianPaket');
+                    Route::post('/pembelian-paket','findData')->name('cari');
+                });
+            /* ============== END DATA PEMBELIAN PAKET USER DEVELOPER PANEL ============== */
+    
+            /* ============== BEGIN DATA TOKO USER DEVELOPER PANEL ============== */
+                Route::controller(dataStoreController::class)->group(function () {
+                    Route::get('/data-toko','index')->name('dataToko');
+                    Route::post('/data-toko','findData')->name('cari');
+                });
+            /* ============== END DATA TOKO USER DEVELOPER PANEL ============== */
 
-        /* ============== BEGIN SETTINGS PRICE PAKET USER DEVELOPER PANEL ============== */
-            Route::controller(DataPaketController::class)->group(function () {
-                /* Show page kelolah Paket */
-                Route::get('/paket-langganan','index')->name('paket');
-                /* EDIT HARGA PAKET */
-                Route::post('/edit-harga-paket','updateHargaPaket')->name('editPaket');
-                /* EDIT HARGA DISKON DURASI PAKET */
-                Route::post('/edit-diskon-paket','updateDiskonPaket')->name('editDiskon');
-            });
-        /* ============== END SETTINGS PRICE PAKET USER DEVELOPER PANEL ============== */
 
-        /* ============== BEGIN DATA PEMBELIAN PAKET USER DEVELOPER PANEL ============== */
-            Route::controller(PembelianPaketController::class)->group(function () {
-                Route::get('/pembelian-paket','index')->name('pembelianPaket');
-                Route::post('/pembelian-paket','findData')->name('cari');
-            });
-        /* ============== END DATA PEMBELIAN PAKET USER DEVELOPER PANEL ============== */
-
-        /* ============== BEGIN DATA TOKO USER DEVELOPER PANEL ============== */
-            Route::controller(dataStoreController::class)->group(function () {
-                Route::get('/data-toko','index')->name('dataToko');
-                Route::post('/data-toko','findData')->name('cari');
-            });
-        /* ============== END DATA TOKO USER DEVELOPER PANEL ============== */
-
+        });
     /* ----------- USER DEVELOPER PANEL ----------- */
 
 
     /* ----------- USER OWNER PANEL ----------- */
-
+    Route::middleware(['checkRole:Owner'])->group(function () {
         /* ============== BEGIN PEMBELIAN PAKET OWNER PANEL ============== */
             Route::controller(pembayaranController::class)->group(function () {
                 Route::get('/pembayaran-premium','premiumPaket')->name('checkoutPremium');
@@ -128,6 +130,7 @@ Route::group(['middleware' => 'auth'], function(){
                 Route::post('/edit-toko','update')->name('edit-toko');
             });
         /* ============== END DATA STORE OWNER PANEL ============== */
+    });
 
     /* ----------- USER OWNER PANEL ----------- */
 

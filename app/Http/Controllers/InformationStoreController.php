@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ProfileUser;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\pembelianPaket;
 use Illuminate\Validation\Rule;
 use App\Models\InformationStore;
 use App\Http\Controllers\Controller;
@@ -30,26 +31,34 @@ class InformationStoreController extends Controller
         }
 
         $logo = "none";
+        $checkPembelianPaket = [];
         if($userData->category == "Owner"){
             $informationStore = InformationStore::where("username_owner", $userData->username)->get();
             if($informationStore->count() > 0){
                 $informationStore = $informationStore[0];
                 $logo = $informationStore->logo;
+                $id_store = $informationStore->id_store;
+                $checkPembelianPaket = pembelianPaket::where("id_store", $id_store)
+                    ->orderByDesc("order_at")
+                    ->limit(1)
+                    ->get();
+                if($checkPembelianPaket->count() == 0){
+                    $checkPembelianPaket[] = array('status_paket' => 'Tidak Aktif');
+                }
+            }else{
+                $checkPembelianPaket[] = array('status_paket' => 'Tidak Aktif');
             }
         }
-        if($userData->category == "Owner"){
-            return view('dashView.kelolah_toko', [
-                'fotoProfil' => $fotoProfil,
-                'totalData' => $totalData,
-                'infoDataCount' => $informationStore->count(),
-                'infoData' => $informationStore,
-                'logo' => $logo,
-                'userLogin' => $userData,
-                'title' => 'Kelolah Toko'
-            ]);
-        }else{
-            return redirect()->route('home');
-        }
+        return view('dashView.kelolah_toko', [
+            'fotoProfil' => $fotoProfil,
+            'totalData' => $totalData,
+            'infoDataCount' => $informationStore->count(),
+            'infoData' => $informationStore,
+            'logo' => $logo,
+            'checkPembelianPaket' => $checkPembelianPaket,
+            'userLogin' => $userData,
+            'title' => 'Kelolah Toko'
+        ]);
     }
 
     /**
@@ -90,7 +99,7 @@ class InformationStoreController extends Controller
         $file_name = 'none';
         /* jika file pp di upload */
         if ($request->hasFile('logoInput')) {
-            $file_name = time() . '_' . $request->store_name . '.' . $request->logoInput->extension();
+            $file_name = time() . '_' . str_replace(" ","_",$request->store_name) . '.' . $request->logoInput->extension();
             $request->logoInput->move(public_path('assets/media/logo'), $file_name);
 
         }
@@ -157,7 +166,7 @@ class InformationStoreController extends Controller
         $file_name = 'none';
         /* jika file pp di upload */
         if ($request->hasFile('logoInput')) {
-            $file_name = time() . '_' . $request->store_name . '.' . $request->logoInput->extension();
+            $file_name = time() . '_' . str_replace(" ","_",$request->store_name) . '.' . $request->logoInput->extension();
             $request->logoInput->move(public_path('assets/media/logo'), $file_name);
             /* delete file old pp */
             if($oldLogoFile != 'none'){

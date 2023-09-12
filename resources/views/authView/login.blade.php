@@ -1,7 +1,7 @@
 @extends('authView.main')
 
 @section('formAuth')
-    <form class="form w-100" action="{{ route('login') }}" method="POST">
+    <form class="form w-100" action="{{ route('loginAction') }}" method="POST">
         @csrf
         <!--begin::Heading-->
         <div class="text-center mb-11">

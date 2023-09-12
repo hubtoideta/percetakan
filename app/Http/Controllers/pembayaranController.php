@@ -74,11 +74,27 @@ class pembayaranController extends Controller
         $checkout['paketDuaPuluhEmpatBulan'] = $harga_dua_puluh_empat_bulan_diskon/24;
         $checkout['potonganPaketDuaPuluhEmpatBulan'] = $potongan_harga_dua_puluh_empat_bulan;
 
+        $checkPembelianPaket = [];
+        $InformationStore = InformationStore::where("username_owner", $userData->username)->get();
+        if($InformationStore->count() == 0){
+            $checkPembelianPaket[] = array('status_paket' => 'Tidak Aktif');
+        }else{
+            $id_store = $InformationStore[0]->id_store;
+            $checkPembelianPaket = pembelianPaket::where("id_store", $id_store)
+                ->orderByDesc("order_at")
+                ->limit(1)
+                ->get();
+            if($checkPembelianPaket->count() == 0){
+                $checkPembelianPaket[] = array('status_paket' => 'Tidak Aktif');
+            }
+        }
+
         /* Return view */
         return view('dashView.checkout', [
             'userLogin' => $userData,
             'fotoProfil' => $fotoProfil,
             'checkout' => $checkout,
+            'checkPembelianPaket' => $checkPembelianPaket,
             'title' => 'Pembayaran Paket Premium'
         ]);
     }
@@ -142,11 +158,27 @@ class pembayaranController extends Controller
         $checkout['paketDuaPuluhEmpatBulan'] = $harga_dua_puluh_empat_bulan_diskon/24;
         $checkout['potonganPaketDuaPuluhEmpatBulan'] = $potongan_harga_dua_puluh_empat_bulan;
 
+        $checkPembelianPaket = [];
+        $InformationStore = InformationStore::where("username_owner", $userData->username)->get();
+        if($InformationStore->count() == 0){
+            $checkPembelianPaket[] = array('status_paket' => 'Tidak Aktif');
+        }else{
+            $id_store = $InformationStore[0]->id_store;
+            $checkPembelianPaket = pembelianPaket::where("id_store", $id_store)
+                ->orderByDesc("order_at")
+                ->limit(1)
+                ->get();
+            if($checkPembelianPaket->count() == 0){
+                $checkPembelianPaket[] = array('status_paket' => 'Tidak Aktif');
+            }
+        }
+
         /* Return view */
         return view('dashView.checkout', [
             'userLogin' => $userData,
             'fotoProfil' => $fotoProfil,
             'checkout' => $checkout,
+            'checkPembelianPaket' => $checkPembelianPaket,
             'title' => 'Pembayaran Paket Businss'
         ]);
     }

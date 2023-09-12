@@ -81,7 +81,8 @@
                 </div>
                 <!--end::Alert-->
             @else
-                @if ($checkPembelianPaket->count() == 0 || $checkPembelianPaket[0]->status_order == "Ditolak" || ($checkPembelianPaket[0]->status_order == "Diterima" && $checkPembelianPaket[0]->status_paket == "Tidak Aktif"))
+                {{-- TAMPILKAN PAKET JIKA OWNER TIDAK MEMILIKI PAKET AKTIF --}}
+                @if ($checkPembelianPaket->count() == 0 || $checkPembelianPaket[0]['status_order'] == "Ditolak" || ($checkPembelianPaket[0]['status_order'] == "Diterima" && $checkPembelianPaket[0]['status_paket'] == "Tidak Aktif"))
                     <div class="card">
                         <!--begin::Body-->
                         <div class="card-body p-lg-17">
@@ -211,6 +212,7 @@
                         </div>
                         <!--end::Body-->
                     </div>
+                {{-- TAMPILKAN PEMBYARAN PAKET JIKA OWNER SUDAH MELAKUKAN PEMBELIAN --}}
                 @else
                     @if ($checkPembelianPaket[0]->status_order == "Pending")
                         <div class="card">
@@ -224,7 +226,7 @@
                             <!--end::Body-->
                         </div>
                     @else
-                        // tampilan dalam paket Langganan
+                        <h1>PAKET AKTIF</h1>
                     @endif
                 @endif
             @endif

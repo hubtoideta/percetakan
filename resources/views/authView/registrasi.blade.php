@@ -2,7 +2,7 @@
 
 @section('formAuth')
 
-<form class="form w-100" method="POST" action="{{ route('registrasi') }}">
+<form class="form w-100" method="POST" action="{{ route('registrasiAction') }}">
     @csrf
     <!--begin::Heading-->
     <div class="text-center mb-11">

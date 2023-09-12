@@ -1,7 +1,7 @@
 @extends('authView.main')
 
 @section('formAuth')
-    <form class="form w-100" action="{{ route('lupa_password') }}" method="POST">
+    <form class="form w-100" action="{{ route('lupa_password_action') }}" method="POST">
         @csrf
         <!--begin::Heading-->
         <div class="text-center mb-11">

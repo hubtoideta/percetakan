@@ -51,6 +51,26 @@
 						<!--end:Menu link-->
 					</div>
 					<!--end:Dasbord-->
+                    
+                    @if ($userLogin->category == "Owner" || $userLogin->category == "Employed")
+                    <!--begin:Dasbord-->
+                    @if ($checkPembelianPaket[0]['status_paket'] == "Aktif")
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
+                            <a class="menu-link" href="#">
+                                <span class="menu-icon">
+                                    <i class="">
+                                    </i>
+                                </span>
+                                <span class="menu-title">menu aktif</span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+                    @endif
+					<!--end:Dasbord-->
+                        
+                    @endif
+
                     @if ($userLogin->category == "Developer")
 
                         <!--begin:Paket & langganan-->
@@ -183,6 +203,8 @@
 					    <!--end:Paket & langganan-->
 
                     @endif
+
+
                 </div>
                 <!--end::Menu-->
             </div>
