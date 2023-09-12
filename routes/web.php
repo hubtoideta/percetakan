@@ -102,36 +102,36 @@ Route::middleware(['auth'])->group(function (){
                 Route::controller(dataStoreController::class)->group(function () {
                     Route::get('/data-toko','index')->name('dataToko');
                     Route::post('/data-toko','findData')->name('cari');
+
                 });
             /* ============== END DATA TOKO USER DEVELOPER PANEL ============== */
-
-
         });
     /* ----------- USER DEVELOPER PANEL ----------- */
 
 
     /* ----------- USER OWNER PANEL ----------- */
-    Route::middleware(['checkRole:Owner'])->group(function () {
-        /* ============== BEGIN PEMBELIAN PAKET OWNER PANEL ============== */
-            Route::controller(pembayaranController::class)->group(function () {
-                Route::get('/pembayaran-premium','premiumPaket')->name('checkoutPremium');
-                Route::get('/pembayaran-business','businessPaket')->name('checkoutBusiness');
-                Route::post('/pembayaran','checkoutPost')->name('checkoutPost');
-            });
-        /* ============== END PEMBELIAN PAKET OWNER PANEL ============== */
+        Route::middleware(['checkRole:Owner'])->group(function () {
+            /* ============== BEGIN PEMBELIAN PAKET OWNER PANEL ============== */
+                Route::middleware(['blockBuy'])->group(function () {
+                    Route::controller(pembayaranController::class)->group(function () {
+                        Route::get('/pembayaran-premium','premiumPaket')->name('checkoutPremium');
+                        Route::get('/pembayaran-business','businessPaket')->name('checkoutBusiness');
+                        Route::post('/pembayaran','checkoutPost')->name('checkoutPost');
+                    });
+                });
+            /* ============== END PEMBELIAN PAKET OWNER PANEL ============== */
 
-        /* ============== BEGIN DATA STORE OWNER PANEL ============== */
-            Route::controller(InformationStoreController::class)->group(function () {
-                /* Show page kelolah toko */
-                Route::get('/kelolah-toko','index')->name('kelolah-toko');
-                /* Input data toko proses */
-                Route::post('/input-toko','create')->name('input-toko');
-                /* Edit data toko proses */
-                Route::post('/edit-toko','update')->name('edit-toko');
-            });
-        /* ============== END DATA STORE OWNER PANEL ============== */
-    });
-
+            /* ============== BEGIN DATA STORE OWNER PANEL ============== */
+                Route::controller(InformationStoreController::class)->group(function () {
+                    /* Show page kelolah toko */
+                    Route::get('/kelolah-toko','index')->name('kelolah-toko');
+                    /* Input data toko proses */
+                    Route::post('/input-toko','create')->name('input-toko');
+                    /* Edit data toko proses */
+                    Route::post('/edit-toko','update')->name('edit-toko');
+                });
+            /* ============== END DATA STORE OWNER PANEL ============== */
+        });
     /* ----------- USER OWNER PANEL ----------- */
 
 });
