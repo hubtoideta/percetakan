@@ -102,7 +102,7 @@ Route::middleware(['auth'])->group(function (){
                 Route::controller(dataStoreController::class)->group(function () {
                     Route::get('/data-toko','index')->name('dataToko');
                     Route::post('/data-toko','findData')->name('cari');
-
+                    Route::post('/data-toko/{slug}', 'update');
                 });
             /* ============== END DATA TOKO USER DEVELOPER PANEL ============== */
         });

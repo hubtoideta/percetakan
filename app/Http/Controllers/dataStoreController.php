@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\InformationStore;
+use App\Models\pembelianPaket;
 use App\Models\ProfileUser;
 use App\pageLink;
 use Illuminate\Support\Facades\Auth;
@@ -68,6 +69,69 @@ class dataStoreController extends Controller{
         ]);
     }
 
+    public function update(Request $request, $act){
+        $id_store = $request->id_store;
+
+        if($act == 'matikan'){
+            pembelianPaket::where('id_store', $id_store)
+                            ->where('status_paket', 'Aktif')
+                            ->orderByDesc('order_at')
+                            ->limit(1)
+                            ->update([
+                                'non_aktif_at' => round(microtime(true) * 1000),
+                                'status_paket' => 'Tidak Aktif',
+                            ]);
+        }elseif($act == 'aktifkan'){
+            $timeNonAktif = $this->getNonAktifAt($id_store)->non_aktif_at;
+            $timeNow = round(microtime(true) * 1000);
+            $durasi_non_aktif = $timeNow-$timeNonAktif;
+            $update_time_end = $this->getNonAktifAt($id_store)->end_paket_at+$durasi_non_aktif;
+            pembelianPaket::where('id_store', $id_store)
+                            ->where('status_paket', 'Tidak Aktif')
+                            ->orderByDesc('order_at')
+                            ->limit(1)
+                            ->update([
+                                'non_aktif_at' => 0,
+                                'status_paket' => 'Aktif',
+                                'end_paket_at' => $update_time_end,
+                            ]);
+        }else{
+            $pembelianPaket = new pembelianPaket();
+            $pembelianPaket->id_store = $id_store;
+            $pembelianPaket->paket = 'Premium';
+            $pembelianPaket->jangka_waktu = '14 Hari';
+            $pembelianPaket->harga_normal = 0;
+            $pembelianPaket->diskon = 0;
+            $pembelianPaket->ppn = 0;
+            $pembelianPaket->total_pembayaran = 0;
+            $pembelianPaket->status_order = 'Diterima';
+            $pembelianPaket->status_paket = 'Aktif';
+            $pembelianPaket->order_at = round(microtime(true) * 1000);
+            $pembelianPaket->confirm_at = round(microtime(true) * 1000);
+            $pembelianPaket->start_paket_at = round(microtime(true) * 1000);
+            $pembelianPaket->end_paket_at = (14*24*60*60*1000)+round(microtime(true) * 1000);
+            $pembelianPaket->save();
+        }
+
+        return redirect()->route('dataToko');
+
+        // return var_dump($act, $id_store);
+    }
+
+    public function getNonAktifAt($id_store){
+        $data = InformationStore::leftJoin('pembelian_pakets AS pp', function($join){
+            $join->on('information_stores.id_store','=','pp.id_store')
+            ->whereRaw('pp.code_pembelian = (SELECT code_pembelian FROM pembelian_pakets WHERE id_store = information_stores.id_store ORDER BY order_at DESC LIMIT 1)');
+        })->select(
+            'pp.non_aktif_at AS non_aktif_at',
+            'pp.end_paket_at AS end_paket_at'
+        )
+        ->where('information_stores.id_store', $id_store)
+        ->where('pp.status_paket', 'Tidak Aktif')
+        ->get();
+
+        return $data[0];
+    }
 
     public function dbData($page, $namaToko = ""){
         if($namaToko == ""){
@@ -76,6 +140,7 @@ class dataStoreController extends Controller{
                 ->whereRaw('pp.code_pembelian = (SELECT code_pembelian FROM pembelian_pakets WHERE id_store = information_stores.id_store ORDER BY order_at DESC LIMIT 1)');
             })->select(
                 'information_stores.username_owner AS owner',
+                'information_stores.id_store AS code',
                 'information_stores.logo AS logo',
                 'information_stores.store_name AS nama_toko',
                 'information_stores.store_email AS email',
@@ -93,6 +158,7 @@ class dataStoreController extends Controller{
                 ->whereRaw('pp.code_pembelian = (SELECT code_pembelian FROM pembelian_pakets WHERE id_store = information_stores.id_store ORDER BY order_at DESC LIMIT 1)');
             })->select(
                 'information_stores.username_owner AS owner',
+                'information_stores.id_store AS code',
                 'information_stores.logo AS logo',
                 'information_stores.store_name AS nama_toko',
                 'information_stores.store_email AS email',

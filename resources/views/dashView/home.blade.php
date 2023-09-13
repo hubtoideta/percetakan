@@ -48,7 +48,7 @@
         @if ($userLogin->category == "Owner")
         <!--begin:: card-->
             @if ($alertData)
-                <!--begin::Alert-->
+                <!--begin::Alert--> 
                 <div class="alert alert-dismissible bg-light-warning d-flex flex-column flex-sm-row p-5 mb-10">
                     <!--begin::Icon-->
                     <i class="ki-duotone  ki-information-4 fs-2hx text-warning me-4 mb-5 mb-sm-0">

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum("status_order", ["Pending","Ditolak","Diterima"])->default("Pending");
             $table->enum("status_paket", ["Aktif","Tidak Aktif"])->default("Tidak Aktif");
             $table->bigInteger("order_at");
+            $table->bigInteger("non_aktif_at")->default(0);
             $table->bigInteger("confirm_at")->default(0);
             $table->bigInteger("start_paket_at")->default(0);
             $table->bigInteger("end_paket_at")->default(0);
