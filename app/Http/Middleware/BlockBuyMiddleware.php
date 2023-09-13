@@ -30,7 +30,11 @@ class BlockBuyMiddleware
                 return $next($request);
             }else{
                 if($checkPembelianPaket[0]->status_order == "Ditolak" || ($checkPembelianPaket[0]->status_order == 'Diterima' && $checkPembelianPaket[0]->status_paket == 'Tidak Aktif')){
-                    return $next($request);
+                    if($checkPembelianPaket[0]['status_order'] == "Diterima" && $checkPembelianPaket[0]['status_paket'] == "Tidak Aktif" && $checkPembelianPaket[0]['end_paket_at'] > round(microtime(true) * 1000)){
+                        return redirect()->route('home');
+                    }else{
+                        return $next($request);
+                    }
                 }else{
                     return redirect()->route('home');
                 }

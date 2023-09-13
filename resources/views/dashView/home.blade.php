@@ -83,135 +83,149 @@
             @else
                 {{-- TAMPILKAN PAKET JIKA OWNER TIDAK MEMILIKI PAKET AKTIF --}}
                 @if ($checkPembelianPaket->count() == 0 || $checkPembelianPaket[0]['status_order'] == "Ditolak" || ($checkPembelianPaket[0]['status_order'] == "Diterima" && $checkPembelianPaket[0]['status_paket'] == "Tidak Aktif"))
-                    <div class="card">
-                        <!--begin::Body-->
-                        <div class="card-body p-lg-17">
-                            <!--begin::Row-->
-                            <div class="row g-10 mx-auto">
-                                <!--begin::Col-->
-                                <div class="col-xl-6">
-                                    <div class="d-flex h-100 align-items-center">
-                                        <!--begin::Option-->
-                                        <div
-                                            class="w-100 d-flex flex-column flex-center rounded-3 bg-light bg-opacity-75 py-15 px-10">
-                                            <!--begin::Heading-->
-                                            <div class="mb-7 text-center">
-                                                <!--begin::Title-->
-                                                <h1 class="text-dark mb-5 fw-bolder">{{ $listPaket[0]['nama_paket'] }}</h1>
-                                                <!--end::Title-->
-                                                <!--begin::Price-->
-                                                <div class="text-center">
-                                                    <span class="mb-2 text-primary">Rp</span>
-                                                    <span class="fs-3x fw-bold text-primary" data-kt-plan-price-month="39"
-                                                        data-kt-plan-price-annual="399">{{ number_format($listPaket[0]['harga_paket'],0,",",".") }}</span>
-                                                    <span class="fs-7 fw-semibold opacity-50">/
-                                                        <span data-kt-element="period">Bln</span></span>
-                                                </div>
-                                                <!--end::Price-->
-                                            </div>
-                                            <!--end::Heading-->
-                                            <!--begin::Features-->
-                                            <div class="w-100 mb-10">
-                                                @foreach ($fiturPaket as $item)
-                                                    <!--begin::Item-->
-                                                    <div class="d-flex align-items-center mb-5">
-                                                        @if ($item['Premium'] != 'y' && $item['Premium'] != 'n')
-                                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">{{ $item['nama_fitur_paket'] }}</span>
-                                                            {{ $item['Premium'] }} User
-                                                        @else
-                                                            @if ($item['Premium'] == 'y')
-                                                                <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">{{ $item['nama_fitur_paket'] }}</span>
-                                                                <i class="ki-duotone ki-check-circle fs-1 text-success">
-                                                                    <span class="path1"></span>
-                                                                    <span class="path2"></span>
-                                                                </i>
-                                                            @else
-                                                                <span class="fw-semibold fs-6 text-gray-600 flex-grow-1 pe-3">{{ $item['nama_fitur_paket'] }}</span>
-                                                                <i class="ki-duotone ki-cross-circle fs-1">
-                                                                    <span class="path1"></span>
-                                                                    <span class="path2"></span>
-                                                                </i>
-                                                            @endif
-                                                        @endif
-                                                    </div>                                                
-                                                    <!--end::Item-->
-                                                @endforeach
-                                            </div>
-                                            <!--end::Features-->
-                                            <!--begin::Select-->
-                                            <div class="d-flex">
-                                                <a href="{{ route('checkoutPremium') }}" class="btn btn-sm btn-primary">Beli</a>
-                                                <a href="#" class="btn btn-sm btn-secondary">Trial 14 Hari</a>
-                                            </div>
-                                            <!--end::Select-->
-                                        </div>
-                                        <!--end::Option-->
-                                    </div>
+                    @if ($checkPembelianPaket[0]['status_order'] == "Diterima" && $checkPembelianPaket[0]['status_paket'] == "Tidak Aktif" && $checkPembelianPaket[0]['end_paket_at'] > round(microtime(true) * 1000))
+                        <div class="card">
+                            <!--begin::Body-->
+                            <div class="card-body p-lg-17">
+                                <div class="text-center">
+                                    <span>Paket di Non Aktifkan oleh Admin!</span> <br><br>
+                                    <a class="btn btn-success btn-sm">Contact Us</a>
                                 </div>
-                                <!--end::Col-->
-                                <!--begin::Col-->
-                                <div class="col-xl-6">
-                                    <div class="d-flex h-100 align-items-center">
-                                        <!--begin::Option-->
-                                        <div
-                                            class="w-100 d-flex flex-column flex-center rounded-3 bg-light bg-opacity-75 py-15 px-10">
-                                            <!--begin::Heading-->
-                                            <div class="mb-7 text-center">
-                                                <!--begin::Title-->
-                                                <h1 class="text-dark mb-5 fw-bolder">{{ $listPaket[1]['nama_paket'] }}</h1>
-                                                <!--end::Title-->
-                                                <!--begin::Price-->
-                                                <div class="text-center">
-                                                    <span class="mb-2 text-primary">Rp</span>
-                                                    <span class="fs-3x fw-bold text-primary" data-kt-plan-price-month="39"
-                                                        data-kt-plan-price-annual="399">{{ number_format($listPaket[1]['harga_paket'],0,",",".") }}</span>
-                                                    <span class="fs-7 fw-semibold opacity-50">/
-                                                        <span data-kt-element="period">Bln</span></span>
-                                                </div>
-                                                <!--end::Price-->
-                                            </div>
-                                            <!--end::Heading-->
-                                            <!--begin::Features-->
-                                            <div class="w-100 mb-10">
-                                                @foreach ($fiturPaket as $item)
-                                                    <!--begin::Item-->
-                                                    <div class="d-flex align-items-center mb-5">
-                                                        @if ($item['Business'] != 'y' && $item['Business'] != 'n')
-                                                            <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">{{ $item['nama_fitur_paket'] }}</span>
-                                                            {{ $item['Business'] }} User
-                                                        @else
-                                                            @if ($item['Business'] == 'y')
-                                                                <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">{{ $item['nama_fitur_paket'] }}</span>
-                                                                <i class="ki-duotone ki-check-circle fs-1 text-success">
-                                                                    <span class="path1"></span>
-                                                                    <span class="path2"></span>
-                                                                </i>
-                                                            @else
-                                                                <span class="fw-semibold fs-6 text-gray-600 flex-grow-1 pe-3">{{ $item['nama_fitur_paket'] }}</span>
-                                                                <i class="ki-duotone ki-cross-circle fs-1">
-                                                                    <span class="path1"></span>
-                                                                    <span class="path2"></span>
-                                                                </i>
-                                                            @endif
-                                                        @endif
-                                                    </div>                                                
-                                                    <!--end::Item-->
-                                                @endforeach
-                                            </div>
-                                            <!--end::Features-->
-                                            <!--begin::Select-->
-                                            <a href="{{ route('checkoutBusiness') }}" class="btn btn-sm btn-primary">Beli</a>
-                                            <!--end::Select-->
-                                        </div>
-                                        <!--end::Option-->
-                                    </div>
-                                </div>
-                                <!--end::Col-->
                             </div>
-                            <!--end::Row-->
+                            <!--end::Body-->
                         </div>
-                        <!--end::Body-->
-                    </div>
+                    @else
+                        
+                        <div class="card">
+                            <!--begin::Body-->
+                            <div class="card-body p-lg-17">
+                                <!--begin::Row-->
+                                <div class="row g-10 mx-auto">
+                                    <!--begin::Col-->
+                                    <div class="col-xl-6">
+                                        <div class="d-flex h-100 align-items-center">
+                                            <!--begin::Option-->
+                                            <div
+                                                class="w-100 d-flex flex-column flex-center rounded-3 bg-light bg-opacity-75 py-15 px-10">
+                                                <!--begin::Heading-->
+                                                <div class="mb-7 text-center">
+                                                    <!--begin::Title-->
+                                                    <h1 class="text-dark mb-5 fw-bolder">{{ $listPaket[0]['nama_paket'] }}</h1>
+                                                    <!--end::Title-->
+                                                    <!--begin::Price-->
+                                                    <div class="text-center">
+                                                        <span class="mb-2 text-primary">Rp</span>
+                                                        <span class="fs-3x fw-bold text-primary" data-kt-plan-price-month="39"
+                                                            data-kt-plan-price-annual="399">{{ number_format($listPaket[0]['harga_paket'],0,",",".") }}</span>
+                                                        <span class="fs-7 fw-semibold opacity-50">/
+                                                            <span data-kt-element="period">Bln</span></span>
+                                                    </div>
+                                                    <!--end::Price-->
+                                                </div>
+                                                <!--end::Heading-->
+                                                <!--begin::Features-->
+                                                <div class="w-100 mb-10">
+                                                    @foreach ($fiturPaket as $item)
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex align-items-center mb-5">
+                                                            @if ($item['Premium'] != 'y' && $item['Premium'] != 'n')
+                                                                <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">{{ $item['nama_fitur_paket'] }}</span>
+                                                                {{ $item['Premium'] }} User
+                                                            @else
+                                                                @if ($item['Premium'] == 'y')
+                                                                    <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">{{ $item['nama_fitur_paket'] }}</span>
+                                                                    <i class="ki-duotone ki-check-circle fs-1 text-success">
+                                                                        <span class="path1"></span>
+                                                                        <span class="path2"></span>
+                                                                    </i>
+                                                                @else
+                                                                    <span class="fw-semibold fs-6 text-gray-600 flex-grow-1 pe-3">{{ $item['nama_fitur_paket'] }}</span>
+                                                                    <i class="ki-duotone ki-cross-circle fs-1">
+                                                                        <span class="path1"></span>
+                                                                        <span class="path2"></span>
+                                                                    </i>
+                                                                @endif
+                                                            @endif
+                                                        </div>                                                
+                                                        <!--end::Item-->
+                                                    @endforeach
+                                                </div>
+                                                <!--end::Features-->
+                                                <!--begin::Select-->
+                                                <div class="d-flex">
+                                                    <a href="{{ route('checkoutPremium') }}" class="btn btn-sm btn-primary">Beli</a>
+                                                    <a href="#" class="btn btn-sm btn-secondary">Trial 14 Hari</a>
+                                                </div>
+                                                <!--end::Select-->
+                                            </div>
+                                            <!--end::Option-->
+                                        </div>
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-xl-6">
+                                        <div class="d-flex h-100 align-items-center">
+                                            <!--begin::Option-->
+                                            <div
+                                                class="w-100 d-flex flex-column flex-center rounded-3 bg-light bg-opacity-75 py-15 px-10">
+                                                <!--begin::Heading-->
+                                                <div class="mb-7 text-center">
+                                                    <!--begin::Title-->
+                                                    <h1 class="text-dark mb-5 fw-bolder">{{ $listPaket[1]['nama_paket'] }}</h1>
+                                                    <!--end::Title-->
+                                                    <!--begin::Price-->
+                                                    <div class="text-center">
+                                                        <span class="mb-2 text-primary">Rp</span>
+                                                        <span class="fs-3x fw-bold text-primary" data-kt-plan-price-month="39"
+                                                            data-kt-plan-price-annual="399">{{ number_format($listPaket[1]['harga_paket'],0,",",".") }}</span>
+                                                        <span class="fs-7 fw-semibold opacity-50">/
+                                                            <span data-kt-element="period">Bln</span></span>
+                                                    </div>
+                                                    <!--end::Price-->
+                                                </div>
+                                                <!--end::Heading-->
+                                                <!--begin::Features-->
+                                                <div class="w-100 mb-10">
+                                                    @foreach ($fiturPaket as $item)
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex align-items-center mb-5">
+                                                            @if ($item['Business'] != 'y' && $item['Business'] != 'n')
+                                                                <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">{{ $item['nama_fitur_paket'] }}</span>
+                                                                {{ $item['Business'] }} User
+                                                            @else
+                                                                @if ($item['Business'] == 'y')
+                                                                    <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">{{ $item['nama_fitur_paket'] }}</span>
+                                                                    <i class="ki-duotone ki-check-circle fs-1 text-success">
+                                                                        <span class="path1"></span>
+                                                                        <span class="path2"></span>
+                                                                    </i>
+                                                                @else
+                                                                    <span class="fw-semibold fs-6 text-gray-600 flex-grow-1 pe-3">{{ $item['nama_fitur_paket'] }}</span>
+                                                                    <i class="ki-duotone ki-cross-circle fs-1">
+                                                                        <span class="path1"></span>
+                                                                        <span class="path2"></span>
+                                                                    </i>
+                                                                @endif
+                                                            @endif
+                                                        </div>                                                
+                                                        <!--end::Item-->
+                                                    @endforeach
+                                                </div>
+                                                <!--end::Features-->
+                                                <!--begin::Select-->
+                                                <a href="{{ route('checkoutBusiness') }}" class="btn btn-sm btn-primary">Beli</a>
+                                                <!--end::Select-->
+                                            </div>
+                                            <!--end::Option-->
+                                        </div>
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Row-->
+                            </div>
+                            <!--end::Body-->
+                        </div>
+                    @endif
                 {{-- TAMPILKAN PEMBYARAN PAKET JIKA OWNER SUDAH MELAKUKAN PEMBELIAN --}}
                 @else
                     @if ($checkPembelianPaket[0]->status_order == "Pending")
