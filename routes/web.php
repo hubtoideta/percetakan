@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataPaketController;
 use App\Http\Controllers\dataStoreController;
+use App\Http\Controllers\dataUserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\InformationStoreController;
@@ -101,10 +102,17 @@ Route::middleware(['auth'])->group(function (){
             /* ============== BEGIN DATA TOKO USER DEVELOPER PANEL ============== */
                 Route::controller(dataStoreController::class)->group(function () {
                     Route::get('/data-toko','index')->name('dataToko');
-                    Route::post('/data-toko','findData')->name('cari');
+                    Route::post('/data-toko','findData')->name('caritoko');
                     Route::post('/data-toko/{slug}', 'update');
                 });
             /* ============== END DATA TOKO USER DEVELOPER PANEL ============== */
+            
+            /* ============== BEGIN DATA USER DEVELOPER PANEL ============== */
+                Route::controller(dataUserController::class)->group(function (){
+                    Route::get('/pengguna/{slug}', 'index');
+                    Route::post('/pengguna/{slug}', 'findData');
+                });
+            /* ============== END DATA USER DEVELOPER PANEL ============== */
         });
     /* ----------- USER DEVELOPER PANEL ----------- */
 

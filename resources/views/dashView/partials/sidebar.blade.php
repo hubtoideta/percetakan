@@ -53,22 +53,21 @@
 					<!--end:Dasbord-->
                     
                     @if ($userLogin->category == "Owner" || $userLogin->category == "Employed")
-                    <!--begin:Dasbord-->
-                    @if ($checkPembelianPaket[0]['status_paket'] == "Aktif")
-                        <div class="menu-item">
-                            <!--begin:Menu link-->
-                            <a class="menu-link" href="#">
-                                <span class="menu-icon">
-                                    <i class="">
-                                    </i>
-                                </span>
-                                <span class="menu-title">menu aktif</span>
-                            </a>
-                            <!--end:Menu link-->
-                        </div>
-                    @endif
-					<!--end:Dasbord-->
-                        
+                        <!--begin:Dasbord-->
+                        @if ($checkPembelianPaket[0]['status_paket'] == "Aktif")
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link" href="#">
+                                    <span class="menu-icon">
+                                        <i class="">
+                                        </i>
+                                    </span>
+                                    <span class="menu-title">menu aktif</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                        @endif
+                        <!--end:Dasbord-->
                     @endif
 
                     @if ($userLogin->category == "Developer")
@@ -87,9 +86,9 @@
                         <!--end:Paket & langganan-->
 
                         <!--begin:Pengguna-->
-                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                        <div data-kt-menu-trigger="click" class="menu-item {{ $title == 'Data Pengguna - Owner' || $title == 'Data Pengguna - Employed' || $title == 'Data Pengguna - Freelance' ? 'here show ' : '' }} menu-accordion">
                             <!--begin:Menu link-->
-                            <span class="menu-link">
+                            <span class="menu-link {{ $title == 'Data Pengguna - Owner' || $title == 'Data Pengguna - Employed' || $title == 'Data Pengguna - Freelance' ? 'active' : '' }}">
                                 <span class="menu-icon">
                                     <i class="ki-outline ki-people fs-2"></i>
                                 </span>
@@ -102,7 +101,7 @@
                                 <!--begin:Menu item-->
                                 <div class="menu-item">
                                     <!--begin:Menu link-->
-                                    <a class="menu-link" href="#">
+                                    <a class="menu-link {{ $title == 'Data Pengguna - Owner' ? 'active' : '' }}" href="/pengguna/owner">
                                         <span class="menu-bullet">
                                             <span class="bullet bullet-dot"></span>
                                         </span>
@@ -114,7 +113,7 @@
                                 <!--begin:Menu item-->
                                 <div class="menu-item">
                                     <!--begin:Menu link-->
-                                    <a class="menu-link" href="#">
+                                    <a class="menu-link {{ $title == 'Data Pengguna - Employed' ? 'active' : '' }}" href="/pengguna/employed">
                                         <span class="menu-bullet">
                                             <span class="bullet bullet-dot"></span>
                                         </span>
@@ -126,7 +125,7 @@
                                 <!--begin:Menu item-->
                                 <div class="menu-item">
                                     <!--begin:Menu link-->
-                                    <a class="menu-link" href="#">
+                                    <a class="menu-link {{ $title == 'Data Pengguna - Freelance' ? 'active' : '' }}" href="/pengguna/freelance">
                                         <span class="menu-bullet">
                                             <span class="bullet bullet-dot"></span>
                                         </span>
