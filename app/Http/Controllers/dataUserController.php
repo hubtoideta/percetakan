@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\pageLink;
+use App\Models\User;
+use Illuminate\Support\Str;
 use App\Models\ProfileUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use App\pageLink;
+use Illuminate\Support\Facades\Hash;
 
 class dataUserController extends Controller
 {
@@ -71,6 +73,17 @@ class dataUserController extends Controller
             'slugg' => $cateogryUser,
             'title' => 'Data Pengguna - ' . ucfirst($cateogryUser)
         ]);
+    }
+
+    public function updatePassword(Request $request, $cateogryUser){
+        $pass = Hash::make(Str::of($request->new_password)->trim());
+        
+        User::where('username', $request->username)
+            ->update([
+                'password' => $pass
+            ]);
+
+        return redirect('pengguna/'. $cateogryUser);
     }
     
     public function dbData($cateogryUser, $page, $nama = ""){

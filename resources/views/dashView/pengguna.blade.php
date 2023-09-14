@@ -51,7 +51,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="table-responsive">
+                <div class="table-responsive mb-2">
                     <table class="table table-row-dashed align-middle gs-0 gy-3 my-0 table-hover">
                         <thead>
                             <tr class="fs-7 fw-bold text-gray-400 border-bottom-0">
@@ -88,8 +88,14 @@
                                             </span>
                                         </td>
                                         <td class="text-end">
-                                            <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
-                                                <i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
+                                            <a href="#reset-pass-{{ $item['username'] }}" data-bs-toggle="modal" class="btn btn-sm btn-icon btn-bg-danger btn-active-color-primary w-30px h-30px" title="reset password">
+                                                <i class="ki-duotone ki-lock-2 fs-2 text-white">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                    <span class="path3"></span>
+                                                    <span class="path4"></span>
+                                                    <span class="path5"></span>
+                                                </i>
                                             </a>
                                         </td>
                                     </tr>
@@ -108,73 +114,71 @@
         <!--end::Card-->
         
         <!--begin::modal-->
-        {{-- @if (count($data['items']) > 0)
+        @if (count($data['items']) > 0)
             @foreach ($data['items'] as $item)
-                @if ($item['status'] == 'Aktif')
-                    <div class="modal fade" id="matikan-{{ $item['code'] }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content bg-danger">
-                                <div class="modal-header" style="border-bottom: 0px solid #000">
-                                    <h5 class="modal-title text-white">Matikan Paket</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <h3 class="text-white">Matikan Paket Langganan Toko?</h3>
-                                </div>
-                                <form action="/data-toko/matikan" method="POST" class="modal-footer" style="border-top: 0px solid #000">
-                                    @csrf
-                                    <input type="hidden" name="id_store" value="{{ $item['code'] }}">
-                                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                    <button type="submit" class="btn btn-sm btn-primary">Ya</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                @endif
-                @if ($item['status'] == 'Tidak Aktif' && $item['sampai'] > round(microtime(true) * 1000))
-                <div class="modal fade" id="aktifkan-{{ $item['code'] }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="reset-pass-{{ $item['username'] }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
-                        <div class="modal-content bg-success">
-                            <div class="modal-header" style="border-bottom: 0px solid #000">
-                                <h5 class="modal-title text-white">Aktifkan Paket</h5>
+                        <form method="POST" action="/reset-pass/{{ $slugg }}" class="modal-content">
+                            @csrf
+                            <div class="modal-header">
+                                <h5 class="modal-title ">Reset Password</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <h3 class="text-white">Aktifkan Paket Langganan Toko?</h3>
+                                <!--begin::Main wrapper-->
+                                <div class="fv-row" data-kt-password-meter="true">
+                                    <!--begin::Wrapper-->
+                                    <div class="mb-1">
+                                        <!--begin::Label-->
+                                        <label class="form-label fw-semibold fs-6 mb-2">
+                                            Password Baru
+                                        </label>
+                                        <!--end::Label-->
+
+                                        <!--begin::Input wrapper-->
+                                        <div class="position-relative mb-3">
+                                            <input class="form-control form-control-lg form-control-solid"
+                                                type="password" placeholder="" name="new_password" autocomplete="off"/>
+
+                                            <!--begin::Visibility toggle-->
+                                            <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
+                                                data-kt-password-meter-control="visibility">
+                                                    <i class="ki-duotone ki-eye-slash fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                                                    <i class="ki-duotone ki-eye d-none fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                            </span>
+                                            <!--end::Visibility toggle-->
+                                        </div>
+                                        <!--end::Input wrapper-->
+
+                                        <!--begin::Highlight meter-->
+                                        <div class="d-flex align-items-center mb-3" data-kt-password-meter-control="highlight">
+                                            <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                                            <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                                            <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                                            <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
+                                        </div>
+                                        <!--end::Highlight meter-->
+                                    </div>
+                                    <!--end::Wrapper-->
+
+                                    <!--begin::Hint-->
+                                    <div class="text-muted">
+                                        Minimal 8 Karakter atau lebih, kombinasikan dengan Huruf kapital, Angka dan Simbol.
+                                    </div>
+                                    <!--end::Hint-->
+                                </div>
+                                <!--end::Main wrapper-->
                             </div>
-                            <form action="/data-toko/aktifkan" method="POST" class="modal-footer" style="border-top: 0px solid #000">
-                                @csrf
-                                <input type="hidden" name="id_store" value="{{ $item['code'] }}">
-                                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                <button type="submit" class="btn btn-sm btn-primary">Ya</button>
-                            </form>
-                        </div>
+                            <div class="modal-footer">
+                                <input type="hidden" name="username" value="{{ $item['username'] }}">
+                                <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                @endif
-                @if ($item['status'] == '' || ($item['status'] == 'Tidak Aktif' && $item['sampai'] < round(microtime(true) * 1000)))
-                    <div class="modal fade" id="trial-{{ $item['code'] }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content bg-secondary">
-                                <div class="modal-header" style="border-bottom: 0px solid #000">
-                                    <h5 class="modal-title text-dark">Paket Trial 14 Hari (Premium Fitur)</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <h3 class="text-dark">Aktifkan Trial Paket Langganan Toko?</h3>
-                                </div>
-                                <form action="/data-toko/trial" method="POST" class="modal-footer" style="border-top: 0px solid #000">
-                                    @csrf
-                                    <input type="hidden" name="id_store" value="{{ $item['code'] }}">
-                                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                    <button type="submit" class="btn btn-sm btn-primary">Ya</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                @endif
             @endforeach
-        @endif --}}
+        @endif
         <!--end::modal-->
     </div>
     <!--end::Content container-->

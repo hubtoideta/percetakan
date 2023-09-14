@@ -111,6 +111,7 @@ Route::middleware(['auth'])->group(function (){
                 Route::controller(dataUserController::class)->group(function (){
                     Route::get('/pengguna/{slug}', 'index');
                     Route::post('/pengguna/{slug}', 'findData');
+                    Route::post('/reset-pass/{slug}', 'updatePassword');
                 });
             /* ============== END DATA USER DEVELOPER PANEL ============== */
         });
