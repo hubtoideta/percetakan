@@ -28,7 +28,7 @@
     <link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
     <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
     <!--end::css & js for table-->
-    
+
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -155,9 +155,12 @@
     @if ($title == "Paket & Fitur Langganan")
     <script src="assets/js/diskonPaket.js"></script>
     @endif
-    
+
     @if ($title == "Pembayaran Paket Businss" || $title == "Pembayaran Paket Premium")
     <script src="assets/js/totalBayar.js"></script>
+    @endif
+    @if ($title == 'Data Karyawan')
+    <script src="assets/js/inputLogin.js"></script>
     @endif
     <!--end::Custom Javascript-->
     <!--end::Javascript-->

@@ -51,27 +51,36 @@
 						<!--end:Menu link-->
 					</div>
 					<!--end:Dasbord-->
-                    
+
                     @if ($userLogin->category == "Owner" || $userLogin->category == "Employed")
                         <!--begin:Dasbord-->
                         @if ($checkPembelianPaket[0]['status_paket'] == "Aktif")
-                            <div class="menu-item">
-                                <!--begin:Menu link-->
-                                <a class="menu-link" href="#">
-                                    <span class="menu-icon">
-                                        <i class="">
-                                        </i>
-                                    </span>
-                                    <span class="menu-title">menu aktif</span>
-                                </a>
-                                <!--end:Menu link-->
+                            <!--begin:Menu title-->
+                            <div class="menu-item pt-5">
+                                <!--begin:Menu content-->
+                                <div class="menu-content">
+                                    <span class="menu-heading fw-bold text-uppercase fs-7">Data Master</span>
+                                </div>
+                                <!--end:Menu content-->
                             </div>
+                            @if ($userLogin->category == "Owner")
+                                <div class="menu-item">
+                                    <!--begin:Menu link-->
+                                    <a class="menu-link {{ $title == 'Data Karyawan' ? 'active' : '' }} " href="{{ route('dataEmploye') }}">
+                                        <span class="menu-icon">
+                                            <i class="ki-outline ki-people fs-2"></i>
+                                        </span>
+                                        <span class="menu-title">Karyawan</span>
+                                    </a>
+                                    <!--end:Menu link-->
+                                </div>
+                            @endif
                         @endif
                         <!--end:Dasbord-->
                     @endif
 
                     @if ($userLogin->category == "Developer")
-
+                        <!--end:Menu title-->
                         <!--begin:Paket & langganan-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
@@ -147,7 +156,7 @@
                             <!--end:Menu content-->
                         </div>
                         <!--end:Menu title-->
-                        
+
                         <!--begin:Paket & langganan-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
@@ -160,7 +169,7 @@
                             <!--end:Menu link-->
                         </div>
                         <!--end:Paket & langganan-->
-                        
+
                         <!--begin:Join Freelance-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
@@ -183,7 +192,7 @@
                             <!--end:Menu content-->
                         </div>
                         <!--end:Menu title-->
-                        
+
                         <!--begin:Paket & langganan-->
                         <div class="menu-item">
                             <!--begin:Menu link-->

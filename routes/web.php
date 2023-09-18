@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\dataEmployedController;
 use App\Http\Controllers\DataPaketController;
 use App\Http\Controllers\dataStoreController;
 use App\Http\Controllers\dataUserController;
@@ -54,7 +55,6 @@ Route::middleware(['guest'])->group(function (){
 
 /* Route user Login */
 Route::middleware(['auth'])->group(function (){
-    
     /* ----------- ALL USER PANEL ----------- */
         /* Show page home */
         Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -91,14 +91,14 @@ Route::middleware(['auth'])->group(function (){
                     Route::post('/edit-diskon-paket','updateDiskonPaket')->name('editDiskon');
                 });
             /* ============== END SETTINGS PRICE PAKET USER DEVELOPER PANEL ============== */
-    
+
             /* ============== BEGIN DATA PEMBELIAN PAKET USER DEVELOPER PANEL ============== */
                 Route::controller(PembelianPaketController::class)->group(function () {
                     Route::get('/pembelian-paket','index')->name('pembelianPaket');
                     Route::post('/pembelian-paket','findData')->name('cari');
                 });
             /* ============== END DATA PEMBELIAN PAKET USER DEVELOPER PANEL ============== */
-    
+
             /* ============== BEGIN DATA TOKO USER DEVELOPER PANEL ============== */
                 Route::controller(dataStoreController::class)->group(function () {
                     Route::get('/data-toko','index')->name('dataToko');
@@ -106,7 +106,7 @@ Route::middleware(['auth'])->group(function (){
                     Route::post('/data-toko/{slug}', 'update');
                 });
             /* ============== END DATA TOKO USER DEVELOPER PANEL ============== */
-            
+
             /* ============== BEGIN DATA USER DEVELOPER PANEL ============== */
                 Route::controller(dataUserController::class)->group(function (){
                     Route::get('/pengguna/{slug}', 'index');
@@ -140,6 +140,13 @@ Route::middleware(['auth'])->group(function (){
                     Route::post('/edit-toko','update')->name('edit-toko');
                 });
             /* ============== END DATA STORE OWNER PANEL ============== */
+
+            /* ============== BEGIN DATA KARYAWAN ============== */
+            Route::controller(dataEmployedController::class)->group(function () {
+                Route::get('/karyawan', 'index')->name('dataEmploye');
+                Route::post('/karyawan', 'create')->name('SimpanDataEmploye');
+            });
+            /* ============== END DATA KARYAWAN ============== */
         });
     /* ----------- USER OWNER PANEL ----------- */
 
