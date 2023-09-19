@@ -70,7 +70,7 @@ class dataEmployedController extends Controller
             $paket = $getExpired[0]->paket;
             // maksimal karyawan berdasarkan paket langganan
             $maximal_employed = $paket == 'Premium' ? $dataStore->fiturPaket('Karyawan')[0]->Premium : $dataStore->fiturPaket('Karyawan')[0]->Business;
-            $total_employed = $this->dbData($id_store, 1);
+            $total_employed = EmployedOwner::where('employed_owners.id_store', $id_store)->where('status', 'Aktif')->count();
             if($total_employed < $maximal_employed){
                 $request->validate(
                     [
@@ -105,11 +105,55 @@ class dataEmployedController extends Controller
                 $employedStore->role = $request->roleEmployed;
 
                 $employedStore->save();
+                return redirect()->route('dataEmploye')->with('success', 'Data karyawan berhasil ditambah.');
 
             }else{
-
+                return redirect()->route('dataEmploye')->with('error', 'Anda mencapai batas maksimal perekrutan karyawan! maksimal ' . $maximal_employed . ' Karyawan');
             }
+        }else{
+            return redirect()->route('home');
+
         }
+    }
+
+    public function updateStatus(Request $request){
+         /* Login Auth */
+        $userData = Auth::user();
+        $username = $userData->username;
+        // DATA INFOMASI TOKO
+        $dataStore = new store();
+        // ID TOKO
+        $id_store = $dataStore->getDataWithOwner($username)['store'][0]->id_store;
+        // CHECK STATUS PAKET DAN AMBIL DATA STATUS PAKET TOKO
+        $getExpired = $dataStore->getDataWithOwner($username)['expired'];
+        if($getExpired[0]->status_paket == 'Aktif'){
+            $usernameInput = $request->username;
+            $statusInput = $request->status;
+            $updateStatus = 0;
+            if($statusInput == 'Aktif'){
+                $updateStatus = EmployedOwner::where('id_store', $id_store)
+                                            ->where('username', $usernameInput)
+                                            ->update([
+                                                'status' => 'Tidak Aktif'
+                                            ]);
+            }elseif($statusInput == 'Tidak Aktif'){
+                $updateStatus = EmployedOwner::where('id_store', $id_store)
+                                            ->where('username', $usernameInput)
+                                            ->update([
+                                                'status' => 'Aktif'
+                                            ]);
+            }
+            
+            if($updateStatus > 0){
+                return redirect()->route('dataEmploye')->with('success', 'Data berhasil diubah.');
+            }else{
+                return redirect()->route('dataEmploye')->with('error', 'Request ditolak');
+            }
+        }else{
+            return redirect()->route('home');
+
+        }
+
     }
 
     public function dbData($id_store, $page){
@@ -123,6 +167,7 @@ class dataEmployedController extends Controller
                                 'profile_users.second_name AS second_name',
                                 'profile_users.contact AS no_telpn',
                                 'employed_owners.role AS role',
+                                'employed_owners.status AS status',
                             )
                             ->where('employed_owners.id_store', $id_store)
                             ->orderBy('users.username')

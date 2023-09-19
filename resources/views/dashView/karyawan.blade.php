@@ -40,6 +40,70 @@
     <!--begin::Content container-->
     <div id="kt_app_content_container" class="app-container container-xxl">
         <div class="row">
+            <div class="col-sm-12">
+                <!--begin::Alert-->
+                @if(Session::has('error'))
+                <div class="alert alert-dismissible bg-light-danger d-flex flex-row flex-sm-row p-5 mb-10">
+                    <!--begin::Icon-->
+                    <i class="ki-duotone ki-notification-bing fs-2hx text-danger me-4 mb-5 mb-sm-0"><span
+                            class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                    <!--end::Icon-->
+    
+                    <!--begin::Wrapper-->
+                    <div class="d-flex flex-column pe-0 pe-sm-10">
+                        <!--begin::Title-->
+                        <h4 class="fw-semibold">Gagal</h4>
+                        <!--end::Title-->
+    
+                        <!--begin::Content-->
+                        <span>{{ Session::get('error') }}</span>
+                        <!--end::Content-->
+                    </div>
+                    <!--end::Wrapper-->
+    
+                    <!--begin::Close-->
+                    <button type="button"
+                        class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto"
+                        data-bs-dismiss="alert">
+                        <i class="ki-duotone ki-cross fs-1 text-danger"><span class="path1"></span><span
+                                class="path2"></span></i>
+                    </button>
+                    <!--end::Close-->
+                </div>
+                @endif
+                <!--end::Alert-->
+                <!--begin::Alert-->
+                @if(Session::has('success'))
+                <div class="alert alert-dismissible bg-light-success d-flex flex-row flex-sm-row p-5 mb-10">
+                    <!--begin::Icon-->
+                    <i class="ki-duotone ki-notification-bing fs-2hx text-success me-4 mb-5 mb-sm-0"><span
+                            class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                    <!--end::Icon-->
+    
+                    <!--begin::Wrapper-->
+                    <div class="d-flex flex-column pe-0 pe-sm-10">
+                        <!--begin::Title-->
+                        <h4 class="fw-semibold">Berhasil!</h4>
+                        <!--end::Title-->
+    
+                        <!--begin::Content-->
+                        <span>{{ Session::get('success') }}</span>
+                        <!--end::Content-->
+                    </div>
+                    <!--end::Wrapper-->
+    
+                    <!--begin::Close-->
+                    <button type="button"
+                        class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto"
+                        data-bs-dismiss="alert">
+                        <i class="ki-duotone ki-cross fs-1 text-success"><span class="path1"></span><span
+                                class="path2"></span></i>
+                    </button>
+                    <!--end::Close-->
+                </div>
+                @endif
+                <!--end::Alert-->
+            </div>
             <div class="col-sm-4">
                 <div class="card mb-2">
                     <form action="{{ route('SimpanDataEmploye') }}" method="POST" class="card-body p-lg-17">
@@ -53,7 +117,7 @@
                             <select name="roleEmployed" id="" class="form-select bg-transparent @error('roleEmployed') is-invalid @enderror">
                                 <option value="">--Pilih Role--</option>
                                 @foreach ($roleOpt as $opt)
-                                    <option value="{{ $opt }}">{{ $opt }}</option>
+                                    <option value="{{ $opt }}" {{ $opt == old('roleEmployed') ? 'selected="selected"' : '' }}>{{ $opt }}</option>
                                 @endforeach
                             </select>
                             @error('roleEmployed')
@@ -154,44 +218,62 @@
                                         <th class="p-0 pb-3 min-w-150px text-start">INFO</th>
                                         <th class="p-0 pb-3 min-w-100px text-end pe-13">ROLE</th>
                                         <th class="p-0 pb-3 min-w-100px text-end pe-13">CONTACT</th>
-                                        <th class="p-0 pb-3 w-50px text-end">ACTIONS</th>
+                                        <th class="p-0 pb-3 w-50px text-end">STATUS</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @if ($data['total'] > 0)
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="symbol symbol-50px me-3">
-                                                        @if ($item['foto'] == '' || $item['foto'] == 'none')
-                                                            <img src="assets/media/avatars/blank.png" class="" alt="" />
-                                                        @else
-                                                            <img src="assets/media/profile/{{ $item['foto'] }}" class="" alt="" />
-                                                        @endif
+                                        @foreach ($data['items'] as $item)
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="symbol symbol-50px me-3">
+                                                            @if ($item['foto'] == '' || $item['foto'] == 'none')
+                                                                <img src="assets/media/avatars/blank.png" class="" alt="" />
+                                                            @else
+                                                                <img src="assets/media/profile/{{ $item['foto'] }}" class="" alt="" />
+                                                            @endif
+                                                        </div>
+                                                        <div class="d-flex justify-content-start flex-column">
+                                                            <span class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">
+                                                                {{ $item['first_name'] == '' && $item['second_name'] == '' ? 'Belum di atur' : $item['first_name'] . ' ' . $item['second_name'] }}
+                                                            </span>
+                                                            <span class="text-gray-400 fw-semibold d-block fs-7">
+                                                                {{ $item['username'] }}
+                                                            </span>
+                                                        </div>
                                                     </div>
-                                                    <div class="d-flex justify-content-start flex-column">
-                                                        <span class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">
-                                                            {{ $item['first_name'] == '' && $item['second_name'] == '' ? 'Belum di atur' : $item['first_name'] . ' ' . $item['second_name'] }}
-                                                        </span>
-                                                        <span class="text-gray-400 fw-semibold d-block fs-7">{{ $item['username'] }}</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="text-end pe-13">
-                                                <span class="badge bg-secondary">
-                                                    {{ $item['role'] }}
-                                                </span>
-                                            </td>
-                                            <td class="text-end pe-13">
-                                                <span class="text-gray-600 fw-bold fs-6">
-                                                    {{ $item['email'] }} <br>
-                                                    {{ $item['no_telpn'] == '' ? 'Belum di atur' : '+62' . $item['no_telpn'] }}
-                                                </span>
-                                            </td>
-                                            <td class="text-end">
-                                                -,-
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                <td class="text-end pe-13">
+                                                    <span class="badge bg-secondary">
+                                                        {{ $item['role'] }}
+                                                    </span>
+                                                </td>
+                                                <td class="text-end pe-13">
+                                                    <span class="text-gray-600 fw-bold fs-6">
+                                                        {{ $item['email'] }} <br>
+                                                        {{ $item['no_telpn'] == '' ? 'Belum di atur' : '+62' . $item['no_telpn'] }}
+                                                    </span>
+                                                </td>
+                                                <td class="text-end">
+                                                    @if ($item['status'] == 'Aktif')
+                                                    <a href="#confirm{{ $item['username'] }}" class="p-1" data-bs-toggle="modal" data-bs-placement="top" title="Aktif">
+                                                        <i class="ki-duotone ki-toggle-on-circle text-success fs-2">
+                                                            <span class="path1"></span>
+                                                            <span class="path2"></span>
+                                                        </i>
+                                                    </a>
+                                                    @else
+                                                    <a href="#confirm{{ $item['username'] }}" class="p-1" data-bs-toggle="modal" data-bs-placement="top" title="Tidak Aktif">
+                                                        <i class="ki-duotone ki-toggle-off-circle text-danger fs-2">
+                                                            <span class="path1"></span>
+                                                            <span class="path2"></span>
+                                                        </i>
+                                                    </a>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     @else
                                         <tr>
                                             <td colspan="4" class="text-center">Data kosong.</td>
@@ -204,6 +286,43 @@
                     </div>
                 </div>
             </div>
+            @if ($data['total'] > 0)
+                @foreach ($data['items'] as $item)
+                    <div class="modal fade" tabindex="-1" id="confirm{{ $item['username'] }}">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">Konfirmasi</h3>
+                    
+                                    <!--begin::Close-->
+                                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                                        <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                                    </div>
+                                    <!--end::Close-->
+                                </div>
+                    
+                                <div class="modal-body">
+                                    @if ($item['status'] == 'Aktif')
+                                        <h5>anda yakin ingin menonaktifkan karyawan ini?</h5>
+                                    @else
+                                        <h5>Aktifkan karyawan ?</h5>
+                                    @endif
+                                </div>
+                    
+                                <div class="modal-footer">
+                                    <form action="{{ route('updateStatus') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="username" value="{{ $item['username'] }}">
+                                        <input type="hidden" name="status" value="{{ $item['status'] }}">
+                                        <button type="submit" class="btn btn-primary">Ya</button>
+                                    </form>
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @endif
         </div>
     </div>
     <!--end::Content container-->

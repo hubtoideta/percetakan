@@ -145,6 +145,7 @@ Route::middleware(['auth'])->group(function (){
             Route::controller(dataEmployedController::class)->group(function () {
                 Route::get('/karyawan', 'index')->name('dataEmploye');
                 Route::post('/karyawan', 'create')->name('SimpanDataEmploye');
+                Route::post('/karyawan/update-status', 'updateStatus')->name('updateStatus');
             });
             /* ============== END DATA KARYAWAN ============== */
         });

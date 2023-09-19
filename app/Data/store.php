@@ -40,8 +40,8 @@ class store{
                                     ->limit(1)
                                     ->get();
             }
-            return $data;
         }
+        return $data;
     }
 
     public function fiturPaket($nama_fitur){

@@ -14,5 +14,6 @@ class EmployedOwner extends Model
         'id_store',
         'username',
         'role',
+        'status',
     ];
 }
