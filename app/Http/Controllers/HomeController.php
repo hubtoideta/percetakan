@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\store;
 use App\Models\DataPaket;
 use App\Models\FiturPaket;
 use App\Models\DiskonPaket;
 use App\Models\ProfileUser;
 use Illuminate\Http\Request;
+use App\Models\EmployedOwner;
 use App\Models\pembelianPaket;
 use App\Models\InformationStore;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +53,7 @@ class HomeController extends Controller
 
         /* Alert untuk Owner & Freelance */
         $checkPembelianPaket = [];
+        $urlPaketPremium = true;
         $alertData = false;
         if($userData->category == "Owner"){
             $informationStore = InformationStore::where("username_owner", $userData->username)->get();
@@ -64,7 +67,51 @@ class HomeController extends Controller
                     ->limit(1)
                     ->get();
                 if($checkPembelianPaket->count() == 0){
-                    $checkPembelianPaket[] = array('status_paket' => 'Tidak Aktif','status_order' => 'Ditolak');
+                    $checkPembelianPaket[0] = array('status_paket' => 'Tidak Aktif','status_order' => 'Ditolak');
+                }else{
+                    if($checkPembelianPaket[0]->status_order == 'Ditolak'){
+                        $checkPembelianDiterima = pembelianPaket::select('paket')
+                                                                ->where("id_store", $id_store)
+                                                                ->where("status_order", 'Diterima')
+                                                                ->orderByDesc("order_at")
+                                                                ->limit(1)
+                                                                ->get();
+                        $total_employed_now = EmployedOwner::where('employed_owners.id_store', $id_store)->where('status', 'Aktif')->count();
+                        if($checkPembelianDiterima->count() > 0){
+                            $paketFitur = new store();
+                            $max_employed = $paketFitur->fiturPaket('Karyawan');
+                            foreach($max_employed as $data){
+                                $max_employed_premium = $data['Premium'];
+                                $max_employed_business = $data['Business'];
+                            }
+                            
+                            $urlPaketPremium = $total_employed_now > $max_employed_premium ? false : true;
+                            
+                        }
+                    }elseif($checkPembelianPaket[0]->status_order == 'Diterima' && $checkPembelianPaket[0]->status_paket == 'Aktif'){
+                        $end_paket = $checkPembelianPaket[0]->end_paket_at;
+                        $date_now = round(microtime(true) * 1000);
+                        if($end_paket < $date_now){
+                            pembelianPaket::where("id_store", $id_store)
+                                            ->update([
+                                                'status_paket' => 'Tidak Aktif'
+                                            ]);
+                            $checkPembelianPaket = pembelianPaket::where("id_store", $id_store)
+                                                ->orderByDesc("order_at")
+                                                ->limit(1)
+                                                ->get();
+                        }
+                    }elseif($checkPembelianPaket[0]->status_order == 'Diterima' && $checkPembelianPaket[0]->status_paket == 'Tidak Aktif'){
+                        $total_employed_now = EmployedOwner::where('employed_owners.id_store', $id_store)->where('status', 'Aktif')->count();
+                        $paketFitur = new store();
+                        $max_employed = $paketFitur->fiturPaket('Karyawan');
+                        foreach($max_employed as $data){
+                            $max_employed_premium = $data['Premium'];
+                            $max_employed_business = $data['Business'];
+                        }
+                        
+                        $urlPaketPremium = $total_employed_now > $max_employed_premium ? false : true;
+                    }
                 }
             }
         }elseif($userData->category == "Freelance"){
@@ -79,6 +126,7 @@ class HomeController extends Controller
             'listPaket' => $this->dbPaket()['listPaket'],
             'fiturPaket' => $this->dbPaket()['fiturPaket'],
             'checkPembelianPaket' => $checkPembelianPaket,
+            'urlPaketPremium' => $urlPaketPremium,
             'title' => 'Home'
         ]);
     }

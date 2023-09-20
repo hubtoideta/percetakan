@@ -44,6 +44,21 @@ class InformationStoreController extends Controller
                     ->get();
                 if($checkPembelianPaket->count() == 0){
                     $checkPembelianPaket[] = array('status_paket' => 'Tidak Aktif');
+                }else{
+                    if($checkPembelianPaket[0]->status_paket == 'Aktif'){
+                        $end_paket = $checkPembelianPaket[0]->end_paket_at;
+                        $date_now = round(microtime(true) * 1000);
+                        if($end_paket < $date_now){
+                            pembelianPaket::where("id_store", $id_store)
+                                            ->update([
+                                                'status_paket' => 'Tidak Aktif'
+                                            ]);
+                            $checkPembelianPaket = pembelianPaket::where("id_store", $id_store)
+                                                ->orderByDesc("order_at")
+                                                ->limit(1)
+                                                ->get();
+                        }
+                    }
                 }
             }else{
                 $checkPembelianPaket[] = array('status_paket' => 'Tidak Aktif');
