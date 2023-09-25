@@ -54,6 +54,7 @@ class HomeController extends Controller
         /* Alert untuk Owner & Freelance */
         $checkPembelianPaket = [];
         $urlPaketPremium = true;
+        $employed_data = '';
         $alertData = false;
         if($userData->category == "Owner"){
             $informationStore = InformationStore::where("username_owner", $userData->username)->get();
@@ -87,6 +88,9 @@ class HomeController extends Controller
                             
                             $urlPaketPremium = $total_employed_now > $max_employed_premium ? false : true;
                             
+                            if(!$urlPaketPremium){
+                                $employed_data = $this->dbData($id_store);
+                            }
                         }
                     }elseif($checkPembelianPaket[0]->status_order == 'Diterima' && $checkPembelianPaket[0]->status_paket == 'Aktif'){
                         $end_paket = $checkPembelianPaket[0]->end_paket_at;
@@ -111,6 +115,10 @@ class HomeController extends Controller
                         }
                         
                         $urlPaketPremium = $total_employed_now > $max_employed_premium ? false : true;
+
+                        if(!$urlPaketPremium){
+                            $employed_data = $this->dbData($id_store);
+                        }
                     }
                 }
             }
@@ -127,7 +135,30 @@ class HomeController extends Controller
             'fiturPaket' => $this->dbPaket()['fiturPaket'],
             'checkPembelianPaket' => $checkPembelianPaket,
             'urlPaketPremium' => $urlPaketPremium,
+            'employed_data' => $employed_data,
             'title' => 'Home'
         ]);
+    }
+
+    public function dbData($id_store){
+        $data = EmployedOwner::leftJoin('users','employed_owners.username','=','users.username')
+                            ->leftJoin('profile_users','employed_owners.username','=','profile_users.username')
+                            ->select(
+                                'users.username AS username',
+                                'users.email AS email',
+                                'profile_users.photo_profile AS foto',
+                                'profile_users.first_name AS first_name',
+                                'profile_users.second_name AS second_name',
+                                'profile_users.contact AS no_telpn',
+                                'employed_owners.role AS role',
+                                'employed_owners.status AS status',
+                            )
+                            ->where('employed_owners.id_store', $id_store)
+                            ->orderBy('users.username')
+                            ->get();
+
+        
+
+        return $data;
     }
 }

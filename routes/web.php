@@ -127,6 +127,7 @@ Route::middleware(['auth'])->group(function (){
                         Route::get('/pembayaran-business','businessPaket')->name('checkoutBusiness');
                         Route::post('/pembayaran','checkoutPost')->name('checkoutPost');
                     });
+                    Route::post('/pilih-karywan', [dataEmployedController::class, 'premeMultiUpdateStatus'])->name('premeselect');
                 });
             /* ============== END PEMBELIAN PAKET OWNER PANEL ============== */
 

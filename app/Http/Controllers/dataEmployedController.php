@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\pageLink;
+use App\Data\store;
+use App\Models\User;
+use App\Models\FiturPaket;
+use App\Models\ProfileUser;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\EmployedOwner;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\ProfileUser;
-use Illuminate\Http\Request;
-use App\Data\store;
-use App\Models\EmployedOwner;
-use App\Models\User;
-use App\pageLink;
 use Illuminate\Validation\Rules\Password;
-use Illuminate\Support\Str;
 
 class dataEmployedController extends Controller
 {
@@ -137,6 +138,7 @@ class dataEmployedController extends Controller
                                                 'status' => 'Tidak Aktif'
                                             ]);
             }elseif($statusInput == 'Tidak Aktif'){
+                
                 $updateStatus = EmployedOwner::where('id_store', $id_store)
                                             ->where('username', $usernameInput)
                                             ->update([
@@ -154,6 +156,41 @@ class dataEmployedController extends Controller
 
         }
 
+    }
+
+    public function premeMultiUpdateStatus(Request $request){
+        if(!is_null($request->check)){
+            $fiturPaket = FiturPaket::select('nama_fitur_paket','Premium','Business')->where('nama_fitur_paket', 'Karyawan')->get();
+            if(count($request->check) <= $fiturPaket[0]->Premium){
+                /* Login Auth */
+                $userData = Auth::user();
+                $username = $userData->username;
+                // DATA INFOMASI TOKO
+                $dataStore = new store();
+                // ID TOKO
+                $id_store = $dataStore->getDataWithOwner($username)['store'][0]->id_store;
+                // matikan smua akses login karyawan
+                EmployedOwner::where('id_store', $id_store)
+                            ->update([
+                                'status' => 'Tidak Aktif'
+                            ]);
+        
+                // hidupkan yang telah dipilih
+                foreach($request->check as $employed){
+                    EmployedOwner::where('id_store', $id_store)
+                                ->where('username', $employed)
+                                ->update([
+                                    'status' => 'Aktif'
+                                ]);
+                }
+                return redirect()->route('checkoutPremium');
+                // return 'pas';
+            }else{
+                return redirect()->route('home')->with('errorselect', 'Jumlah karyawan melebihi batas paket Premium! maksimal: ' . $fiturPaket[0]->Premium . ' Karyawan');
+            }
+        }else{
+            return redirect()->route('home')->with('errorselect', 'Pilih karyawan anda');
+        }
     }
 
     public function dbData($id_store, $page){
