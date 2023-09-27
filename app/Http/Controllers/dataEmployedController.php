@@ -10,6 +10,7 @@ use App\Models\ProfileUser;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\EmployedOwner;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -41,14 +42,44 @@ class dataEmployedController extends Controller
 
             $page = $request->query("page") == "" ? 1 : $request->query("page");
 
+            $employeName = $request->query("username");
+
+            $editInput = array(
+                "Role" => '',
+                "Username" => '',
+                "Email" => '',
+            );
+
+            if($employeName != ""){
+                $dataEdit =  EmployedOwner::leftJoin('users','employed_owners.username','=','users.username')
+                ->select(
+                    'users.username AS username',
+                    'users.email AS email',
+                    'employed_owners.role AS role',
+                )
+                ->where('employed_owners.id_store', $id_store)
+                ->where('users.username', $employeName)
+                ->get();
+                if($dataEdit->count() > 0){
+                    foreach($dataEdit as $edit){
+                        $editInput['Role'] = $edit['role'];
+                        $editInput['Username'] = $edit['username'];
+                        $editInput['Email'] = $edit['email'];
+                    }
+                }else{
+                    return redirect()->route('dataEmploye');
+                }
+            }
+
             /* Return view */
             return view('dashView.karyawan', [
                 'userLogin' => $userData,
                 'fotoProfil' => $fotoProfil,
                 'checkPembelianPaket' => $getExpired,
-                'data' => $this->dbData($id_store, $page),
+                'data' => $this->dbData($id_store, $page, $employeName),
                 'title' => 'Data Karyawan',
                 'roleOpt' => $roleOpt,
+                'editInput' => $editInput,
             ]);
 
         }else{
@@ -67,49 +98,100 @@ class dataEmployedController extends Controller
         // CHECK STATUS PAKET DAN AMBIL DATA STATUS PAKET TOKO
         $getExpired = $dataStore->getDataWithOwner($username)['expired'];
         if($getExpired[0]->status_paket == 'Aktif'){
-            // paket langganan
-            $paket = $getExpired[0]->paket;
-            // maksimal karyawan berdasarkan paket langganan
-            $maximal_employed = $paket == 'Premium' ? $dataStore->fiturPaket('Karyawan')[0]->Premium : $dataStore->fiturPaket('Karyawan')[0]->Business;
-            $total_employed = EmployedOwner::where('employed_owners.id_store', $id_store)->where('status', 'Aktif')->count();
-            if($total_employed < $maximal_employed){
-                $request->validate(
-                    [
-                        'roleEmployed' => 'required',
-                        'username' => 'required|max:10|unique:users|lowercase',
-                        'email' => 'required|email|unique:users|lowercase',
-                        'password' => ['required', 'confirmed', Password::min(8)
-                        ->mixedCase()
-                        ->numbers()
-                        ->symbols()]
-                    ],
-                    [
-                        'photo_profile.required' => 'Pilih Role Karyawan.',
-                    ]
-
-                );
-
-                // save data user for login
-                $userDB = new User();
-
-                $userDB->username = preg_replace('/\s+/','', Str::lower(Str::of($request->username)->trim()));
-                $userDB->email = preg_replace('/\s+/','', Str::lower(Str::of($request->email)->trim()));
-                $userDB->category = 'Employed';
-                $userDB->password = Hash::make(Str::of($request->password)->trim());
-
-                $userDB->save();
-
-                $employedStore = new EmployedOwner();
-
-                $employedStore->id_store = $id_store;
-                $employedStore->username = preg_replace('/\s+/','', Str::lower(Str::of($request->username)->trim()));
-                $employedStore->role = $request->roleEmployed;
-
-                $employedStore->save();
-                return redirect()->route('dataEmploye')->with('success', 'Data karyawan berhasil ditambah.');
-
+            $employeName = $request->query("username");
+            if($employeName != ''){
+                $dataEdit =  EmployedOwner::leftJoin('users','employed_owners.username','=','users.username')
+                ->select(
+                    'users.username AS username',
+                    'users.email AS email',
+                    'employed_owners.role AS role',
+                )
+                ->where('employed_owners.id_store', $id_store)
+                ->where('users.username', $employeName)
+                ->get();
+                if($dataEdit->count() > 0){
+                    $request->validate(
+                        [
+                            'roleEmployed' => 'required',
+                            'email' => [
+                                'required',
+                                'email',
+                                'lowercase',
+                                Rule::unique('users')->ignore($employeName, 'username'),
+                            ],
+                            'password' => ['required', 'confirmed', Password::min(8)
+                            ->mixedCase()
+                            ->numbers()
+                            ->symbols()]
+                        ],
+                        [
+                            'photo_profile.required' => 'Pilih Role Karyawan.',
+                            'email.unique' => 'Alamat email sudah terpakai.',
+                        ]
+    
+                    );
+    
+                    // save user
+                    User::where('username', $employeName)
+                        ->update([
+                            'email' => preg_replace('/\s+/','', Str::lower(Str::of($request->email)->trim())),
+                            'password' => Hash::make(Str::of($request->password)->trim())
+                        ]);
+    
+                    EmployedOwner::where('id_store', $id_store)
+                                ->where('username', $employeName)
+                                ->update([
+                                    'role' => $request->roleEmployed
+                                ]);
+                    return redirect()->route('dataEmploye')->with('success', 'Data karyawan berhasil diubah.');
+                }else{
+                    return redirect()->route('dataEmploye')->with('error', 'username tidak falid');
+                }
             }else{
-                return redirect()->route('dataEmploye')->with('error', 'Anda mencapai batas maksimal perekrutan karyawan! maksimal ' . $maximal_employed . ' Karyawan');
+                // paket langganan
+                $paket = $getExpired[0]->paket;
+                // maksimal karyawan berdasarkan paket langganan
+                $maximal_employed = $paket == 'Premium' ? $dataStore->fiturPaket('Karyawan')[0]->Premium : $dataStore->fiturPaket('Karyawan')[0]->Business;
+                $total_employed = EmployedOwner::where('employed_owners.id_store', $id_store)->where('status', 'Aktif')->count();
+                if($total_employed < $maximal_employed){
+                    $request->validate(
+                        [
+                            'roleEmployed' => 'required',
+                            'username' => 'required|max:10|unique:users|lowercase',
+                            'email' => 'required|email|unique:users|lowercase',
+                            'password' => ['required', 'confirmed', Password::min(8)
+                            ->mixedCase()
+                            ->numbers()
+                            ->symbols()]
+                        ],
+                        [
+                            'photo_profile.required' => 'Pilih Role Karyawan.',
+                        ]
+    
+                    );
+    
+                    // save data user for login
+                    $userDB = new User();
+    
+                    $userDB->username = preg_replace('/\s+/','', Str::lower(Str::of($request->username)->trim()));
+                    $userDB->email = preg_replace('/\s+/','', Str::lower(Str::of($request->email)->trim()));
+                    $userDB->category = 'Employed';
+                    $userDB->password = Hash::make(Str::of($request->password)->trim());
+    
+                    $userDB->save();
+    
+                    $employedStore = new EmployedOwner();
+    
+                    $employedStore->id_store = $id_store;
+                    $employedStore->username = preg_replace('/\s+/','', Str::lower(Str::of($request->username)->trim()));
+                    $employedStore->role = $request->roleEmployed;
+    
+                    $employedStore->save();
+                    return redirect()->route('dataEmploye')->with('success', 'Data karyawan berhasil ditambah.');
+    
+                }else{
+                    return redirect()->route('dataEmploye')->with('error', 'Anda mencapai batas maksimal perekrutan karyawan! maksimal ' . $maximal_employed . ' Karyawan');
+                }
             }
         }else{
             return redirect()->route('home');
@@ -128,6 +210,10 @@ class dataEmployedController extends Controller
         // CHECK STATUS PAKET DAN AMBIL DATA STATUS PAKET TOKO
         $getExpired = $dataStore->getDataWithOwner($username)['expired'];
         if($getExpired[0]->status_paket == 'Aktif'){
+            // paket langganan
+            $paket = $getExpired[0]->paket;
+            // maksimal karyawan berdasarkan paket langganan
+            $maximal_employed = $paket == 'Premium' ? $dataStore->fiturPaket('Karyawan')[0]->Premium : $dataStore->fiturPaket('Karyawan')[0]->Business;
             $usernameInput = $request->username;
             $statusInput = $request->status;
             $updateStatus = 0;
@@ -138,12 +224,14 @@ class dataEmployedController extends Controller
                                                 'status' => 'Tidak Aktif'
                                             ]);
             }elseif($statusInput == 'Tidak Aktif'){
-                
-                $updateStatus = EmployedOwner::where('id_store', $id_store)
-                                            ->where('username', $usernameInput)
-                                            ->update([
-                                                'status' => 'Aktif'
-                                            ]);
+                $total_employed = EmployedOwner::where('employed_owners.id_store', $id_store)->where('status', 'Aktif')->count();
+                if($total_employed < $maximal_employed){
+                    $updateStatus = EmployedOwner::where('id_store', $id_store)
+                                                ->where('username', $usernameInput)
+                                                ->update([
+                                                    'status' => 'Aktif'
+                                                ]);
+                }
             }
             
             if($updateStatus > 0){
@@ -153,7 +241,6 @@ class dataEmployedController extends Controller
             }
         }else{
             return redirect()->route('home');
-
         }
 
     }
@@ -161,7 +248,11 @@ class dataEmployedController extends Controller
     public function premeMultiUpdateStatus(Request $request){
         if(!is_null($request->check)){
             $fiturPaket = FiturPaket::select('nama_fitur_paket','Premium','Business')->where('nama_fitur_paket', 'Karyawan')->get();
-            if(count($request->check) <= $fiturPaket[0]->Premium){
+             // DATA INFOMASI TOKO
+            $dataStore = new store();
+             // maksimal karyawan berdasarkan paket langganan
+            $maximal_employed = $dataStore->fiturPaket('Karyawan')[0]->Premium ;
+            if(count($request->check) <= $maximal_employed){
                 /* Login Auth */
                 $userData = Auth::user();
                 $username = $userData->username;
@@ -193,7 +284,7 @@ class dataEmployedController extends Controller
         }
     }
 
-    public function dbData($id_store, $page){
+    public function dbData($id_store, $page, $name){
         $data = EmployedOwner::leftJoin('users','employed_owners.username','=','users.username')
                             ->leftJoin('profile_users','employed_owners.username','=','profile_users.username')
                             ->select(
@@ -209,6 +300,10 @@ class dataEmployedController extends Controller
                             ->where('employed_owners.id_store', $id_store)
                             ->orderBy('users.username')
                             ->paginate(perPage: 5, page: $page);
+        
+        if($name != ""){
+            $data->appends('username', $name);
+        }
 
         $pageLink = new pageLink();
 

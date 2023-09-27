@@ -106,18 +106,21 @@
             </div>
             <div class="col-sm-4">
                 <div class="card mb-2">
-                    <form action="{{ route('SimpanDataEmploye') }}" method="POST" class="card-body p-lg-17">
+                    <form action="/karyawan?username={{ $editInput['Username'] }}" method="POST" class="card-body p-lg-17">
                         @csrf
                         <div class="card-title mb-4">
-                            <h3>TAMBAH KARYAWAN</h3>
+                            {!! $editInput['Username'] != '' ? '<h3>EDIT KARYAWAN</h3>' : '<h3>TAMBAH KARYAWAN</h3>' !!}
                         </div>
                         <hr>
                         <div class="fv-row mb-8">
                             <!--begin::category-->
                             <select name="roleEmployed" id="" class="form-select bg-transparent @error('roleEmployed') is-invalid @enderror">
                                 <option value="">--Pilih Role--</option>
+                                @php
+                                    $valueOpt = old('roleEmployed') == '' ? $editInput['Role'] : old('roleEmployed')
+                                @endphp
                                 @foreach ($roleOpt as $opt)
-                                    <option value="{{ $opt }}" {{ $opt == old('roleEmployed') ? 'selected="selected"' : '' }}>{{ $opt }}</option>
+                                    <option value="{{ $opt }}" {{ $opt == $valueOpt ? 'selected="selected"' : '' }}>{{ $opt }}</option>
                                 @endforeach
                             </select>
                             @error('roleEmployed')
@@ -130,7 +133,7 @@
                         <!--begin::Input group=-->
                         <div class="fv-row mb-8">
                             <!--begin::username-->
-                            <input type="text" placeholder="Username" name="username" id="no-space-username" value="{{ old('username') }}" oninput="hapusSpasiUsername()" autocomplete="off" class="form-control bg-transparent @error('username') is-invalid @enderror"/>
+                            <input type="text" placeholder="Username" {!! $editInput['Username'] != '' ? 'readonly style="background-color:#b5b5c3!important; cursor:not-allowed"' : '' !!} name="username" id="no-space-username" value="{{ old('username') == '' ? $editInput['Username'] : old('username') }}" oninput="hapusSpasiUsername()" autocomplete="off" class="form-control bg-transparent @error('username') is-invalid @enderror"/>
                             @error('username')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -142,7 +145,7 @@
                         <!--begin::Input group=-->
                         <div class="fv-row mb-8">
                             <!--begin::Email-->
-                            <input type="text" placeholder="Email" name="email" id="no-space-email" value="{{ old('email') }}" oninput="hapusSpasiEmail()" autocomplete="off" class="form-control bg-transparent @error('email') is-invalid @enderror"/>
+                            <input type="text" placeholder="Email" name="email" id="no-space-email" value="{{ old('email') == '' ? $editInput['Email'] : old('email') }}" oninput="hapusSpasiEmail()" autocomplete="off" class="form-control bg-transparent @error('email') is-invalid @enderror"/>
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -240,6 +243,7 @@
                                                             </span>
                                                             <span class="text-gray-400 fw-semibold d-block fs-7">
                                                                 {{ $item['username'] }}
+                                                                <a href="/karyawan?username={{ $item['username'] }}" class="text-hover-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ki-outline ki-notepad-edit"></i></a>
                                                             </span>
                                                         </div>
                                                     </div>
