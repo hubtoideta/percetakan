@@ -59,11 +59,286 @@
                             <div class="menu-item pt-5">
                                 <!--begin:Menu content-->
                                 <div class="menu-content">
+                                    <span class="menu-heading fw-bold text-uppercase fs-7">Pemesanan</span>
+                                </div>
+                                <!--end:Menu content-->
+                            </div>
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ $title == 'tambahPesanan' ? 'active' : '' }} " href="#">
+                                    <span class="menu-icon">
+                                        <i class="ki-outline ki-notepad-edit fs-2"></i>
+                                    </span>
+                                    <span class="menu-title">Tambah</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--begin:proses-->
+                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                <!--begin:Menu link-->
+                                <span class="menu-link">
+                                    <span class="menu-icon">
+                                        <i class="ki-outline ki-arrows-circle fs-2"></i>
+                                    </span>
+                                    <span class="menu-title">Proses</span>
+                                    <span class="menu-arrow"></span>
+                                </span>
+                                <!--end:Menu link-->
+                                <!--begin:Menu sub-->
+                                <div class="menu-sub menu-sub-accordion">
+                                    <!--begin:Menu item-->
+                                    <div class="menu-item">
+                                        <!--begin:Menu link-->
+                                        <a class="menu-link" href="#">
+                                            <span class="menu-bullet">
+                                                <span class="bullet bullet-dot"></span>
+                                            </span>
+                                            <span class="menu-title">Desain</span>
+                                        </a>
+                                        <!--end:Menu link-->
+                                    </div>
+                                    <!--end:Menu item-->
+                                    <!--begin:Menu item-->
+                                    <div class="menu-item">
+                                        <!--begin:Menu link-->
+                                        <a class="menu-link" href="#">
+                                            <span class="menu-bullet">
+                                                <span class="bullet bullet-dot"></span>
+                                            </span>
+                                            <span class="menu-title">Cetak / Cutting</span>
+                                        </a>
+                                        <!--end:Menu link-->
+                                    </div>
+                                    <!--end:Menu item-->
+                                    <!--begin:Menu item-->
+                                    <div class="menu-item">
+                                        <!--begin:Menu link-->
+                                        <a class="menu-link" href="#">
+                                            <span class="menu-bullet">
+                                                <span class="bullet bullet-dot"></span>
+                                            </span>
+                                            <span class="menu-title">Laminating</span>
+                                        </a>
+                                        <!--end:Menu link-->
+                                    </div>
+                                    <!--end:Menu item-->
+                                    <!--begin:Menu item-->
+                                    <div class="menu-item">
+                                        <!--begin:Menu link-->
+                                        <a class="menu-link" href="#">
+                                            <span class="menu-bullet">
+                                                <span class="bullet bullet-dot"></span>
+                                            </span>
+                                            <span class="menu-title">Packing</span>
+                                        </a>
+                                        <!--end:Menu link-->
+                                    </div>
+                                    <!--end:Menu item-->
+                                    <!--begin:Menu item-->
+                                    <div class="menu-item">
+                                        <!--begin:Menu link-->
+                                        <a class="menu-link" href="#">
+                                            <span class="menu-bullet">
+                                                <span class="bullet bullet-dot"></span>
+                                            </span>
+                                            <span class="menu-title">Pemasangan</span>
+                                        </a>
+                                        <!--end:Menu link-->
+                                    </div>
+                                    <!--end:Menu item-->
+                                </div>
+                            </div>
+                            <!--end:proses-->
+                            <!--begin:logistik-->
+                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                <!--begin:Menu link-->
+                                <span class="menu-link">
+                                    <span class="menu-icon">
+                                        <i class="ki-outline ki-parcel fs-2"></i>
+                                    </span>
+                                    <span class="menu-title">Logistik</span>
+                                    <span class="menu-arrow"></span>
+                                </span>
+                                <!--end:Menu link-->
+                                <!--begin:Menu sub-->
+                                <div class="menu-sub menu-sub-accordion">
+                                    <!--begin:Menu item-->
+                                    <div class="menu-item">
+                                        <!--begin:Menu link-->
+                                        <a class="menu-link" href="#">
+                                            <span class="menu-bullet">
+                                                <span class="bullet bullet-dot"></span>
+                                            </span>
+                                            <span class="menu-title">Pengiriman</span>
+                                        </a>
+                                        <!--end:Menu link-->
+                                    </div>
+                                    <!--end:Menu item-->
+                                    <!--begin:Menu item-->
+                                    <div class="menu-item">
+                                        <!--begin:Menu link-->
+                                        <a class="menu-link" href="#">
+                                            <span class="menu-bullet">
+                                                <span class="bullet bullet-dot"></span>
+                                            </span>
+                                            <span class="menu-title">Ambil di Toko</span>
+                                        </a>
+                                        <!--end:Menu link-->
+                                    </div>
+                                    <!--end:Menu item-->
+                                </div>
+                            </div>
+                            <!--end:logistik-->
+                            <!--begin:Menu title-->
+                            <div class="menu-item pt-5">
+                                <!--begin:Menu content-->
+                                <div class="menu-content">
+                                    <span class="menu-heading fw-bold text-uppercase fs-7">Laporan</span>
+                                </div>
+                                <!--end:Menu content-->
+                            </div>
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link" href="#">
+                                    <span class="menu-icon">
+                                        <i class="ki-outline ki-arrow-up-down fs-2"></i>
+                                    </span>
+                                    <span class="menu-title">Arus Kas</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--begin:pesanan-->
+                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                <!--begin:Menu link-->
+                                <span class="menu-link">
+                                    <span class="menu-icon">
+                                        <i class="ki-outline ki-purchase fs-2"></i>
+                                    </span>
+                                    <span class="menu-title">Pesanan</span>
+                                    <span class="menu-arrow"></span>
+                                </span>
+                                <!--end:Menu link-->
+                                <!--begin:Menu sub-->
+                                <div class="menu-sub menu-sub-accordion">
+                                    <!--begin:Menu item-->
+                                    <div class="menu-item">
+                                        <!--begin:Menu link-->
+                                        <a class="menu-link" href="#">
+                                            <span class="menu-bullet">
+                                                <span class="bullet bullet-dot"></span>
+                                            </span>
+                                            <span class="menu-title">Produk</span>
+                                        </a>
+                                        <!--end:Menu link-->
+                                    </div>
+                                    <!--end:Menu item-->
+                                    <!--begin:Menu item-->
+                                    <div class="menu-item">
+                                        <!--begin:Menu link-->
+                                        <a class="menu-link" href="#">
+                                            <span class="menu-bullet">
+                                                <span class="bullet bullet-dot"></span>
+                                            </span>
+                                            <span class="menu-title">Jasa Pasang</span>
+                                        </a>
+                                        <!--end:Menu link-->
+                                    </div>
+                                    <!--end:Menu item-->
+                                </div>
+                            </div>
+                            <!--end:pesanan-->
+                            <!--begin:pesanan-->
+                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                <!--begin:Menu link-->
+                                <span class="menu-link">
+                                    <span class="menu-icon">
+                                        <i class="ki-outline ki-book-open fs-2"></i>
+                                    </span>
+                                    <span class="menu-title">Penggunaan Bahan</span>
+                                    <span class="menu-arrow"></span>
+                                </span>
+                                <!--end:Menu link-->
+                                <!--begin:Menu sub-->
+                                <div class="menu-sub menu-sub-accordion">
+                                    <!--begin:Menu item-->
+                                    <div class="menu-item">
+                                        <!--begin:Menu link-->
+                                        <a class="menu-link" href="#">
+                                            <span class="menu-bullet">
+                                                <span class="bullet bullet-dot"></span>
+                                            </span>
+                                            <span class="menu-title">Terpakai</span>
+                                        </a>
+                                        <!--end:Menu link-->
+                                    </div>
+                                    <!--end:Menu item-->
+                                    <!--begin:Menu item-->
+                                    <div class="menu-item">
+                                        <!--begin:Menu link-->
+                                        <a class="menu-link" href="#">
+                                            <span class="menu-bullet">
+                                                <span class="bullet bullet-dot"></span>
+                                            </span>
+                                            <span class="menu-title">Rusak</span>
+                                        </a>
+                                        <!--end:Menu link-->
+                                    </div>
+                                    <!--end:Menu item-->
+                                </div>
+                            </div>
+                            <!--end:pesanan-->
+
+
+
+                            <!--begin:Menu title-->
+                            <div class="menu-item pt-5">
+                                <!--begin:Menu content-->
+                                <div class="menu-content">
                                     <span class="menu-heading fw-bold text-uppercase fs-7">Data Master</span>
                                 </div>
                                 <!--end:Menu content-->
                             </div>
                             @if ($userLogin->category == "Owner")
+                                <!--begin:pesanan-->
+                                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                    <!--begin:Menu link-->
+                                    <span class="menu-link">
+                                        <span class="menu-icon">
+                                            <i class="ki-outline ki-folder fs-2"></i>
+                                        </span>
+                                        <span class="menu-title">Prdouk</span>
+                                        <span class="menu-arrow"></span>
+                                    </span>
+                                    <!--end:Menu link-->
+                                    <!--begin:Menu sub-->
+                                    <div class="menu-sub menu-sub-accordion">
+                                        <!--begin:Menu item-->
+                                        <div class="menu-item">
+                                            <!--begin:Menu link-->
+                                            <a class="menu-link" href="#">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Custom</span>
+                                            </a>
+                                            <!--end:Menu link-->
+                                        </div>
+                                        <!--end:Menu item-->
+                                        <!--begin:Menu item-->
+                                        <div class="menu-item">
+                                            <!--begin:Menu link-->
+                                            <a class="menu-link" href="#">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Retail</span>
+                                            </a>
+                                            <!--end:Menu link-->
+                                        </div>
+                                        <!--end:Menu item-->
+                                    </div>
+                                </div>
+                                <!--end:pesanan-->
                                 <div class="menu-item">
                                     <!--begin:Menu link-->
                                     <a class="menu-link {{ $title == 'Data Karyawan' ? 'active' : '' }} " href="{{ route('dataEmploye') }}">
@@ -74,7 +349,107 @@
                                     </a>
                                     <!--end:Menu link-->
                                 </div>
+                                <div class="menu-item">
+                                    <!--begin:Menu link-->
+                                    <a class="menu-link" href="#">
+                                        <span class="menu-icon">
+                                            <i class="ki-outline ki-bank fs-2"></i>
+                                        </span>
+                                        <span class="menu-title">Akun Bank</span>
+                                    </a>
+                                    <!--end:Menu link-->
+                                </div>
+                                <div class="menu-item">
+                                    <!--begin:Menu link-->
+                                    <a class="menu-link" href="#">
+                                        <span class="menu-icon">
+                                            <i class="ki-outline ki-user-square fs-2"></i>
+                                        </span>
+                                        <span class="menu-title">Pelanggan</span>
+                                    </a>
+                                    <!--end:Menu link-->
+                                </div>
+                                <div class="menu-item">
+                                    <!--begin:Menu link-->
+                                    <a class="menu-link" href="#">
+                                        <span class="menu-icon">
+                                            <i class="ki-outline ki-flag fs-2"></i>
+                                        </span>
+                                        <span class="menu-title">Alamat Toko</span>
+                                    </a>
+                                    <!--end:Menu link-->
+                                </div>
+                                <div class="menu-item">
+                                    <!--begin:Menu link-->
+                                    <a class="menu-link" href="#">
+                                        <span class="menu-icon">
+                                            <i class="ki-outline ki-cheque fs-2"></i>
+                                        </span>
+                                        <span class="menu-title">Sumber Pesanan</span>
+                                    </a>
+                                    <!--end:Menu link-->
+                                </div>
+                                <div class="menu-item">
+                                    <!--begin:Menu link-->
+                                    <a class="menu-link" href="#">
+                                        <span class="menu-icon">
+                                            <i class="ki-outline ki-discount fs-2"></i>
+                                        </span>
+                                        <span class="menu-title">Diskon Reseller</span>
+                                    </a>
+                                    <!--end:Menu link-->
+                                </div>
+                                <div class="menu-item">
+                                    <!--begin:Menu link-->
+                                    <a class="menu-link" href="#">
+                                        <span class="menu-icon">
+                                            <i class="ki-outline ki-wallet fs-2"></i>
+                                        </span>
+                                        <span class="menu-title">Kas</span>
+                                    </a>
+                                    <!--end:Menu link-->
+                                </div>
+                                <!--begin:Menu title-->
+                                <div class="menu-item pt-5">
+                                    <!--begin:Menu content-->
+                                    <div class="menu-content">
+                                        <span class="menu-heading fw-bold text-uppercase fs-7">Toko Online</span>
+                                    </div>
+                                    <!--end:Menu content-->
+                                </div>
+                                
+                                <div class="menu-item">
+                                    <!--begin:Menu link-->
+                                    <a class="menu-link" href="#">
+                                        <span class="menu-icon">
+                                            <i class="ki-outline ki-save-2 fs-2"></i>
+                                        </span>
+                                        <span class="menu-title">Etalase</span>
+                                    </a>
+                                    <!--end:Menu link-->
+                                </div>
+                                <div class="menu-item">
+                                    <!--begin:Menu link-->
+                                    <a class="menu-link" href="#">
+                                        <span class="menu-icon">
+                                            <i class="ki-outline ki-element-5 fs-2"></i>
+                                        </span>
+                                        <span class="menu-title">Dekorasi</span>
+                                    </a>
+                                    <!--end:Menu link-->
+                                </div>
+                                <div class="menu-item">
+                                    <!--begin:Menu link-->
+                                    <a class="menu-link" href="#">
+                                        <span class="menu-icon">
+                                            <i class="ki-outline ki-information-2 fs-2"></i>
+                                        </span>
+                                        <span class="menu-title">Informasi</span>
+                                    </a>
+                                    <!--end:Menu link-->
+                                </div>
                             @endif
+                            
                         @endif
                         <!--end:Dasbord-->
                     @endif
