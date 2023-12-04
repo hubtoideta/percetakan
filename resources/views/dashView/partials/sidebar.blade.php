@@ -53,29 +53,33 @@
 					<!--end:Dasbord-->
 
                     @if ($userLogin->category == "Owner" || $userLogin->category == "Employed")
+
                         <!--begin:Dasbord-->
                         @if ($checkPembelianPaket[0]['status_paket'] == "Aktif")
-                            <!--begin:Menu title-->
+                            
+                            <!--begin:TITLE PEMESANAN-->
                             <div class="menu-item pt-5">
-                                <!--begin:Menu content-->
                                 <div class="menu-content">
                                     <span class="menu-heading fw-bold text-uppercase fs-7">Pemesanan</span>
                                 </div>
-                                <!--end:Menu content-->
                             </div>
+                            <!--end:TITLE PEMESANAN-->
+                            
+                            <!--begin:FITUR INPUT PESANAN-->
                             <div class="menu-item">
-                                <!--begin:Menu link-->
                                 <a class="menu-link {{ $title == 'tambahPesanan' ? 'active' : '' }} " href="#">
                                     <span class="menu-icon">
                                         <i class="ki-outline ki-notepad-edit fs-2"></i>
                                     </span>
                                     <span class="menu-title">Tambah</span>
                                 </a>
-                                <!--end:Menu link-->
                             </div>
-                            <!--begin:proses-->
+                            <!--end:FITUR INPUT PESANAN-->
+                            
+                            <!--begin:FITUR DATA PROSES PESANAN-->
                             <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                <!--begin:Menu link-->
+                                
+                                <!--begin:TITLE PROSES-->
                                 <span class="menu-link">
                                     <span class="menu-icon">
                                         <i class="ki-outline ki-arrows-circle fs-2"></i>
@@ -83,75 +87,76 @@
                                     <span class="menu-title">Proses</span>
                                     <span class="menu-arrow"></span>
                                 </span>
-                                <!--end:Menu link-->
-                                <!--begin:Menu sub-->
+                                <!--end:TITLE PROSES-->
+                                
+                                <!--begin:MENU SUB-->
                                 <div class="menu-sub menu-sub-accordion">
-                                    <!--begin:Menu item-->
+
+                                    <!--begin:FITUR DATA DESAIN-->
                                     <div class="menu-item">
-                                        <!--begin:Menu link-->
                                         <a class="menu-link" href="#">
                                             <span class="menu-bullet">
                                                 <span class="bullet bullet-dot"></span>
                                             </span>
                                             <span class="menu-title">Desain</span>
                                         </a>
-                                        <!--end:Menu link-->
                                     </div>
-                                    <!--end:Menu item-->
-                                    <!--begin:Menu item-->
+                                    <!--end:FITUR DATA DESAIN-->
+                                    
+                                    <!--begin:FITUR DATA CETAK / CUTTING-->
                                     <div class="menu-item">
-                                        <!--begin:Menu link-->
                                         <a class="menu-link" href="#">
                                             <span class="menu-bullet">
                                                 <span class="bullet bullet-dot"></span>
                                             </span>
                                             <span class="menu-title">Cetak / Cutting</span>
                                         </a>
-                                        <!--end:Menu link-->
                                     </div>
-                                    <!--end:Menu item-->
-                                    <!--begin:Menu item-->
+                                    <!--end:FITUR DATA CETAK / CUTTING-->
+
+                                    <!--begin:FITUR DATA LAMINATING-->
                                     <div class="menu-item">
-                                        <!--begin:Menu link-->
                                         <a class="menu-link" href="#">
                                             <span class="menu-bullet">
                                                 <span class="bullet bullet-dot"></span>
                                             </span>
                                             <span class="menu-title">Laminating</span>
                                         </a>
-                                        <!--end:Menu link-->
                                     </div>
-                                    <!--end:Menu item-->
-                                    <!--begin:Menu item-->
+                                    <!--end:FITUR DATA LAMINATING-->
+
+                                    <!--begin:FITUR DATA PACKING-->
                                     <div class="menu-item">
-                                        <!--begin:Menu link-->
                                         <a class="menu-link" href="#">
                                             <span class="menu-bullet">
                                                 <span class="bullet bullet-dot"></span>
                                             </span>
                                             <span class="menu-title">Packing</span>
                                         </a>
-                                        <!--end:Menu link-->
                                     </div>
-                                    <!--end:Menu item-->
-                                    <!--begin:Menu item-->
+                                    <!--end:FITUR DATA PACKING-->
+
+                                    <!--begin:FITUR DATA PEMASANGAN-->
                                     <div class="menu-item">
-                                        <!--begin:Menu link-->
                                         <a class="menu-link" href="#">
                                             <span class="menu-bullet">
                                                 <span class="bullet bullet-dot"></span>
                                             </span>
                                             <span class="menu-title">Pemasangan</span>
                                         </a>
-                                        <!--end:Menu link-->
                                     </div>
-                                    <!--end:Menu item-->
+                                    <!--end:FITUR DATA PEMASANGAN-->
+
                                 </div>
+                                <!--end:MENU SUB-->
+
                             </div>
-                            <!--end:proses-->
-                            <!--begin:logistik-->
+                            <!--end:FITUR DATA PROSES PESANAN-->
+
+                            <!--begin:FITUR DATA LOGITIK-->
                             <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                <!--begin:Menu link-->
+
+                                <!--begin:TITLE LOGISTIK-->
                                 <span class="menu-link">
                                     <span class="menu-icon">
                                         <i class="ki-outline ki-parcel fs-2"></i>
@@ -159,57 +164,62 @@
                                     <span class="menu-title">Logistik</span>
                                     <span class="menu-arrow"></span>
                                 </span>
-                                <!--end:Menu link-->
-                                <!--begin:Menu sub-->
+                                <!--end:TITLE LOGISTIK-->
+
+                                <!--begin:MENU SUB-->
                                 <div class="menu-sub menu-sub-accordion">
-                                    <!--begin:Menu item-->
+
+                                    <!--begin:FITUR DATA PENGIRIMAN-->
                                     <div class="menu-item">
-                                        <!--begin:Menu link-->
                                         <a class="menu-link" href="#">
                                             <span class="menu-bullet">
                                                 <span class="bullet bullet-dot"></span>
                                             </span>
                                             <span class="menu-title">Pengiriman</span>
                                         </a>
-                                        <!--end:Menu link-->
                                     </div>
-                                    <!--end:Menu item-->
-                                    <!--begin:Menu item-->
+                                    <!--end:FITUR DATA PENGIRIMAN-->
+
+                                    <!--begin:FITUR DATA AMBIL DITOKO-->
                                     <div class="menu-item">
-                                        <!--begin:Menu link-->
                                         <a class="menu-link" href="#">
                                             <span class="menu-bullet">
                                                 <span class="bullet bullet-dot"></span>
                                             </span>
                                             <span class="menu-title">Ambil di Toko</span>
                                         </a>
-                                        <!--end:Menu link-->
                                     </div>
-                                    <!--end:Menu item-->
+                                    <!--end:FITUR DATA AMBIL DITOKO-->
+
                                 </div>
+                                <!--end:MENU SUB-->
+
                             </div>
-                            <!--end:logistik-->
-                            <!--begin:Menu title-->
+                            <!--end:FITUR DATA LOGITIK-->
+
+                            <!--begin:TITLE LAPORAN-->
                             <div class="menu-item pt-5">
-                                <!--begin:Menu content-->
                                 <div class="menu-content">
                                     <span class="menu-heading fw-bold text-uppercase fs-7">Laporan</span>
                                 </div>
-                                <!--end:Menu content-->
                             </div>
+                            <!--end:TITLE LAPORAN-->
+                            
+                            <!--begin:FITUR DATA ARUS KAS-->
                             <div class="menu-item">
-                                <!--begin:Menu link-->
                                 <a class="menu-link" href="#">
                                     <span class="menu-icon">
                                         <i class="ki-outline ki-arrow-up-down fs-2"></i>
                                     </span>
                                     <span class="menu-title">Arus Kas</span>
                                 </a>
-                                <!--end:Menu link-->
                             </div>
-                            <!--begin:pesanan-->
+                            <!--end:FITUR DATA ARUS KAS-->
+
+                            <!--begin:FITUR DATA PESANAN-->
                             <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                <!--begin:Menu link-->
+
+                                <!--begin:TITLE PESANAN-->
                                 <span class="menu-link">
                                     <span class="menu-icon">
                                         <i class="ki-outline ki-purchase fs-2"></i>
@@ -217,39 +227,43 @@
                                     <span class="menu-title">Pesanan</span>
                                     <span class="menu-arrow"></span>
                                 </span>
-                                <!--end:Menu link-->
-                                <!--begin:Menu sub-->
+                                <!--end:TITLE PESANAN-->
+
+                                <!--begin:MENU SUB-->
                                 <div class="menu-sub menu-sub-accordion">
-                                    <!--begin:Menu item-->
+
+                                    <!--begin:FITUR DATA PESANAN PRODUK-->
                                     <div class="menu-item">
-                                        <!--begin:Menu link-->
                                         <a class="menu-link" href="#">
                                             <span class="menu-bullet">
                                                 <span class="bullet bullet-dot"></span>
                                             </span>
                                             <span class="menu-title">Produk</span>
                                         </a>
-                                        <!--end:Menu link-->
                                     </div>
-                                    <!--end:Menu item-->
-                                    <!--begin:Menu item-->
+                                    <!--end:FITUR DATA PESANAN PRODUK-->
+
+                                    <!--begin:FITUR DATA PESANAN JASA PASANG-->
                                     <div class="menu-item">
-                                        <!--begin:Menu link-->
                                         <a class="menu-link" href="#">
                                             <span class="menu-bullet">
                                                 <span class="bullet bullet-dot"></span>
                                             </span>
                                             <span class="menu-title">Jasa Pasang</span>
                                         </a>
-                                        <!--end:Menu link-->
                                     </div>
-                                    <!--end:Menu item-->
+                                    <!--end:FITUR DATA PESANAN JASA PASANG-->
+
                                 </div>
+                                <!--end:MENU SUB-->
+
                             </div>
-                            <!--end:pesanan-->
-                            <!--begin:pesanan-->
+                            <!--end:FITUR DATA PESANAN-->
+
+                            <!--begin:FITUR DATA PENGGUNAAN BAHAN-->
                             <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                <!--begin:Menu link-->
+
+                                <!--begin:TITLE PENGGUNAAN BAHAN-->
                                 <span class="menu-link">
                                     <span class="menu-icon">
                                         <i class="ki-outline ki-book-open fs-2"></i>
@@ -257,51 +271,53 @@
                                     <span class="menu-title">Penggunaan Bahan</span>
                                     <span class="menu-arrow"></span>
                                 </span>
-                                <!--end:Menu link-->
-                                <!--begin:Menu sub-->
+                                <!--end:TITLE PENGGUNAAN BAHAN-->
+                                
+                                <!--begin:MENU SUB-->
                                 <div class="menu-sub menu-sub-accordion">
-                                    <!--begin:Menu item-->
+
+                                    <!--begin:FITUR DATA BAHAN TERPAKAI-->
                                     <div class="menu-item">
-                                        <!--begin:Menu link-->
                                         <a class="menu-link" href="#">
                                             <span class="menu-bullet">
                                                 <span class="bullet bullet-dot"></span>
                                             </span>
                                             <span class="menu-title">Terpakai</span>
                                         </a>
-                                        <!--end:Menu link-->
                                     </div>
-                                    <!--end:Menu item-->
-                                    <!--begin:Menu item-->
+                                    <!--end:FITUR DATA BAHAN TERPAKAI-->
+
+                                    <!--begin:FITUR DATA BAHAN RUSAK-->
                                     <div class="menu-item">
-                                        <!--begin:Menu link-->
                                         <a class="menu-link" href="#">
                                             <span class="menu-bullet">
                                                 <span class="bullet bullet-dot"></span>
                                             </span>
                                             <span class="menu-title">Rusak</span>
                                         </a>
-                                        <!--end:Menu link-->
                                     </div>
-                                    <!--end:Menu item-->
+                                    <!--end:FITUR DATA BAHAN RUSAK-->
+
                                 </div>
+                                <!--end:MENU SUB-->
+
                             </div>
-                            <!--end:pesanan-->
+                            <!--end:FITUR DATA PENGGUNAAN BAHAN-->
 
-
-
-                            <!--begin:Menu title-->
+                            <!--begin:TITLE DATA MASTER-->
                             <div class="menu-item pt-5">
-                                <!--begin:Menu content-->
                                 <div class="menu-content">
                                     <span class="menu-heading fw-bold text-uppercase fs-7">Data Master</span>
                                 </div>
-                                <!--end:Menu content-->
                             </div>
+                            <!--end:TITLE DATA MASTER-->
+
                             @if ($userLogin->category == "Owner")
-                                <!--begin:pesanan-->
+
+                                <!--begin:FITUR DATA PRODUK-->
                                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                    <!--begin:Menu link-->
+                                    
+                                    <!--begin:TITLE PRODUK-->
                                     <span class="menu-link">
                                         <span class="menu-icon">
                                             <i class="ki-outline ki-folder fs-2"></i>
@@ -309,107 +325,118 @@
                                         <span class="menu-title">Prdouk</span>
                                         <span class="menu-arrow"></span>
                                     </span>
-                                    <!--end:Menu link-->
-                                    <!--begin:Menu sub-->
+                                    <!--end:TITLE PRODUK-->
+                                    
+                                    <!--begin:MENU SUB-->
                                     <div class="menu-sub menu-sub-accordion">
-                                        <!--begin:Menu item-->
+
+                                        <!--begin:FITUR DATA PRODUK CUSTOM-->
                                         <div class="menu-item">
-                                            <!--begin:Menu link-->
                                             <a class="menu-link" href="#">
                                                 <span class="menu-bullet">
                                                     <span class="bullet bullet-dot"></span>
                                                 </span>
                                                 <span class="menu-title">Custom</span>
                                             </a>
-                                            <!--end:Menu link-->
                                         </div>
-                                        <!--end:Menu item-->
-                                        <!--begin:Menu item-->
+                                        <!--end:FITUR DATA PRODUK CUSTOM-->
+                                        
+                                        <!--begin:FITUR DATA PRODUK RETAIL-->
                                         <div class="menu-item">
-                                            <!--begin:Menu link-->
                                             <a class="menu-link" href="#">
                                                 <span class="menu-bullet">
                                                     <span class="bullet bullet-dot"></span>
                                                 </span>
                                                 <span class="menu-title">Retail</span>
                                             </a>
-                                            <!--end:Menu link-->
                                         </div>
-                                        <!--end:Menu item-->
+                                        <!--end:FITUR DATA PRODUK RETAIL-->
+
                                     </div>
+                                    <!--end:MENU SUB-->
+
                                 </div>
-                                <!--end:pesanan-->
+                                <!--end:FITUR DATA PRODUK-->
+                                
+                                <!--begin:FITUR DATA KARYAWAN-->
                                 <div class="menu-item">
-                                    <!--begin:Menu link-->
                                     <a class="menu-link {{ $title == 'Data Karyawan' ? 'active' : '' }} " href="{{ route('dataEmploye') }}">
                                         <span class="menu-icon">
                                             <i class="ki-outline ki-people fs-2"></i>
                                         </span>
                                         <span class="menu-title">Karyawan</span>
                                     </a>
-                                    <!--end:Menu link-->
                                 </div>
+                                <!--end:FITUR DATA KARYAWAN-->
+                                
+                                <!--begin:FITUR DATA AKUN BANK-->
                                 <div class="menu-item">
-                                    <!--begin:Menu link-->
                                     <a class="menu-link" href="#">
                                         <span class="menu-icon">
                                             <i class="ki-outline ki-bank fs-2"></i>
                                         </span>
                                         <span class="menu-title">Akun Bank</span>
                                     </a>
-                                    <!--end:Menu link-->
                                 </div>
+                                <!--end:FITUR DATA AKUN BANK-->
+                                
+                                <!--begin:FITUR DATA PELANGGAN-->
                                 <div class="menu-item">
-                                    <!--begin:Menu link-->
                                     <a class="menu-link" href="#">
                                         <span class="menu-icon">
                                             <i class="ki-outline ki-user-square fs-2"></i>
                                         </span>
                                         <span class="menu-title">Pelanggan</span>
                                     </a>
-                                    <!--end:Menu link-->
                                 </div>
+                                <!--end:FITUR DATA PELANGGAN-->
+                                
+                                <!--begin:FITUR DATA ALAMAT TOKO-->
                                 <div class="menu-item">
-                                    <!--begin:Menu link-->
                                     <a class="menu-link" href="#">
                                         <span class="menu-icon">
                                             <i class="ki-outline ki-flag fs-2"></i>
                                         </span>
                                         <span class="menu-title">Alamat Toko</span>
                                     </a>
-                                    <!--end:Menu link-->
                                 </div>
+                                <!--end:FITUR DATA ALAMAT TOKO-->
+
+                                <!--begin:FITUR DATA SUMBER PESANAN-->
                                 <div class="menu-item">
-                                    <!--begin:Menu link-->
                                     <a class="menu-link" href="#">
                                         <span class="menu-icon">
                                             <i class="ki-outline ki-cheque fs-2"></i>
                                         </span>
                                         <span class="menu-title">Sumber Pesanan</span>
                                     </a>
-                                    <!--end:Menu link-->
                                 </div>
+                                <!--end:FITUR DATA SUMBER PESANAN-->
+                                
+                                <!--begin:FITUR DATA DISKON RESELLER-->
                                 <div class="menu-item">
-                                    <!--begin:Menu link-->
                                     <a class="menu-link" href="#">
                                         <span class="menu-icon">
                                             <i class="ki-outline ki-discount fs-2"></i>
                                         </span>
                                         <span class="menu-title">Diskon Reseller</span>
                                     </a>
-                                    <!--end:Menu link-->
                                 </div>
+                                <!--end:FITUR DATA DISKON RESELLER-->
+                                
+                                <!--begin:FITUR DATA KAS-->
                                 <div class="menu-item">
-                                    <!--begin:Menu link-->
                                     <a class="menu-link" href="#">
                                         <span class="menu-icon">
                                             <i class="ki-outline ki-wallet fs-2"></i>
                                         </span>
                                         <span class="menu-title">Kas</span>
                                     </a>
-                                    <!--end:Menu link-->
                                 </div>
-                                <!--begin:Menu title-->
+                                <!--end:FITUR DATA KAS-->
+
+
+                                <!--begin:TITLE TOKO ONLINE-->
                                 <div class="menu-item pt-5">
                                     <!--begin:Menu content-->
                                     <div class="menu-content">
@@ -417,41 +444,46 @@
                                     </div>
                                     <!--end:Menu content-->
                                 </div>
+                                <!--end:TITLE TOKO ONLINE-->
                                 
+                                <!--begin:FITUR EDIT ETALASE TOKO-->
                                 <div class="menu-item">
-                                    <!--begin:Menu link-->
                                     <a class="menu-link" href="#">
                                         <span class="menu-icon">
                                             <i class="ki-outline ki-save-2 fs-2"></i>
                                         </span>
                                         <span class="menu-title">Etalase</span>
                                     </a>
-                                    <!--end:Menu link-->
                                 </div>
+                                <!--end:FITUR EDIT ETALASE TOKO-->
+                                
+                                <!--begin:FITUR EDIT DEKORASI TOKO-->
                                 <div class="menu-item">
-                                    <!--begin:Menu link-->
                                     <a class="menu-link" href="#">
                                         <span class="menu-icon">
                                             <i class="ki-outline ki-element-5 fs-2"></i>
                                         </span>
                                         <span class="menu-title">Dekorasi</span>
                                     </a>
-                                    <!--end:Menu link-->
                                 </div>
+                                <!--end:FITUR EDIT DEKORASI TOKO-->
+                                
+                                <!--begin:FITUR DATA INFORMASI TOKO-->
                                 <div class="menu-item">
-                                    <!--begin:Menu link-->
                                     <a class="menu-link" href="#">
                                         <span class="menu-icon">
                                             <i class="ki-outline ki-information-2 fs-2"></i>
                                         </span>
                                         <span class="menu-title">Informasi</span>
                                     </a>
-                                    <!--end:Menu link-->
                                 </div>
+                                <!--end:FITUR DATA INFORMASI TOKO-->
+
                             @endif
-                            
+
                         @endif
                         <!--end:Dasbord-->
+                        
                     @endif
 
                     @if ($userLogin->category == "Developer")

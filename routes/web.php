@@ -149,6 +149,11 @@ Route::middleware(['auth'])->group(function (){
                 Route::post('/karyawan/update-status', 'updateStatus')->name('updateStatus');
             });
             /* ============== END DATA KARYAWAN ============== */
+            
+            /* ============== DATA PELANGGAN ============== */
+            
+            /* ============== END DATA PELANGGAN ============== */
+            
         });
     /* ----------- USER OWNER PANEL ----------- */
 

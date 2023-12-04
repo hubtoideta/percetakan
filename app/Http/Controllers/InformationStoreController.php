@@ -116,7 +116,6 @@ class InformationStoreController extends Controller
         if ($request->hasFile('logoInput')) {
             $file_name = time() . '_' . str_replace(" ","_",$request->store_name) . '.' . $request->logoInput->extension();
             $request->logoInput->move(public_path('assets/media/logo'), $file_name);
-
         }
 
         $informationStore = new InformationStore();
